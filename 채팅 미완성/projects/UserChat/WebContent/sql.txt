@@ -1,0 +1,51 @@
+
+
+INSERT INTO USERS VALUES('asdf5574', '6438', '김광운', 25, '남자','asdf5574@naver.com', '학생');
+
+CREATE TABLE USERS(
+USERID VARCHAR2(20) primary key,
+USERPASSWORD VARCHAR2(20),
+USERNAME VARCHAR2(20),
+USERAGE NUMBER,
+USERGENDER VARCHAR2(20),
+USEREMAIL VARCHAR2(50),
+USERPROFILE VARCHAR2(50)
+);
+
+
+select * from userS;
+
+delete from users where userid = 'as';
+
+commit;
+
+
+CREATE TABLE CHAT(
+chatID number primary key,
+fromID varchar2(20),
+toID varchar2(20),
+chatContent varchar2(50),
+chatTime DATE
+);
+
+create sequence seq_chatID;
+
+
+CREATE TABLE CHAT2(
+chatID number primary key,
+fromID varchar2(20),
+toID varchar2(20),
+chatContent varchar2(50),
+chatTime DATE
+);
+
+insert into chat2 values(seq_chatID.nextval, 'a', 'b', 'hi', sysdate);
+
+select * from chat;
+delete from chat;
+
+DROP TABLE CHAT2;
+
+select max(chatID) from chat;
+
+SELECT * FROM chat WHERE ((fromID = 'aq' and toID = '123') or (fromID = '123' and toID = 'aq')) and chatID > (select max(chatID) - 10 from chat) order by chatTime;
