@@ -28,8 +28,8 @@ public class UploadFileToS3 {
         
         String BucketName = "bestdesign";
         
-        String filepath = "C:\\Users\\njk28\\Desktop\\tyche.1.1.4.zip";
-        String fileName = "tyche.1.1.4.zip";
+        String filepath = "C:\\Users\\njk28\\Desktop\\aaa.html";
+        String fileName = "aaa.html";
         File file = new File(filepath);
 
         PutObjectRequest putRequest1 = new PutObjectRequest(BucketName, fileName, file);
