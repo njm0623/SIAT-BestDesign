@@ -1,0 +1,35 @@
+/* DB 오류 발생 */
+요청한 작업을 수행하는 중 오류 발생:
+ORA-06552: PL/SQL: Compilation unit analysis terminated
+ORA-06553: PLS-553: character set name is not recognized
+06552. 00000 -  "PL/SQL: %s"
+*Cause:    
+*Action:
+업체 코드 6552
+
+/* 현재 Oracle의 Charset 확인 */
+select distinct(nls_charset_name(charsetid)) CHARACTERSET,
+decode(type#, 1, decode(charsetform, 1, 'VARCHAR2', 2, 'NVARCHAR2','UNKOWN'),
+9, decode(charsetform, 1, 'VARCHAR', 2, 'NCHAR VARYING', 'UNKOWN'),
+96, decode(charsetform, 1, 'CHAR', 2, 'NCHAR', 'UNKOWN'),
+112, decode(charsetform, 1, 'CLOB', 2, 'NCLOB', 'UNKOWN')) TYPES_USED_IN
+from sys.col$ where charsetform in (1,2) and type# in (1, 9, 96, 112);
+
+/* Charset 중복 제거 */
+STARTUP MOUNT;
+ALTER SYSTEM ENABLE RESTRICTED SESSION;
+ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+ALTER SYSTEM SET AQ_TM_PROCESSES=0;
+ALTER DATABASE OPEN;
+COL VALUE NEW_VALUE CHARSET
+    SELECT VALUE FROM NLS_DATABASE_PARAMETERS WHERE PARAMETER='NLS_CHARACTERSET';
+
+COL VALUE NEW_VALUE NCHARSET
+    SELECT VALUE FROM NLS_DATABASE_PARAMETERS WHERE PARAMETER='NLS_NCHAR_CHARACTERSET';
+
+ALTER DATABASE CHARACTER SET INTERNAL_USE &CHARSET;
+ALTER DATABASE NATIONAL CHARACTER SET INTERNAL_USE &NCHARSET;
+SHUTDOWN IMMEDIATE;
+STARTUP;
+SHUTDOWN IMMEDIATE;
+STARTUP;
