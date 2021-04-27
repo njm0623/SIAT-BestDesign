@@ -106,10 +106,13 @@ html, body{
 .sent .message{
     background: #ffeb33;
     text-align: right;
+    border: 1px solid black;
+    
 }
 .received .message{
     background: #fff;
     text-align: left;
+    border: 1px solid black;
 }
 .clear_div{
     clear: both;

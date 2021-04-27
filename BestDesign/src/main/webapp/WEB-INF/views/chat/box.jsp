@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-       <%
-       	session.removeAttribute("messageContent");
-   		session.removeAttribute("messageType");
+<%
         String userID = null;
         if(session.getAttribute("userID") != null){
         	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
@@ -20,6 +18,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 <link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
@@ -99,86 +98,66 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
+	<link rel="stylesheet" href="../resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/css/custom.css">
+	<link rel="stylesheet" href="../resources/css/style.css">
     
-<style>
-	#findID{
-		width: 80%;
-	}
-</style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
-    <script src="../resources/js/custom.js"></script>
-	<script>
-		$(function(){
-			$("#find-btn").click(function find(){
-			let userID = $("#findID").val();
-			let type = $("input[name='userType']:checked").val();
-			console.log(type);
+<script type="text/javascript">
+		function chatBoxFunction(){
+			let userID = '<%=userID%>'
+			console.log("세션아이디 " + userID);
 			$.ajax({
 				type:"post",
-				url:"../user/userFind.do",
-				data:{userID:userID, type:type},
-				success: function(result){
-					result = result.trim();
-					console.log(result)
-					if(result==0){
-						getFriend(userID, type);
-					}else{						
-						$("#checkMessage").html("해당 유저가 존재하지 않습니다.");
-						$("#checkType").attr("class", "modal-content panel-success");
-						$("#checkModal").modal("show");
-						failFriend();
+				url:"boxList.do",
+				data:{userID : userID},
+				success:function(result){
+				 	let data = result.trim();
+					let dt = data.split("|");
+					if(data == ""){
+						return
+					}
+					console.log(data + " " + dt[0]);
+					$("#boxTable").html("");
+					for(let i in dt){
+						console.log(dt[i]);
+						addBox(dt[i]);
 					}
 				}
 			})
-		})
-		function getFriend(findID, type){
-			$("#friendResult").html("<thead><tr><th><h4>검색결과</h4></th></tr></thead><tbody><tr><td style='text-align: center;'><h3>"+type+" : "+findID+"</h3><a href='chat.do?toID="+findID+"' class='btn btn-primary pull-right'>메시지 보내기</a></td></tr></tbody>")
 		}
-		function failFriend(){
-			$("#friendResult").html("");
-		}
-		})
+			function addBox(fromID){
+				console.log(fromID);
+				$("#boxTable").append('<tr onclick="location.href=\'chat.do?toID='+fromID+'\'"><td style="width: 150px;"><h5>'+fromID+' 님과 채팅방</h5></td></tr>');
+			}
+			function getInfiniteBox(){
+				setInterval(function(){
+					chatBoxFunction();
+				}, 3000)
+			}
 	</script>
-	
 </head>
 <body>
- <jsp:include page="../main/header.jsp"/>
-   <div class="container">
-   		<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
-   			<thead>
-   				<tr>
-   					<th colspan="3"><h4>검색으로 친구 찾기</h4></th>
-   				</tr>
-   			</thead>
-   			<tbody>
-   				<tr>
-   					<td style="width:110px;"><h5>유저 아이디</h5></td>
-   					<td><input class="form-control" type="text" id="findID" maxlength="20" placeholder="찾을 아이디를 입력하세요." value="${param.toId}"></td>
-   					<td>
-   						<div class="form-group" style="text-align: center; margin: 0 auto;">
-    							<div class="btn-group" data-toggle="buttons">
-    								<label class="btn  btn-primary active">
-    									<input type="radio" name="userType" autocomplete="off" value="고객" checked>고객
-    								</label>
-    								<label class="btn  btn-primary">
-    									<input type="radio" name="userType" autocomplete="off" value="디자이너">디자이너
-    								</label>
-    							</div>
-    						</div>
-   					</td>
-   				</tr>
-   				<tr>
-   					<td colspan="3"><button class="btn btn-primary" id="find-btn">검색</button></td>
-   				</tr>
-   			</tbody>
-   		</table>
-   </div>
-   <div class="container">
-   		<table id="friendResult" class="table table-bordered table-hover" style="text-align:center; border: 1px solid #dddddd">
-   		</table>
-   </div>
+    
+   <jsp:include page="../main/header.jsp"/>
+    <div class="container">
+    	<table class="table" style="margin: 0 auto;">
+    		<thead>
+    			<tr>
+    				<th><h4>주고받은 메시지 목록</h4></th>
+    			</tr>
+    		</thead>
+    		<div style="overflow-y: auto; width: 100%; max-length: 450px;">
+    			<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd; margin: 0 auto;">
+    				<tbody id="boxTable">
+    					<!-- <tr onclick="location.href='chat.jsp?toID=b'">
+    						<td style="width: 150px;"><h5>채팅하자</h5></td>
+    					</tr> -->
+    				</tbody>
+    			</table>
+    		</div>
+    	</table>
+    </div>
     <div class="alert alert-danger" id="dangerMessage" style="display: none;">
     	<strong>이름과 내용 모두 입력해주세요.</strong>
     </div>
@@ -192,7 +171,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		messageType = (String)session.getAttribute("messageType");
     	}
     	if(messageContent != null){
-    		System.out.println("컨텐츠 있음");
     %>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
     	<div class="vertical-alignment-helper">
@@ -220,33 +198,25 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <script type="text/javascript">
     	$("#messageModal").modal("show");
     </script>
+    
     <%
     	session.removeAttribute("messageContent");
     	session.removeAttribute("messageType");
     }
     %>
-    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div id="checkType" class="modal-content panel-info">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						확인 메시지
-    					</h4>
-    				</div>
-    				<div id="checkMessage" class="modal-body"></div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-    
+    <script type="text/javascript" src="../resources/js/chat.js"></script>
+    <%
+    	if(userID != null){
+    %>
+     	<script type="text/javascript">
+    		$(function(){
+    			chatBoxFunction();
+    			getInfiniteBox();
+    		});
+    	</script>
+    <%
+    	}
+    %>
     <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

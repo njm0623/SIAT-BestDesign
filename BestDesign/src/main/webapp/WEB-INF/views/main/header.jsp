@@ -31,28 +31,31 @@
 </style>
 
 	<script>
-			function getUnread(){//안 읽은 메시지 표시
+			function getUnread(){
 				$.ajax({
 					type:"post",
-					url:"unReadChat.jsp",
+					url:"../chat/unReadChat.do",
 					data:{userID : '<%=userID%>'},
 					success:function(result){
 						let data = result.trim();
 						console.log(data);
 						if(data>=1){
+							console.log("존재")
 							showUnread(data);
-						}else{					
+						}else{							
+							console.log("없음")
 							showUnread("");
 						}
 					}
 				})
 			}
-			function getInfiniteUnread(){//무한 안읽은 메시지 체크
+			function getInfiniteUnread(){
+				console.log("인피니트");
 				setInterval(function(){
 					getUnread();
 				}, 4000);
 			}
-			function showUnread(result){//안 읽은 메시지 수 표시
+			function showUnread(result){
 				$("#unread").html(result);
 			}
 	</script>
@@ -80,10 +83,10 @@
 %>
 <li class="top-search">
 
-<form role="search" method="get" class="pull-right" id="searchform_topbar" action="../chat/find.do">
+<form role="search" method="post" class="pull-right" id="searchform_topbar" action="../chat/find.do">
 <label>
 <span class="screen-reader-text"></span>
-<input class="search-field-top-bar" id="search-field-top-bar" placeholder="대화할 유저 검색.." value="" name="toId" type="search">
+<input class="search-field-top-bar" id="search-field-top-bar" placeholder="대화할 유저 검색.." value="" id="toId" name="toId" type="search">
 </label>
 <button id="search-top-bar-submit" type="submit" class="search-top-bar-submit">
 <span class="fa fa-search"></span>
@@ -146,7 +149,7 @@
 </div>
 </nav>
 </header>
- <%-- <script type="text/javascript" src="./js/chat.js"></script>
+<script type="text/javascript" src="../resources/js/chat.js"></script>
     <%
     	if(userID != null){
     %>
@@ -154,10 +157,11 @@
     		$(function(){
     			getUnread();
     			getInfiniteUnread();
+    			find();
     		});
     	</script>
     <%
     	}
-    %> --%>
+    %>
 </body>
 </html>
