@@ -34,8 +34,10 @@ public class UserCotroller {
 	}
 	
 	@RequestMapping("login.do")
-	public String login(UserVO vo, HttpSession session) {
-		System.out.println(vo.getUserId()+"오세요");
+	public String login(String userId, String userPwd, HttpSession session) {
+		UserVO vo = new UserVO();
+		vo.setUserId(userId);
+		vo.setUserPwd(userPwd);
 		System.out.println("user에서 login");
 		UserVO vo2 = userService.selectLogin(vo);
 		String msg = "", content = "", href = "";

@@ -116,10 +116,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.goodsRow h2 {
 		text-align: center;
 	}
-	
-	#registerBtn {
-		
-	}
 </style>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
@@ -129,20 +125,17 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="site-content">
 <div class="container">
 <div id="requestTop">
-<h1 class="woocommerce-products-header__title page-title">Shop</h1>
+<h1 class="woocommerce-products-header__title page-title">그려주세요</h1>
 <form class="woocommerce-ordering" method="get">
 <select name="orderby" class="orderby" aria-label="Shop order">
-<option value="menu_order" selected='selected'>Default sorting</option>
-<option value="popularity">Sort by popularity</option>
-<option value="rating">Sort by average rating</option>
-<option value="date">Sort by latest</option>
-<option value="price">Sort by price: low to high</option>
-<option value="price-desc">Sort by price: high to low</option>
+<option value="menu_order" selected='selected'>기본 정렬</option>
+<option value="popularity">인기순</option>
+<option value="date">최신순</option>
+<option value="waiting">대기 중인 작품만</option>
+<option value="completed">완료된 작품만</option>
 </select>
 <input type="hidden" name="paged" value="1" />
 </form>
-<p class="woocommerce-result-count">
-Showing 1&ndash;12 of 22 results</p>
 </div>
 <br/><br/><br/>
 <button class="pull-right" id="registerBtn" type="button" onclick="location.href='requestRegister.do'">등록</button>
