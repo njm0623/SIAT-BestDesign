@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%
+session.removeAttribute("messageContent");
+session.removeAttribute("messageType");
         String userID = null;
         if(session.getAttribute("userID") != null){
         	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
@@ -18,7 +20,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+
 <link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
@@ -101,7 +103,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
 	<link rel="stylesheet" href="../resources/css/style.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
 <script type="text/javascript">
 		function chatBoxFunction(){

@@ -111,14 +111,20 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <script src="../resources/js/custom.js"></script>
 	<script>
 		$(function(){
-			$("#find-btn").click(function find(){
+			$("#find-btn").click(function(){
+				find();
+		})
+		function find(){
 			let userID = $("#findID").val();
 			let type = $("input[name='userType']:checked").val();
+			if(userID=='<%=userID%>'){
+				return;
+			}
 			console.log(type);
 			$.ajax({
 				type:"post",
 				url:"../user/userFind.do",
-				data:{userID:userID, type:type},
+				data:{userID:userID},
 				success: function(result){
 					result = result.trim();
 					console.log(result)
@@ -132,7 +138,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 					}
 				}
 			})
-		})
+		}
 		function getFriend(findID, type){
 			$("#friendResult").html("<thead><tr><th><h4>검색결과</h4></th></tr></thead><tbody><tr><td style='text-align: center;'><h3>"+type+" : "+findID+"</h3><a href='chat.do?toID="+findID+"' class='btn btn-primary pull-right'>메시지 보내기</a></td></tr></tbody>")
 		}
@@ -246,7 +252,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		</div>
     	</div>
     </div>
-    
+    <script>
+    	$(function(){
+    		find();
+    	})
+    </script>
     <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

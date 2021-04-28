@@ -34,7 +34,7 @@ public class ChatController {
 	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
-		System.out.println("자신 반환하는 모든 동작 : " + step);
+		System.out.println("chat에서 자신 반환하는 모든 동작 : " + step);
 		return "chat/"+step;
 	}
 	

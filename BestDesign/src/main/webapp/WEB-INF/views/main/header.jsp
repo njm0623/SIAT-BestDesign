@@ -7,6 +7,11 @@
    if(session.getAttribute("userID") != null){
    	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
    }
+   String type = null;
+   if(session.getAttribute("type") != null){
+   	type = (String) session.getAttribute("type");//
+   }
+   System.out.println(type);
 %>
 <head>
 <meta charset="UTF-8">
@@ -27,6 +32,12 @@
 	}
 	.search-top-bar-submit{
 		top: 5px;
+	}
+	html body .top-header-bar-container .top-header-bar .top-account{
+		float: right;
+	}
+	html body .top-header-bar-container .top-header-bar .top-search{
+		float: left;
 	}
 </style>
 
@@ -93,6 +104,21 @@
 </button>
 </form>
 </li>
+<% if(type=="디자이너"){%>
+
+<li class="top-account">
+<a href="../designer/profile.do?designerId=<%=userID %>"><i class="fa fa-user"></i> 프로필 </a>
+</li>
+
+<%} %>
+<% if(type=="관리자"){%>
+
+<li class="top-account">
+<a href="../manager/manager.do"><i class="fa fa-user"></i> 관리자 </a>
+</li>
+
+<%} %>
+
 <li class="top-account">
 <a href="../chat/logout.do"><i class="fa fa-user"></i> 로그아웃 </a>
 </li>
@@ -157,7 +183,6 @@
     		$(function(){
     			getUnread();
     			getInfiniteUnread();
-    			find();
     		});
     	</script>
     <%

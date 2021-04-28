@@ -381,12 +381,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <form class="woocommerce-form woocommerce-form-login login" method="post"action="../user/login.do" >
 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 <label for="username">아이디&nbsp;<span class="required">*</span></label>
-<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="userID" id="userID" maxlength="20" /> </p>
+<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="userId" id="userId" maxlength="20" /> </p>
 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 <label for="password">비밀번호&nbsp;<span class="required">*</span></label>
-<input class="woocommerce-Input woocommerce-Input--text input-text" type="password"name="userPassword" id="userPassword" maxlength="20" />
+<input class="woocommerce-Input woocommerce-Input--text input-text" type="password"name="userPwd" id="userPwd" maxlength="20" />
 </p>
-
+	
 
 <div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
@@ -401,7 +401,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 
 <p class="form-row">
-<input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="8cb402852a" /><input type="hidden" name="_wp_http_referer" value="/tyche/my-account/" /> <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
+ <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
 </p>
 <p class="woocommerce-LostPassword lost_password">
 <a href="../chat/join.do">회원가입</a>

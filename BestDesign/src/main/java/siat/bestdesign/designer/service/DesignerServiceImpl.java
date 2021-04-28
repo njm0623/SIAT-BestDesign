@@ -2,6 +2,8 @@ package siat.bestdesign.designer.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class DesignerServiceImpl implements DesignerService{
 
 	@Override
 	public DesignerVO mapToDesigner(Map<String, Object> map) {
-		DesignerVO vo = new DesignerVO((String)map.get("userID"), (String)map.get("userPassword"), (String)map.get("userName"), (String)map.get("userEmail"), (String)map.get("userBirth"), (String)map.get("userPhone"));
-		return vo;
+//		DesignerVO vo = new DesignerVO((String)map.get("userID"), (String)map.get("userPassword"), (String)map.get("userName"), (String)map.get("userEmail"), (String)map.get("userBirth"), (String)map.get("userPhone"));
+		return null;
 	}
 
 	@Override
@@ -26,16 +28,8 @@ public class DesignerServiceImpl implements DesignerService{
 	}
 
 	@Override
-	public int selectLogin(DesignerVO vo) {
-		DesignerVO vo2 = designerDAO.selectLogin(vo);
-		if(vo2!=null) {
-			if(vo2.getDesignerPwd().equals(vo.getDesignerPwd())) {
-				return 1;//성공
-			}
-			return 2;//비밀번호 틀릭
-		}else {
-			return 0;//사용자 존재하지 않음
-		}
+	public DesignerVO selectLogin(DesignerVO vo) {
+		return designerDAO.selectLogin(vo);
 	}
 	
 	@Override

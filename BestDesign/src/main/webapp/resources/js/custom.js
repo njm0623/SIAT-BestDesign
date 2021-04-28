@@ -1,22 +1,26 @@
 $(function(){
 	let flag = false;
-	$("input[name='userID']").keyup(function(){
+	$("input[name='userId']").keyup(function(){
 		flag=false;
 	})
+	$(".btn-group .btn").click(function(){
+		flag=false;
+	})
+	
 	$("form").validate({// 데이터 유효성 검사 플러그인
         rules:{
-        	userID:"required",
-            userPassword:{required:true, minlength:4},//최소 4자리 이상으로 써라
-            userPasswordconf:{equalTo:("#userPassword")},//password와 같은지 
+        	userId:"required",
+            userPwd:{required:true, minlength:4},//최소 4자리 이상으로 써라
+            userPwdconf:{equalTo:("#userPwd")},//password와 같은지 
             userName:"required",//name 속성이 name인 input 태그에 required 검사가 유효한지
             userPhone:{required:true,minlength:13},
             userEmail:{required:true,email:true},
             userBirth:"required"
         },
        messages:{
-        	userID:"아이디를 입력하세요.",
-        	userPassword:{required: "비밀번호를 입력하세요.", minlength:  "{0}자리 이상 입력하세요."},
-        	userPasswordconf:{required: "비밀번호를 다시 입력하세요.",equalTo: "같은 비밀번호를 입력하세요."},
+        	userId:"아이디를 입력하세요.",
+        	userPwd:{required: "비밀번호를 입력하세요.", minlength:  "{0}자리 이상 입력하세요."},
+        	userPwdconf:{required: "비밀번호를 다시 입력하세요.",equalTo: "같은 비밀번호를 입력하세요."},
         	userName: "이름을 입력하세요.",
         	userPhone:{required:"전화번호를 입력하세요.", minlength:  "{0}자리 이상 입력하세요."},
         	userEmail:{required:"이메일을 입력하세요.",email:"이메일 형식을 알맞게 입력하세요."},
@@ -24,10 +28,9 @@ $(function(){
         }
 	})
 	$("#checkId").click(function(){
-		let id = $("input[name='userID']").val();
-		let type = $("input[name='userType']:checked").val();
+		let id = $("input[name='userId']").val();
 		$.ajax({
-			data:{id:id, type:type},
+			data:{id:id},
 			type:"post",
 			dataType:"text",
 			url:"../user/checkId.do",
@@ -61,7 +64,8 @@ $(function(){
 			$("#checkMessage").html("중복체크를 눌러주세요");
 			$("#checkType").attr("class","modal-content panel-warning");
 			$("#checkModal").modal("show");
-		}else{
+		}else{			
+			$("form").method = "post";
 			$("form").submit();
 		}
 	})
