@@ -2,12 +2,15 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-       <%
-       	session.removeAttribute("messageContent");
-   		session.removeAttribute("messageType");
+<head>
+<%
         String userID = null;
         if(session.getAttribute("userID") != null){
         	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
+        }
+        String toID = null;
+        if(request.getParameter("toID") != null){
+        	toID = (String) request.getParameter("toID");
         }
         if(userID == null){
         	session.setAttribute("messageType", "오류");
@@ -15,8 +18,14 @@
         	response.sendRedirect("index.jsp");
         	return;
         }
+        if(toID == null){
+        	session.setAttribute("messageType", "오류");
+        	session.setAttribute("messageContent", "상대방이 지정되지 않았습니다.");
+        	response.sendRedirect("index.jsp");
+        	return;
+        }
     %>
-<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
@@ -99,92 +108,183 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
-    
-<style>
-	#findID{
-		width: 80%;
+<style type="text/css">
+	body .container{
+		width:800px;
 	}
 </style>
+		<link rel="stylesheet" href="../resources/css/custom.css">
+	<link rel="stylesheet" href="../resources/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
     <script src="../resources/js/custom.js"></script>
-	<script>
-		$(function(){
-			$("#find-btn").click(function(){
-				find();
-		})
-		function find(){
-			let userID = $("#findID").val();
-			let type = $("input[name='userType']:checked").val();
-			if(userID=='<%=userID%>'){
-				return;
-			}
-			console.log(type);
-			$.ajax({
-				type:"post",
-				url:"../user/userFind.do",
-				data:{userID:userID},
-				success: function(result){
-					result = result.trim();
-					console.log(result)
-					if(result==0){
-						getFriend(userID, type);
-					}else{						
-						$("#checkMessage").html("해당 유저가 존재하지 않습니다.");
-						$("#checkType").attr("class", "modal-content panel-success");
-						$("#checkModal").modal("show");
-						failFriend();
-					}
-				}
-			})
-		}
-		function getFriend(findID, type){
-			$("#friendResult").html("<thead><tr><th><h4>검색결과</h4></th></tr></thead><tbody><tr><td style='text-align: center;'><h3>"+type+" : "+findID+"</h3><a href='chat.do?toID="+findID+"' class='btn btn-primary pull-right'>메시지 보내기</a></td></tr></tbody>")
-		}
-		function failFriend(){
-			$("#friendResult").html("");
-		}
-		})
-	</script>
+	<script type="text/javascript">
 	
+    function autoClosingAlert(selector, delay){
+    	let alert = $(selector).alert();
+    	alert.show();
+    	window.setTimeout(function(){alert.hide()}, delay);
+    }
+	$(function(){
+	    $("#sub").click(function(){
+	    	send();
+	    })
+	    $("#chatContent").keypress(function(e) { 
+	    	if (e.keyCode === 13) { 
+	    		console.log("H");
+	    		send();
+	    	} 
+	    });
+	})
+    function send(){
+    	let fromID = '<%=userID%>';
+    	let toID = '<%=toID%>';
+    	let chatContent = $("#chatContent").val();
+    	$.ajax({
+    		type:"post",
+    		url:"chatting.do",
+    		data:{
+    			fromID : fromID,
+    			toID : toID,
+    			chatContent : chatContent
+    		},
+    		success:function(data){
+    			let d = data.trim()
+    			if(d == 0){
+    				autoClosingAlert("#dangerMessage", 2000);
+    			}
+    		},
+    		error:function(e){
+    			alert(e);
+    			console.log(e);
+    		}
+    	})
+    	$("#chatContent").val("");
+    }
+    let lastID = 0;
+    function chatListFunction(type){
+    	let fromID = '<%=userID%>';
+    	let toID = '<%=toID%>';
+    	$.ajax({
+    		type:"post",
+    		url:"chatList.do",
+    		data:{
+    			fromID : fromID,
+    			toID : toID,
+    			listType : type
+    		},
+    		success:function(data){
+    			if(data.trim() == ""){
+    				return;
+    			}
+    			console.log(data)
+    			let parsed = JSON.parse(data);
+    			console.log(parsed)
+    			let result = parsed.result;
+    			for(let i = 0; i < result.length; i++){
+    				addChat(result[i][0].value, result[i][2].value, result[i][3].value);
+    			}
+    			lastID = Number(parsed.last);
+    		}
+    	})
+    }
+    function addChat(chatName, chatContent, chatTime){
+    /*  let c = (userID == chatName) ? "sent" : "received";
+    	$("#chatList").append('<ul class="chatting-list"><li class='+c+'><span class="profile"><span class="user">chatName</span><img class="image" src="https://placeimg.com/50/50/any" alt="any"></span><span class="message">chatContent</span><span class="time">chatTime</span>')
+        let div = document.createElement("div");
+        div.classList.add("clear_div");
+        $("#chatList").appendChild(div);
+    	$("#chatList").scrollTo(0, $("#chatList").scrollHeight) */
+    	let c = ('<%=userID%>' == chatName) ? "sent" : "received";
+      	$("#chatList").append('<li class='+c+'><span class="profile"><span class="user">'+chatName+'</span><img class="image" src="https://placeimg.com/50/50/any" alt="any"/></span><span class="message">'+chatContent+'</span><span class="time">'+chatTime+'</span></li><li class="clear_div"></li>')
+      	//$(".chatting-list").append('<li>hihihihihih</li>')
+      	//$("#chatList").append('<li>hihihihihih</li>')
+        
+    	//$("#chatList").append('<div class="row"><div class="col-lg-12"><div class="media"><a class="pull-left" href="#"><img class="media-object img-circle" src="https://placeimg.com/50/50/any" alt="any"></a><div class="media-body"><h4 class="media-heading">'+chatName+'<span class="small pull-right">'+ chatTime+'</span></h4><p>'+chatContent+'</p></div></div></div></div><hr>')
+    	$("#chatList").scrollTop($("#chatList")[0].scrollHeight)
+  /*           var scrollTop = $("#chatList").scrollTop();
+            var innerHeight = $("#chatList").innerHeight();
+            var scrollHeight = $("#chatList").prop('scrollHeight');
+
+            if (scrollTop + innerHeight >= scrollHeight) {
+            	$("#chatList").scrollTop(scrollHeight)
+            } else {
+            	$("#chatList").scrollTop($("#chatList")[0].scrollHeight)
+            } */
+    }
+    function getInfiniteChat(){
+    	setInterval(function(){
+    		chatListFunction(lastID);
+    		
+    	}, 1000)
+    }
+   
+    </script>
+   <%--  <script>
+			function getUnread(){
+				$.ajax({
+					type:"post",
+					url:"unReadChat.do",
+					data:{userID : '<%=userID%>'},
+					success:function(result){
+						let data = result.trim();
+						console.log(data);
+						if(data>=1){
+							console.log("존재")
+							showUnread(data);
+						}else{							
+							console.log("없음")
+							showUnread("");
+						}
+					}
+				})
+			}
+			function getInfiniteUnread(){
+				console.log("인피니트");
+				setInterval(function(){
+					getUnread();
+				}, 4000);
+			}
+			function showUnread(result){
+				$("#unread").html(result);
+			} --%>
+	</script>
 </head>
 <body>
- <jsp:include page="../main/header.jsp"/>
-   <div class="container">
-   		<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
-   			<thead>
-   				<tr>
-   					<th colspan="3"><h4>검색으로 친구 찾기</h4></th>
-   				</tr>
-   			</thead>
-   			<tbody>
-   				<tr>
-   					<td style="width:110px;"><h5>유저 아이디</h5></td>
-   					<td><input class="form-control" type="text" id="findID" maxlength="20" placeholder="찾을 아이디를 입력하세요." value="${param.toId}"></td>
-   					<td>
-   						<div class="form-group" style="text-align: center; margin: 0 auto;">
-    							<div class="btn-group" data-toggle="buttons">
-    								<label class="btn  btn-primary active">
-    									<input type="radio" name="userType" autocomplete="off" value="고객" checked>고객
-    								</label>
-    								<label class="btn  btn-primary">
-    									<input type="radio" name="userType" autocomplete="off" value="디자이너">디자이너
-    								</label>
-    							</div>
-    						</div>
-   					</td>
-   				</tr>
-   				<tr>
-   					<td colspan="3"><button class="btn btn-primary" id="find-btn">검색</button></td>
-   				</tr>
-   			</tbody>
-   		</table>
-   </div>
-   <div class="container">
-   		<table id="friendResult" class="table table-bordered table-hover" style="text-align:center; border: 1px solid #dddddd">
-   		</table>
-   </div>
+   
+   <jsp:include page="../main/header.jsp"/>
+   
+    <div class="container bootstrap snippet">
+    	<div class="row">
+    		<div class="col-xs-12">
+    			<div class="portlet portlet-default">
+    				<div class="portlet-heading">
+    					<div class="portlet-title">
+    						<h4><i class="fa fa-circle text-green"></i>실시간 채팅창</h4>
+    					</div>
+    					<div class="clearfix"></div>
+    				</div>
+    				<div class="chat" class="panel-collapse collapse in">
+    					<div id="chatList" class="portlet-body chat-widget chatting-list" style="overflow-y: auto; height: 600px;">
+    						
+    					</div>
+    				</div>
+    				<div class="portlet-footer">
+   						<div class="row" style="height: 90px;">
+   							<div class="form-group col-xs-10">
+    							<textarea style="width: 600px; height: 80px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요." maxlength="100"></textarea>
+   							</div>
+							<div class="form-group col-xs-2">
+								<button type="button" class="btn btn-default pull-right" id="sub">전송</button>
+								<div class="clearfix"></div>
+							</div>
+	   					</div>
+	   				</div>
+    			</div>
+    		</div>
+		</div>
+    </div>
     <div class="alert alert-danger" id="dangerMessage" style="display: none;">
     	<strong>이름과 내용 모두 입력해주세요.</strong>
     </div>
@@ -198,7 +298,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		messageType = (String)session.getAttribute("messageType");
     	}
     	if(messageContent != null){
-    		System.out.println("컨텐츠 있음");
     %>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
     	<div class="vertical-alignment-helper">
@@ -231,32 +330,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     	session.removeAttribute("messageType");
     }
     %>
-    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div id="checkType" class="modal-content panel-info">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						확인 메시지
-    					</h4>
-    				</div>
-    				<div id="checkMessage" class="modal-body"></div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
     <script>
-    	$(function(){
-    		find();
-    	})
+    
+	$(function(){
+		chatListFunction("0");
+		getInfiniteChat();
+	})
     </script>
+    
     <jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

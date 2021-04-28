@@ -121,16 +121,16 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     			<tbody>
     				<tr>
     					<td style="width: 150px;" class="tdali"><h5>아이디</h5></td>
-    					<td><input class="form-control" type="text" id="userID" name="userID"  placeholder="아이디를 입력하세요."></td>
+    					<td><input class="form-control" type="text" id="userId" name="userId"  placeholder="아이디를 입력하세요."></td>
     					<td style="width: 150px;"><button class="btn btn-primary" type="button" id="checkId">중복체크</button><span id="red"></span></td>
     				</tr>
     				<tr>
     					<td style="width: 150px;"><h5>비밀번호</h5></td>
-    					<td colspan="2"><input class="form-control" type="password" id="userPassword" name="userPassword" maxlength="20" placeholder="비밀번호를 입력하세요."></td>
+    					<td colspan="2"><input class="form-control" type="password" id="userPwd" name="userPwd" maxlength="20" placeholder="비밀번호를 입력하세요."></td>
     				</tr>
     				<tr>
     					<td style="width: 150px;"><h5>비밀번호 확인</h5></td>
-    					<td colspan="2"><input class="form-control" type="password" id="userPasswordconf" name="userPasswordconf" maxlength="20" placeholder="비밀번호를 확인하세요"></td>
+    					<td colspan="2"><input class="form-control" type="password" id="userPwdconf" name="userPwdconf" maxlength="20" placeholder="비밀번호를 확인하세요"></td>
     				</tr>
     				<tr>
     					<td style="width: 150px;"><h5>이름</h5></td>
@@ -154,10 +154,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     						<div class="form-group" style="text-align: center; margin: 0 auto;">
     							<div class="btn-group" data-toggle="buttons">
     								<label class="btn  btn-primary active">
-    									<input type="radio" name="userType" autocomplete="off" value="고객" checked>고객
+    									<input type="radio" name="userType" autocomplete="off" value="1" checked>고객
     								</label>
     								<label class="btn  btn-primary">
-    									<input type="radio" name="userType" autocomplete="off" value="디자이너">디자이너
+    									<input type="radio" name="userType" autocomplete="off" value="2">디자이너
     								</label>
     							</div>
     						</div>
@@ -166,11 +166,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     				
     			</tbody>
     		</table>
+    		
     		<div style="text-align: center;">
     			<input type="button" class="btn btn-primary" id="formsub" value="확인"/>
     		</div>
     	</form>
     </div>
+    <br><br>
     <%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

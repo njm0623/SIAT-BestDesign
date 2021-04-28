@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="designer">
-	<insert id="designerInsert" parameterType="design">
+	<insert id="designerInsert" parameterType="user">
 		<![CDATA[
 			INSERT INTO
-			DESIGNER(designerId,designerPwd,designerName,designerEmail,designerBirth,designerPhone)
-			VALUES(#{designerId},#{designerPwd},#{designerName},#{designerEmail},#{designerBirth},#{designerPhone})
+			DESIGNER(designerId)
+			VALUES(#{userId})
 			]]>
 	</insert>
 	<select id="designerLogin" parameterType="design" resultType="design">

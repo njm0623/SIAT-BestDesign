@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<insert id="userInsert" parameterType="user">
+		<![CDATA[
+			INSERT INTO
+			users
+			VALUES(#{userId},#{userPwd},#{userName},#{userEmail},#{userBirth},#{userPhone},#{userType})
+			]]>
+	</insert>
+	<select id="userLogin" parameterType="user" resultType="user">
+		<![CDATA[
+			SELECT *
+			FROM users
+			WHERE userId = #{userId}
+		]]>
+	</select>
+</mapper>

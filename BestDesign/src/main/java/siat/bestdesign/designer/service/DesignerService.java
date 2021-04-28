@@ -10,7 +10,7 @@ public interface DesignerService {
 
 	void insertDesigner(DesignerVO vo);
 
-	int selectLogin(DesignerVO vo);
+	DesignerVO selectLogin(DesignerVO vo);
 	
 	int checkId(DesignerVO vo);
 
