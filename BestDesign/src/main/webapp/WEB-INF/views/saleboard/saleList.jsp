@@ -79,8 +79,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <meta name="jetpack-boost-ready" content="true" />
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style id="kirki-inline-styles"></style>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="../resources/js/bootstrap.js"></script>
+
 <style>
 	#requestTop {
 		margin-top: 20px;
@@ -195,6 +200,7 @@ function getToggleBtnState(toggleBtnId){
     return (left_px > 0)? "on" : "off";
 }
 </script>
+
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
@@ -255,6 +261,8 @@ function getToggleBtnState(toggleBtnId){
 </select>
 <input type="hidden" name="paged" value="1" />
 </form>
+<br/><br/><br/>
+<button class="pull-right" id="registerBtn" type="button" onclick="location.href='saleRegister.do'">등록</button>
 <div class="goodsRow">
 	<div class="goods first">
 		<a href="saleBoard.do">
@@ -325,11 +333,77 @@ function getToggleBtnState(toggleBtnId){
 </main></div> </div>
 </div>
 </div>
+	<%
+    	String messageContent = null;
+    	if(session.getAttribute("messageContent")!=null){
+    		messageContent = (String)session.getAttribute("messageContent");
+    	}
+    	String messageType = null;
+    	if(session.getAttribute("messageType")!=null){
+    		messageType = (String)session.getAttribute("messageType");
+    	}
+    	System.out.println("saleRegister 에서 : " + messageContent);
+    	if(messageContent != null){
+    %>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="vertical-alignment-helper">
+    		<div class="modal-dialog vertical-align-center">
+    			<div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
+    				<div class="modal-header panel-heading">
+    					<button type="button" class="close" data-dismiss="modal">
+    						<span aria-hidden="true">&times</span>
+    						<span class="sr-only">Close</span>
+    					</button>
+    					<h4 class="modal-title">
+    						<%=messageType %>
+    					</h4>
+    				</div>
+    				<div class="modal-body">
+    					<%=messageContent %>
+    				</div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    	$("#messageModal").modal("show");
+    	console.log("쇼!");
+    </script>
+    <%
+    	session.removeAttribute("messageContent");
+    	session.removeAttribute("messageType");
+    }
+    %>
+    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="vertical-alignment-helper">
+    		<div class="modal-dialog vertical-align-center">
+    			<div id="checkType" class="modal-content panel-info">
+    				<div class="modal-header panel-heading">
+    					<button type="button" class="close" data-dismiss="modal">
+    						<span aria-hidden="true">&times</span>
+    						<span class="sr-only">Close</span>
+    					</button>
+    					<h4 class="modal-title">
+    						확인 메시지
+    					</h4>
+    				</div>
+    				<div id="checkMessage" class="modal-body"></div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
 
 <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Shop","@id":"https:\/\/demo.colorlib.com\/tyche\/shop\/"}}]}</script> <script type="text/javascript">
+<%--<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Shop","@id":"https:\/\/demo.colorlib.com\/tyche\/shop\/"}}]}</script> <script type="text/javascript">
 		(function () {
 			var c = document.body.className;
 			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
@@ -407,4 +481,5 @@ var woocommerce_price_slider_params = {"currency_format_num_decimals":"0","curre
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/price-slider.min.js?ver=5.2.2' id='wc-price-slider-js'></script>
 <script>window.GA_ID='';</script><script src='https://demo.colorlib.com/tyche/wp-content/plugins/flying-analytics/js/minimal-analytics.js' defer></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"si":10,"rayId":"6435b5085b0112d6","version":"2021.4.0"}'></script>
+--%>
 </body></html>

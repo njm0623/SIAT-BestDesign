@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%
+	String userID = null;
+	if(session.getAttribute("userID") != null){
+		userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
+	}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -79,7 +85,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <meta name="jetpack-boost-ready" content="true" />
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
-<style id="kirki-inline-styles"></style></head>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="../resources/js/bootstrap.js"></script>
+<style id="kirki-inline-styles"></style>
 <style>
 	#requestTop {
 		margin-top: 20px;
@@ -117,6 +127,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		text-align: center;
 	}
 </style>
+</head>
+
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
@@ -138,7 +150,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </form>
 </div>
 <br/><br/><br/>
-<button class="pull-right" id="registerBtn" type="button" onclick="location.href='requestRegister.do'">등록</button>
+<button class="pull-right" id="registerBtn" type="button" onClick="location.href='requestRegister.do'">등록</button>
 
 <div class="goodsRow">
 	<div class="goods first">
