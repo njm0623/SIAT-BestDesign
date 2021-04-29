@@ -21,4 +21,8 @@ public class DesignerDAOImpl implements DesignerDAO{
 		return mybatis.selectOne("designer.designerLogin",vo);
 	}
 
+	public void updateDesigner(DesignerVO vo) {
+		mybatis.update("designer.designerUpdate",vo);
+	}
+
 }

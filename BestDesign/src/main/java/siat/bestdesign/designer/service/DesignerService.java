@@ -14,4 +14,9 @@ public interface DesignerService {
 	
 	int checkId(DesignerVO vo);
 
+	void updateDesigner(DesignerVO vo);
+
+	DesignerVO selectDesigner(DesignerVO vo);
+
+	DesignerVO editDesigner(DesignerVO vo);
 }

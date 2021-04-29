@@ -12,6 +12,7 @@
         if(request.getParameter("toID") != null){
         	toID = (String) request.getParameter("toID");
         }
+        String src="../resources/customer.png";
         if(userID == null){
         	session.setAttribute("messageType", "오류");
         	session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
@@ -200,7 +201,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
         $("#chatList").appendChild(div);
     	$("#chatList").scrollTo(0, $("#chatList").scrollHeight) */
     	let c = ('<%=userID%>' == chatName) ? "sent" : "received";
-      	$("#chatList").append('<li class='+c+'><span class="profile"><span class="user">'+chatName+'</span><img class="image" src="https://placeimg.com/50/50/any" alt="any"/></span><span class="message">'+chatContent+'</span><span class="time">'+chatTime+'</span></li><li class="clear_div"></li>')
+      	$("#chatList").append('<li class='+c+'><span class="profile"><span class="user">'+chatName+'</span><img class="image" src="<%=src%>" alt="any"/></span><span class="message">'+chatContent+'</span><span class="time">'+chatTime+'</span></li><li class="clear_div"></li>')
       	//$(".chatting-list").append('<li>hihihihihih</li>')
       	//$("#chatList").append('<li>hihihihihih</li>')
         

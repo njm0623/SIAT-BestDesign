@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int checkType(UserVO vo) {
 		UserVO result = userDAO.selectLogin(vo);
-		System.out.println(result.getUserType() + " : " + vo.getUserType());
 		if(result!=null){
 			if(result.getUserType()!=vo.getUserType()) {
 				return 0;

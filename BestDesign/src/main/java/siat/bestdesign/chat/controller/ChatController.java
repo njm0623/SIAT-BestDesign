@@ -34,6 +34,7 @@ public class ChatController {
 	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
+		
 		System.out.println("chat에서 자신 반환하는 모든 동작 : " + step);
 		return "chat/"+step;
 	}
@@ -70,7 +71,6 @@ public class ChatController {
 	@RequestMapping(value="unReadChat.do",produces="application/text; charset=utf-8")//아약스 인코딩
 	@ResponseBody	//아약스 필수
 	public String unReadChat(String userID) {
-		System.out.println("chat에서 unReadChat.do");
 		ChatVO vo = new ChatVO();
 		vo.setChatToId(userID);
 		return chatService.unReadChat(vo);

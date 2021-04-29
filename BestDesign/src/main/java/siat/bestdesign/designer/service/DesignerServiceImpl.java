@@ -46,4 +46,22 @@ public class DesignerServiceImpl implements DesignerService{
 		}
 	}
 
+	@Override
+	public void updateDesigner(DesignerVO vo) {
+		designerDAO.updateDesigner(vo);
+		
+	}
+
+	@Override
+	public DesignerVO editDesigner(DesignerVO vo) {
+		return designerDAO.selectLogin(vo);
+		
+	}
+	@Override
+	public DesignerVO selectDesigner(DesignerVO vo) {
+		DesignerVO vo2 = designerDAO.selectLogin(vo);
+		vo2.setDesignerProfile(vo2.getDesignerProfile().replace("\r\n","<br>"));
+		return vo2;
+	}
+
 }

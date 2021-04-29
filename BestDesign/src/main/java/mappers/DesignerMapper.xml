@@ -16,4 +16,12 @@
 			WHERE designerId = #{designerId}
 		]]>
 	</select>
+	<update id="designerUpdate" parameterType="design">
+		<![CDATA[
+			UPDATE designer
+			set designerProfile = #{designerProfile}, designerImage = #{designerImage}, designerNickName =#{designerNickName}
+			WHERE designerId = #{designerId}
+		]]>
+	</update>
+	
 </mapper>

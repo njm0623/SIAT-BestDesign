@@ -10,9 +10,9 @@
    String type = null;
    if(session.getAttribute("type") != null){
    	type = (String)session.getAttribute("type");//
-   	type = type.trim();
+   	//type = type.trim();
    }
-   System.out.println(type);
+   System.out.println("내 타입 바뀌지마 " + type);
 %>
 <head>
 <meta charset="UTF-8">
@@ -124,7 +124,7 @@
 <a href="../designer/profile.do?designerId=<%=userID %>"><i class="fa fa-user"></i> 프로필 </a>
 </li>
 
-<%}else{ %>
+<%}else if(type=="고객"){ %>
 
 <li class="top-cart">
 <a href="C:\00.siat\test\home\my cart 페이지.html"><i class="fa fa-shopping-cart"></i> 나의 찜 - <span class="price">0</span> </a>
@@ -167,7 +167,7 @@
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-86"><a title="Shop" href="C:\00.siat\test\home\shop메인.html">그려주세요</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="C:\00.siat\test\home\blog 메인.html">드로잉 샵</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="C:\00.siat\test\home\blog 메인.html">디자이너</a></li>
-<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a title="Contact" href="C:\00.siat\test\home\Contact 메인페이지.html">문의 게시판</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a title="Contact" href="../contactboard/boardList.do">문의 게시판</a></li>
 </ul> 
 <button href="#" id="mobile-menu-trigger"> <i class="fa fa-bars"></i> </button>
 

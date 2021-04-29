@@ -88,7 +88,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <style id="kirki-inline-styles"></style>
 <!-- ************************************************************************************************************* -->
 
-
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/css/custom.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="../resources/js/bootstrap.js"></script>
 <style>
 	#masthead {
 		background:#fff;
@@ -108,7 +111,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <section class="main-slider">
 <div class="owl-carousel owl-theme" id="main-slider">
 <div class="item">
-<img width="1600" height="545" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" /> <div class="hero-caption left hidden-xs hidden-sm">
+ <div class="hero-caption left hidden-xs hidden-sm">
 <span class="year">2021</span>
 <span class="caption">Best Design</span>
 <div class="btn-group">
@@ -118,6 +121,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+<img width="1600" height="545" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" />
 <div class="main-slider-bar hidden-xs">
 <div class="container">
 <ul class="main-slider-info">
@@ -444,7 +448,72 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </section>
-
+	<%
+    	String messageContent = null;
+    	if(session.getAttribute("messageContent")!=null){
+    		messageContent = (String)session.getAttribute("messageContent");
+    	}
+    	String messageType = null;
+    	if(session.getAttribute("messageType")!=null){
+    		messageType = (String)session.getAttribute("messageType");
+    	}
+    	System.out.println("login 에서 : " + messageContent);
+    	if(messageContent != null){
+    %>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="vertical-alignment-helper">
+    		<div class="modal-dialog vertical-align-center">
+    			<div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
+    				<div class="modal-header panel-heading">
+    					<button type="button" class="close" data-dismiss="modal">
+    						<span aria-hidden="true">&times</span>
+    						<span class="sr-only">Close</span>
+    					</button>
+    					<h4 class="modal-title">
+    						<%=messageType %>
+    					</h4>
+    				</div>
+    				<div class="modal-body">
+    					<%=messageContent %>
+    				</div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    	$("#messageModal").modal("show");
+    	console.log("쇼!");
+    </script>
+    <%
+    	session.removeAttribute("messageContent");
+    	session.removeAttribute("messageType");
+    }
+    %>
+    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="vertical-alignment-helper">
+    		<div class="modal-dialog vertical-align-center">
+    			<div id="checkType" class="modal-content panel-info">
+    				<div class="modal-header panel-heading">
+    					<button type="button" class="close" data-dismiss="modal">
+    						<span aria-hidden="true">&times</span>
+    						<span class="sr-only">Close</span>
+    					</button>
+    					<h4 class="modal-title">
+    						확인 메시지
+    					</h4>
+    				</div>
+    				<div id="checkMessage" class="modal-body"></div>
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    </div>
 <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
@@ -457,64 +526,4 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		})();
 	</script>
 	
-	
-<!-- <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' id='wp-polyfill-js'></script>
-<script type='text/javascript' id='wp-polyfill-js-after'>
-( 'fetch' in window ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4"></scr' + 'ipt>' );
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/hooks.min.js?ver=50e23bed88bcb9e6e14023e9961698c1' id='wp-hooks-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/i18n.min.js?ver=db9a9a37da262883343e941c3731bc67' id='wp-i18n-js'></script>
-<script type='text/javascript' id='wp-i18n-js-after'>
-wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/lodash.min.js?ver=4.17.19' id='lodash-js'></script>
-<script type='text/javascript' id='lodash-js-after'>
-window.lodash = _.noConflict();
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/url.min.js?ver=0ac7e0472c46121366e7ce07244be1ac' id='wp-url-js'></script>
-<script type='text/javascript' id='wp-api-fetch-js-translations'>
-( function( domain, translations ) {
-	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
-	localeData[""].domain = domain;
-	wp.i18n.setLocaleData( localeData, domain );
-} )( "default", { "locale_data": { "messages": { "": {} } } } );
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/api-fetch.min.js?ver=a783d1f442d2abefc7d6dbd156a44561' id='wp-api-fetch-js'></script>
-<script type='text/javascript' id='wp-api-fetch-js-after'>
-wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "https://demo.colorlib.com/tyche/wp-json/" ) );
-wp.apiFetch.nonceMiddleware = wp.apiFetch.createNonceMiddleware( "3aa5e0bf44" );
-wp.apiFetch.use( wp.apiFetch.nonceMiddleware );
-wp.apiFetch.use( wp.apiFetch.mediaUploadMiddleware );
-wp.apiFetch.nonceEndpoint = "https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php?action=rest-nonce";
-</script>
-<script type='text/javascript' id='contact-form-7-js-extra'>
-/* <![CDATA[ */
-var wpcf7 = [];
-/* ]]> */
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.4' id='contact-form-7-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70' id='jquery-blockui-js'></script>
-<script type='text/javascript' id='wc-add-to-cart-js-extra'>
-/* <![CDATA[ */
-var wc_add_to_cart_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View cart","cart_url":"https:\/\/demo.colorlib.com\/tyche\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=5.2.2' id='wc-add-to-cart-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4' id='js-cookie-js'></script>
-<script type='text/javascript' id='woocommerce-js-extra'>
-/* <![CDATA[ */
-var woocommerce_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=5.2.2' id='woocommerce-js'></script>
-<script type='text/javascript' id='wc-cart-fragments-js-extra'>
-/* <![CDATA[ */
-var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_c7ba160b83b4cf4fe4c311fa6b89b05c","fragment_name":"wc_fragments_c7ba160b83b4cf4fe4c311fa6b89b05c","request_timeout":"5000"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=5.2.2' id='wc-cart-fragments-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/themes/tyche/assets/js/skip-link-focus-fix.js?ver=5.7.1' id='tyche-skip-link-focus-fix-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/menu/menu.min.js?ver=5.7.1' id='tyche-multilang-menu-js'></script>
-<script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/wp-embed.min.js?ver=5.7.1' id='wp-embed-js'></script>
-<script>window.GA_ID='';</script><script src='https://demo.colorlib.com/tyche/wp-content/plugins/flying-analytics/js/minimal-analytics.js' defer></script> -->
 </body></html>

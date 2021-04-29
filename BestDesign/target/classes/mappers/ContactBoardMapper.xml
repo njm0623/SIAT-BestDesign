@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contactBoard">
+	<select id="getContactBoardList" parameterType="hash" resultType="contact">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
+			WHERE IDX BETWEEN #{first} AND #{end}
+			order by contactSeqNum desc
+		]]>
+	</select>
+	<select id="getGroupNum" resultType="contact">
+		<![CDATA[
+			SELECT seq_contact_group.nextval as contactGroupNum
+			from dual
+		]]>
+	</select>
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			from contactboard
+		]]>
+	</select>
+	<select id="selectById" parameterType="int" resultType="contact">
+		<![CDATA[
+			SELECT *
+			from contactboard
+			where contactNum = #{contactNum}
+		]]>
+	</select>
+	<insert id="insertContact" parameterType="contact">
+		<![CDATA[
+			INSERT INTO
+			CONTACTBOARD
+			VALUES(seq_contactboard.nextval, #{userId}, #{contactTitle}, #{contactContent}, sysdate, #{contactIsPublic}, #{contactFile}, #{contactGroupNum}, #{contactSeqNum},0)
+		]]>
+	</insert>
+	<update id="updateCount" parameterType="int">
+		<![CDATA[
+			UPDATE CONTACTBOARD
+			SET contactCount = contactCount+1
+			where contactNum = #{contactNum}
+		]]>
+	</update>
+	<update id="updateContact" parameterType="contact">
+		<![CDATA[
+			UPDATE CONTACTBOARD
+			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate
+			where contactNum = #{contactNum}
+		]]>
+	</update>
+	<delete id="deleteContact" parameterType="int">
+		<![CDATA[
+			DELETE FROM CONTACTBOARD
+			where contactNum = #{contactNum}
+		]]>
+	</delete>
+	<select id="selectLastSequenceNumber" parameterType="hash" resultType="string">
+		<![CDATA[
+			SELECT min(contactSeqNum) as contactSeqNum
+			FROM CONTACTBOARD
+			WHERE contactSeqNum < #{max} AND contactSeqNum >= #{min}
+		]]>
+	</select>
+</mapper>

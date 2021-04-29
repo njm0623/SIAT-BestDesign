@@ -101,9 +101,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
-    <script src="../resources/js/custom.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$("#goChat").click(function(){
@@ -139,11 +137,29 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><a href="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg"><img width="540" height="360" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" class="wp-post-image" alt="" loading="lazy" title="woman-1477091_1920" data-caption="" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" data-large_image="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" data-large_image_width="1920" data-large_image_height="1281" srcset="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg 1920w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-300x200.jpg 300w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-768x512.jpg 768w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-1024x683.jpg 1024w" sizes="(max-width: 540px) 100vw, 540px" /></a></div> </figure>
 </div>
 <div class="summary entry-summary">
-<h1 class="product_title entry-title">${param.designerId }</h1><div class="woocommerce-product-details__short-description">
+<h1 class="product_title entry-title">
+<c:choose>
+    <c:when test="${empty Profile.designerNickName}">
+        닉네임을 설정해주세요.
+    </c:when>
+    <c:otherwise>
+     	${Profile.designerNickName}
+    </c:otherwise>
+</c:choose>
+</h1><div class="woocommerce-product-details__short-description">
 
 
 
-<p id="profile">디자이너 프로필 작성</p>
+<p id="profile">
+<c:choose>
+    <c:when test="${empty Profile.designerProfile}">
+        프로필을 설정해주세요
+    </c:when>
+    <c:otherwise>
+     	${Profile.designerProfile}
+    </c:otherwise>
+</c:choose>
+</p>
 
 
 

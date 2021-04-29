@@ -105,6 +105,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<link rel="stylesheet" href="../resources/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
+    
+    <style type="text/css">
+    	body .table{
+    		width:50%;
+    	}
+    </style>
 <script type="text/javascript">
 		function chatBoxFunction(){
 			let userID = '<%=userID%>'
