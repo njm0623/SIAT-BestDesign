@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 
 <%
 	String userID = null;
@@ -91,6 +91,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="../resources/js/bootstrap.js"></script>
 <style id="kirki-inline-styles"></style>
 <style>
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+	
 	#requestTop {
 		margin-top: 20px;
 	}
@@ -126,6 +133,15 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.goodsRow h2 {
 		text-align: center;
 	}
+	
+	.requestTitle {
+		font-family: GyeonggiTitleM;
+	}
+	
+	#imageWrapper {
+		height: 200px;
+		overflow: hidden;
+	}
 </style>
 </head>
 
@@ -152,66 +168,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <br/><br/><br/>
 <button class="pull-right" id="registerBtn" type="button" onClick="location.href='requestRegister.do'">등록</button>
 
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
+<c:set var="index" value="1"/>
+<c:forEach items="${requestBoardList}" var="requestBoard">
+	<c:choose>
+		<c:when test="${index % 3 == 1}"><div class="goodsRow"><div class="goods first"></c:when>
+		<c:when test="${index % 3 == 2}"><div class="goods"></c:when>
+		<c:when test="${index % 3 == 0}"><div class="goods last"></c:when>
+	</c:choose>
+		<a href="getRequestBoard.do?requestNum=${requestBoard.requestNum}">
+		<div id="imageWrapper">
+	<c:choose>
+		<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
+		<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
+	</c:choose>
+		</div>
+		<h2 class="requestTitle">${requestBoard.requestTitle}</h2>
 		</a>
 	</div>
-	<div class="goods">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-</div>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-</div>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="requestBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>그려주세요</h2>
-		</a>
-	</div>
-</div>
+	<c:if test="${index%3 == 0}"></div></c:if>
+	<c:set var="index" value="${index + 1}"/>
+</c:forEach>
+
 
 <div class="row text-center"><ul class="tyche-pager">
 <li class="active"><a href="https://demo.colorlib.com/tyche/shop/">1</a></li>

@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -95,7 +94,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
 <link rel="amphtml" href="https://demo.colorlib.com/tyche/2017/06/12/jackets-soul-color/amp/"><style id="kirki-inline-styles"></style>
-<style>
+<style type="text/css">
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
 	#replyDiv {
 		width: 800px;
 		margin-bottom: 60px;
@@ -131,6 +137,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		margin-bottom: 30px;
 		float: left;	
 	}
+	
+	.entry-title {
+		font-family:'GyeonggiTitleM'
+	}
 </style>
 </head>
 <body class="post-template-default single single-post postid-79 single-format-standard wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
@@ -145,31 +155,29 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <article id="post-79" class="tyche-blog-post post-79 post type-post status-publish format-standard has-post-thumbnail hentry category-fashion tag-fashion tag-jackets tag-trends">
 <header class="entry-header">
 <div class="tyche-blog-image">
-<img width="730" height="435" src="../resources/goods.png"/> </div>
+<c:choose>
+	<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png"/></c:when>
+	<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}"/></c:otherwise>
+</c:choose>
+</div>
 <div class="tyche-blog-meta">
 <div class="title">
-<h1 class="entry-title">그림을 이쁘게 그려주세요.</h1> </div>
+<h1 class="entry-title">${requestBoard.requestTitle}</h1> </div>
 <div class="meta">
-<ul class="meta-list"><li class="post-author"><icon class="fa fa-user"></icon> By 유저1</a></li><li class="post-comments"> <span class="sep">/</span> <icon class="fa fa-comments"></icon> <a href="#comments">1 Comments</a></li></ul> </div>
+<ul class="meta-list"><li class="post-author"><icon class="fa fa-user"></icon> By ${requestBoard.userId}</a></li><li class="post-comments"> <span class="sep">/</span> <icon class="fa fa-comments"></icon> <a href="#comments">1 Comments</a></li></ul> </div>
 </div>
 </header>
 <div class="entry-content">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
-<span id="more-79"></span><br />
-Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam. Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide oporteat vix eu, id illud principes has. Nam tempor utamur gubergren no.</p>
-<p>Ex soleat habemus usu, te nec eligendi deserunt vituperata. Natum consulatu vel ea, duo cetero repudiare efficiendi cu. Has at quas nonumy facilisis, enim percipitur mei ad. Mazim possim adipisci sea ei, omnium aeterno platonem mei no.</p>
-<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p>Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+${requestBoard.requestContent}
 </div>
 </article>
-
+<hr>
 <div id="comments" class="comments-area">
 <a href="#comment" onfocus="blur()"></a>
 <div id="replyDiv">
 <textarea type="text" id="reply" placeholder="댓글을 남겨 요청에 응답하세요."></textarea>
 <input id="replyBtn" type="button" value="등록"></input>
 </div>
-<hr>
 <ol class="comment-list">
 	<li id="comment-1485" class="comment even thread-even depth-1">
 	<article id="div-comment-1485">

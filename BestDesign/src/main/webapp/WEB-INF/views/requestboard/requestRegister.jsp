@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%
         String userID = null;
         if(session.getAttribute("userID") != null){
@@ -104,17 +104,65 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="../resources/js/bootstrap.js"></script>
 <style id="kirki-inline-styles"></style>
 <!-- ************************************************************************************************************* -->
+<script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
 
-
-<script>
-	$(function() {
-		$("#save").click(function() {
-			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-			$("#frm").submit();
-		})
-	})
+<script type="text/javascript">
+    AWS.config.update({
+        accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
+        secretAccessKey: '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'
+    });
+    AWS.config.region = 'ap-northeast-2';
 </script>
-	
+<script>
+$(function () {
+    $("#save").click(function () {
+        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
+        let fileChooser = document.getElementById('file');
+        let file = fileChooser.files[0];
+        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+        
+        let Now = new Date()
+        StrNow = String(Now)
+        nowYear = String(Now.getFullYear())
+        nowMon = String(Now.getMonth()+1)
+        nowDay = String(Now.getDate())
+	    if(nowMon.length == 1) {
+	    	nowMon = "0"+nowMon
+	    }	    
+	    let divideNow = String(StrNow).split(' ');	    
+	    let divideNowTimeDiv = divideNow[4].split(':');
+	    let divideNowTimeJoin = divideNowTimeDiv[0]+divideNowTimeDiv[1]+divideNowTimeDiv[2];
+	    
+	    let NowToday = nowYear+nowMon+nowDay+divideNowTimeJoin;
+		
+        if (file) {
+        	$("#fileName").val("https://bestdesign.s3.ap-northeast-2.amazonaws.com/<%=userID%>_"+NowToday)
+            var params = {
+                Key: "<%=userID%>_"+NowToday,
+                ContentType: file.type,
+                Body: file,
+                ACL: 'public-read' // 접근 권한
+            };
+
+            bucket.putObject(params, function (err, data) {
+                // 업로드 성공
+            	$("#frm").submit();
+            });
+
+            //bucket.putObject(params).on('httpUploadProgress',
+            //    function (evt) {
+            //        console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total) + '%');
+            //    }).send(function (err, data) {
+            //        alert("File uploaded successfully.");
+            //    });
+        }
+        else {
+        	$("#frm").submit();
+        }
+		
+    });
+});
+</script>
 <style>
 	#title {
 		width: 99%;
@@ -139,7 +187,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		margin-left: 494px;
 	}
 </style>
-
 <!-- ************************************************************************************************************* -->
 </head>
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
@@ -147,11 +194,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <div id="smarteditor" class="container">
-	<form id="frm" action="registerboard" method="post" >
-		<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
-		<textarea id="ir1" name="content"></textarea>
+	<form id="frm" action="insertRequestBoard.do" method="post" >
+		<input type="hidden" name="userId" value="<%=userID%>"/>
+		<input type="text" id="title" name="requestTitle" placeholder="제목을 입력해 주세요."/>
+		<textarea id="ir1" name="requestContent"></textarea>
 		<input type="file" id="file"/>
-		<input type="button" id="save" value="저장" class="btn"/><input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='requestList.do'"/>
+		<input type="hidden" id="fileName" name="requestImage"/>
+		<input type="button" id="save" value="저장" class="btn"/>
+		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='requestList.do'"/>
 	</form>
 </div>
 
