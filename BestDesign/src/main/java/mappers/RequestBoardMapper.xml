@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RequestBoardDAO">
+	<insert id="insertRequestBoard" parameterType="requestBoard">
+		INSERT INTO REQUESTBOARD(requestNum, userId, requestTitle, requestContent, requestDate, requestState
+		<if test="requestImage != null">, requestImage</if>
+		)
+		VALUES (seq_requestboard.nextval, #{userId}, #{requestTitle}, #{requestContent}, sysdate, 0
+		<if test="requestImage != null">, #{requestImage}</if>
+		)
+	</insert>
+	
+	<update id="updateRequestBoard"  parameterType="requestBoard">
+		UPDATE REQUESTBOARD SET
+		requestTitle = #{requestTitle},
+		requestContent = #{requestContent}
+		<if test="requestImage != null">, requestImage = #{requestImage}</if>
+		WHERE requestNum = #{requestNum}
+	</update>
+	
+	<delete id="deleteRequestBoard"  parameterType="requestBoard">
+		DELETE REQUESTBOARD
+		WHERE requestNum = #{requestNum}
+	</delete>
+	
+	<select id="getRequestBoard"  parameterType="requestBoard" resultType="requestBoard">
+		SELECT *
+		FROM REQUESTBOARD
+		WHERE requestNum = #{requestNum}
+	</select>
+	
+	<select id="getRequestBoardList" resultType="requestBoard">
+		SELECT * FROM REQUESTBOARD ORDER BY REQUESTNUM DESC
+	</select>
+	
+</mapper>
