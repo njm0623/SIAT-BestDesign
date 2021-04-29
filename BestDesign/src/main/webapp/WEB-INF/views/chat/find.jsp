@@ -117,6 +117,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		function find(){
 			let userID = $("#findID").val();
 			let type = $("input[name='userType']:checked").val();
+			let typetxt = "디자이너";
+			if(type==1){
+				typetxt="고객";
+			}
 			if(userID=='<%=userID%>'){
 				return;
 			}
@@ -124,12 +128,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			$.ajax({
 				type:"post",
 				url:"../user/userFind.do",
-				data:{userID:userID},
+				data:{userID:userID, type:type},
 				success: function(result){
 					result = result.trim();
 					console.log(result)
 					if(result==0){
-						getFriend(userID, type);
+						getFriend(userID, typetxt);
 					}else{						
 						$("#checkMessage").html("해당 유저가 존재하지 않습니다.");
 						$("#checkType").attr("class", "modal-content panel-success");
@@ -139,8 +143,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				}
 			})
 		}
-		function getFriend(findID, type){
-			$("#friendResult").html("<thead><tr><th><h4>검색결과</h4></th></tr></thead><tbody><tr><td style='text-align: center;'><h3>"+type+" : "+findID+"</h3><a href='chat.do?toID="+findID+"' class='btn btn-primary pull-right'>메시지 보내기</a></td></tr></tbody>")
+		function getFriend(findID, typetxt){
+			$("#friendResult").html("<thead><tr><th><h4>검색결과</h4></th></tr></thead><tbody><tr><td style='text-align: center;'><h3>"+typetxt+" : "+findID+"</h3><a href='chat.do?toID="+findID+"' class='btn btn-primary pull-right'>메시지 보내기</a></td></tr></tbody>")
 		}
 		function failFriend(){
 			$("#friendResult").html("");
@@ -165,11 +169,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
    					<td>
    						<div class="form-group" style="text-align: center; margin: 0 auto;">
     							<div class="btn-group" data-toggle="buttons">
-    								<label class="btn  btn-primary active">
-    									<input type="radio" name="userType" autocomplete="off" value="고객" checked>고객
+    								<label class="btn btn-primary active">
+    									<input type="radio" name="userType" autocomplete="off" value="1" checked>고객
     								</label>
-    								<label class="btn  btn-primary">
-    									<input type="radio" name="userType" autocomplete="off" value="디자이너">디자이너
+    								<label class="btn btn-primary">
+    									<input type="radio" name="userType" autocomplete="off" value="2">디자이너
     								</label>
     							</div>
     						</div>
@@ -188,6 +192,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <div class="alert alert-danger" id="dangerMessage" style="display: none;">
     	<strong>이름과 내용 모두 입력해주세요.</strong>
     </div>
+   <br><br>
     <%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

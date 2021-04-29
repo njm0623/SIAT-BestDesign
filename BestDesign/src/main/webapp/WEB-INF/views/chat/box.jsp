@@ -160,6 +160,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		</div>
     	</table>
     </div>
+    
+    <br><br>
     <div class="alert alert-danger" id="dangerMessage" style="display: none;">
     	<strong>이름과 내용 모두 입력해주세요.</strong>
     </div>

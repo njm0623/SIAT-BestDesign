@@ -34,15 +34,17 @@ public class UserCotroller {
 	}
 	
 	@RequestMapping("login.do")
-	public String login(String userId, String userPwd, HttpSession session) {
-		UserVO vo = new UserVO();
-		vo.setUserId(userId);
-		vo.setUserPwd(userPwd);
+	public String login(UserVO vo, HttpSession session) {
 		System.out.println("user에서 login");
 		UserVO vo2 = userService.selectLogin(vo);
 		String msg = "", content = "", href = "";
+		
 		if(vo2!=null) {
-			if(vo2.getUserPwd().equals(vo.getUserPwd())) {
+			if(vo2.getUserType()!=vo.getUserType()) {
+				msg = "오류";
+				content = "아이디가 존재하지 않습니다.";
+				href = "chat/login.do";
+			}else if(vo2.getUserPwd().equals(vo.getUserPwd())) {
 				session.setAttribute("userID", vo2.getUserId());
 				if(vo2.getUserType()==1) {
 					session.setAttribute("type", "고객");
@@ -64,7 +66,7 @@ public class UserCotroller {
 		}
 		session.setAttribute("messageType", msg);
 		session.setAttribute("messageContent", content);
-		System.out.println(session.getAttribute("messageContent"));
+		System.out.println("login.do 에서 "+session.getAttribute("messageContent"));
 		return "redirect:/"+href;
 		
 	}
@@ -90,11 +92,12 @@ public class UserCotroller {
 	
 	@RequestMapping(value="userFind.do",produces="application/text; charset=utf-8")//아약스 인코딩
 	@ResponseBody	//아약스 필수
-	public String userFind(String userID, HttpSession session) {
+	public String userFind(String userID, int type, HttpSession session) {
 		System.out.println("user에서 userFind");
 		UserVO vo = new UserVO();
 		vo.setUserId(userID);
-		int result = userService.checkId(vo);
+		vo.setUserType(type);
+		int result = userService.checkType(vo);
 		if(result==1){
 			return "0";
 		}else{

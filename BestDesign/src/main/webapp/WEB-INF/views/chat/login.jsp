@@ -391,10 +391,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
 		<label class="btn  btn-primary active">
-			<input type="radio" name="userType" autocomplete="off" value="고객" checked>고객
+			<input type="radio" name="userType" autocomplete="off" value="1" checked>고객
 		</label>
 		<label class="btn  btn-primary">
-			<input type="radio" name="userType" autocomplete="off" value="디자이너">디자이너
+			<input type="radio" name="userType" autocomplete="off" value="2">디자이너
 		</label>
 	</div>
 </div>

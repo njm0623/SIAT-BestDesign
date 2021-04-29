@@ -129,11 +129,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	$(function(){
 	    $("#sub").click(function(){
 	    	send();
+	    	$("#chatContent").val("");
 	    })
-	    $("#chatContent").keypress(function(e) { 
+	    $("#chatContent").keyup(function(e) { 
 	    	if (e.keyCode === 13) { 
-	    		console.log("H");
 	    		send();
+	    		$("#chatContent").val("");
 	    	} 
 	    });
 	})
@@ -141,6 +142,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     	let fromID = '<%=userID%>';
     	let toID = '<%=toID%>';
     	let chatContent = $("#chatContent").val();
+    	if(chatContent==""){
+    		return;
+    	}
     	$.ajax({
     		type:"post",
     		url:"chatting.do",
@@ -160,7 +164,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     			console.log(e);
     		}
     	})
-    	$("#chatContent").val("");
     }
     let lastID = 0;
     function chatListFunction(type){

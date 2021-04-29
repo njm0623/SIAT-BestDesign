@@ -15,6 +15,8 @@ public interface UserService {
 
 	int checkId(UserVO vo);
 
+	int checkType(UserVO vo);
+
 
 
 
