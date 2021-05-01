@@ -157,10 +157,36 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		height: auto;
 		z-index: 2;
 	}
+	
+	#searchForm {
+		float: right;
+		display: block;
+	}
+	
+	#searchText {
+		width: 200px;
+		height: 41px;
+	}
+	
+	.woocommerce .woocommerce-ordering select.orderby {
+		color: black;
+	}
+	
+	#btnWrapper {
+		overflow: hidden;
+		margin-bottom: 5px;
+	}
 </style>
+<script>
+	$(function() {		
+		$(".orderby").change(function() {
+			location.href="getRequestBoardList.do?"+this.value
+		})
+	})
+</script>
 </head>
 
-<body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
+<body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"></jsp:include>
@@ -171,18 +197,24 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <h1 class="woocommerce-products-header__title page-title">그려주세요</h1>
 <form class="woocommerce-ordering" method="get">
 <select name="orderby" class="orderby" aria-label="Shop order">
-<option value="menu_order" selected='selected'>기본 정렬</option>
-<option value="popularity">인기순</option>
-<option value="date">최신순</option>
-<option value="waiting">대기 중인 작품만</option>
-<option value="completed">완료된 작품만</option>
+<option value="newestDate" id="newestDate">최신순</option>
+<option value="popularity" id="popularity">조회순</option>
+<option value="olderDate" id="olderDate">오래된순</option>
+<option value="waiting" id="waiting">대기 중인 작품만</option>
+<option value="completed" id="completed">완료된 작품만</option>
 </select>
 <input type="hidden" name="paged" value="1" />
 </form>
 </div>
 <br/><br/><br/>
+<div id="btnWrapper">
 <button class="pull-right" id="registerBtn" type="button" onClick="location.href='requestRegister.do'">등록</button>
-
+</div>
+<form role="search" method="get" class="woocommerce-product-search" id ="searchForm" action="getRequestBoardList.do?">
+<label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
+<input type="search" id="searchText" class="search-field" placeholder="찾는 요청을 검색해보세요." name="search" />
+<button type="submit" value="Search">검색</button>
+</form>
 <c:set var="index" value="1"/>
 <c:forEach items="${requestBoardList}" var="requestBoard">
 	<c:choose>
@@ -192,11 +224,21 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	</c:choose>
 		<a href="getRequestBoard.do?requestNum=${requestBoard.requestNum}">
 		<div id="imageWrapper">
-	<c:choose>
-		<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
-		<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
-	</c:choose>
-		<c:if test="${requestBoard.requestState == 1}"><img src="../resources/completed.png" class="stateImage"/></c:if>
+			<c:choose>
+				<c:when test="${requestBoard.requestState == 1}">
+					<c:choose>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage" style="opacity:0.3;"/></c:when>
+						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage" style="opacity:0.5;"/></c:otherwise>
+					</c:choose>
+					<img src="../resources/completed.png" class="stateImage"/>			
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
+						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<h2 class="requestTitle">${requestBoard.requestTitle}</h2>
 		</a>
@@ -208,7 +250,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="row text-center">
 	<ul class="tyche-pager">
 	<c:if test="${requestBoardListPaging.nowPage != 1 }">
-		<li><a href="getRequestBoardList.do?nowPage=${requestBoardListPaging.nowPage - 1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text left">PREV</span> <span class="fa fa-long-arrow-left"></span></a></li>
+		<li><a href="getRequestBoardList.do?orderby=${requestBoardListPaging.orderby}&nowPage=${requestBoardListPaging.nowPage - 1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text left">PREV</span> <span class="fa fa-long-arrow-left"></span></a></li>
 	</c:if>
 	<c:forEach begin="${requestBoardListPaging.startPage }" end="${requestBoardListPaging.endPage }" var="p">
 		<c:choose>
@@ -216,12 +258,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				<li class="active"><a style="pointer-events: none; cursor: default;">${p}</a></li>
 			</c:when>
 			<c:when test="${p != requestBoardListPaging.nowPage }">
-				<li><a href="getRequestBoardList.do?nowPage=${p}&cntPerPage=${requestBoardListPaging.cntPerPage}">${p}</a></li>
+				<li><a href="getRequestBoardList.do?orderby=${requestBoardListPaging.orderby}&nowPage=${p}&cntPerPage=${requestBoardListPaging.cntPerPage}">${p}</a></li>
 			</c:when>
 		</c:choose>
 	</c:forEach>
 	<c:if test="${requestBoardListPaging.nowPage != requestBoardListPaging.lastPage}">
-		<li><a href="getRequestBoardList.do?nowPage=${requestBoardListPaging.nowPage+1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
+		<li><a href="getRequestBoardList.do?orderby=${requestBoardListPaging.orderby}&nowPage=${requestBoardListPaging.nowPage+1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
 	</c:if>
 	</ul>
 </div>

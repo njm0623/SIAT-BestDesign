@@ -181,7 +181,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	#ir1 {
 		width: 99%;
-		height: 500px;		
+		height: 500px;
+		resize: none;
 	}
 	
 	.btn {

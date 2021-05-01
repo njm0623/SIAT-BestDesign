@@ -1,5 +1,6 @@
 package siat.bestdesign.requestboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import siat.bestdesign.requestboard.domain.RequestBoardPagingVO;
@@ -16,5 +17,7 @@ public interface RequestBoardService {
 
 	List<RequestBoardVO> getRequestBoardList(RequestBoardPagingVO vo);
 	
-	int countRequestBoardList();
+	int countRequestBoardList(HashMap<String, Object> param);
+	
+	void updateRequestBoardView(RequestBoardVO vo);
 }

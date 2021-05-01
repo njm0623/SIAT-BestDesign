@@ -5,14 +5,24 @@ public class RequestBoardPagingVO {
 	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 	// 페이지에 표시할 페이지 번호 수
 	private int cntPage = 5;
+	private String orderby;
 	
+	public String getOrderby() {
+		return orderby;
+	}
+
+	public void setOrderby(String orderby) {
+		this.orderby = orderby;
+	}
+
 	public RequestBoardPagingVO() {
 	}
 	
-	public RequestBoardPagingVO(int total, int nowPage, int cntPerPage) {
+	public RequestBoardPagingVO(int total, int nowPage, int cntPerPage, String orderby) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
+		setOrderby(orderby);
 		calcLastPage(getTotal(), getCntPerPage());
 		calcStartEndPage(getNowPage(), cntPage);
 		calcStartEnd(getNowPage(), getCntPerPage());

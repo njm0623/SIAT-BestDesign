@@ -1,5 +1,7 @@
 package siat.bestdesign.requestboard.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,14 +57,26 @@ public class RequestBoardController {
 	public String getRequestBoard(RequestBoardVO vo, Model model) {
 		System.out.println("getRequestBoard 컨트롤러 호출");
 		model.addAttribute("requestBoard", requestBoardService.getRequestBoard(vo));
+		requestBoardService.updateRequestBoardView(vo);
 		return "requestboard/requestBoard";
 	}
 	
 	@RequestMapping("/getRequestBoardList.do")
-	public String getRequestBoardList(RequestBoardPagingVO vo, Model model, @RequestParam(value="nowPage", required = false) String nowPage, @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
+	public String getRequestBoardList(RequestBoardPagingVO vo, Model model, @RequestParam(value="search", required = false) String search, @RequestParam(value="orderby", required = false) String orderby, @RequestParam(value="nowPage", required = false) String nowPage, @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
 		System.out.println("getRequestBoardList 컨트롤러 호출");
+		System.out.println(orderby);
+		System.out.println(search);
 		
-		int total = requestBoardService.countRequestBoardList();
+		if (orderby == null) orderby="newestDate";
+		if (search == null) search="";
+		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("orderby",orderby);
+		param.put("search", search);
+		
+		int total = requestBoardService.countRequestBoardList(param);
+		System.out.println("total: " + total);
+		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "9";
@@ -72,7 +86,7 @@ public class RequestBoardController {
 			cntPerPage = "3";
 		}
 		
-		vo = new RequestBoardPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo = new RequestBoardPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), orderby);
 		
 		model.addAttribute("requestBoardListPaging", vo);
 		model.addAttribute("requestBoardList", requestBoardService.getRequestBoardList(vo));

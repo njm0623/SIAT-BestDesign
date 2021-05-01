@@ -183,7 +183,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="title">
 <h1 class="entry-title">${requestBoard.requestTitle}</h1> </div>
 <div class="meta">
-<ul class="meta-list"><li class="post-author"><icon class="fa fa-user"></icon> By ${requestBoard.userId}</a></li><li class="post-comments"> <span class="sep">/</span> <icon class="fa fa-comments"></icon> <a href="#comments">1 Comments</a></li></ul> </div>
+<ul class="meta-list">
+	<li class="post-author"><icon class="fa fa-user"></icon> &nbsp${requestBoard.userId}</a></li>
+	<li class="post-comments">
+		<span class="sep">/</span>		
+		<icon class="fa fa-comments"></icon>
+		<a href="#comments">1 Comments</a></li>
+		<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp ${requestBoard.requestView}</span>
+</ul> </div>
 </div>
 </header>
 <div class="entry-content">

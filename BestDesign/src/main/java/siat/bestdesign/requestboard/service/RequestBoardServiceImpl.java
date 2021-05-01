@@ -1,5 +1,6 @@
 package siat.bestdesign.requestboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,12 @@ public class RequestBoardServiceImpl implements RequestBoardService {
 		return requestBoardDAO.getRequestBoardList(vo);
 	}
 	
-	public int countRequestBoardList() {
-		return requestBoardDAO.countRequestBoardList();
+	public int countRequestBoardList(HashMap<String, Object> param) {
+		return requestBoardDAO.countRequestBoardList(param);
+	}
+
+	@Override
+	public void updateRequestBoardView(RequestBoardVO vo) {
+		requestBoardDAO.updateRequestBoardView(vo);
 	}
 }

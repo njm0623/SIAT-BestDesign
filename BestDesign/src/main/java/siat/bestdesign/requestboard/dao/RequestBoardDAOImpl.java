@@ -1,5 +1,6 @@
 package siat.bestdesign.requestboard.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,8 +46,14 @@ public class RequestBoardDAOImpl implements RequestBoardDAO {
 	}
 	
 	@Override
-	public int countRequestBoardList() {
+	public int countRequestBoardList(HashMap<String, Object> param) {
 		System.out.println("===> Mybatis countRequestBoardList() 호출");
-		return mybatis.selectOne("RequestBoardDAO.countRequestBoardList");
+		return mybatis.selectOne("RequestBoardDAO.countRequestBoardList", param);
+	}
+
+	@Override
+	public void updateRequestBoardView(RequestBoardVO vo) {
+		System.out.println("===> Mybatis updateRequestBoardView() 호출");
+		mybatis.update("RequestBoardDAO.updateRequestBoardView", vo);
 	}
 }
