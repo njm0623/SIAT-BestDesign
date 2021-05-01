@@ -135,7 +135,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				<c:if test="${list.getLevel() ne 0}">
 					<img src="../resources/board_re.gif"/>
 				</c:if>
+				<c:if test="${list.contactIsPublic eq 't' || sessionScope.userID eq list.userId || sessionScope.type eq '관리자'}">
 				<a href="BoardView.do?contactNum=${list.contactNum}">${list.contactTitle}</a>
+				</c:if>
+				<c:if test="${list.contactIsPublic eq 'f' && sessionScope.userID ne list.userId && sessionScope.type ne '관리자'}">
+				비공개입니다.
+				</c:if>
 			</td>
 			<td>${list.userId}</td>		
 			<td>${list.contactDate}</td>

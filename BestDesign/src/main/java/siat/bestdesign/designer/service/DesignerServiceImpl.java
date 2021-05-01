@@ -1,5 +1,7 @@
 package siat.bestdesign.designer.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -60,8 +62,21 @@ public class DesignerServiceImpl implements DesignerService{
 	@Override
 	public DesignerVO selectDesigner(DesignerVO vo) {
 		DesignerVO vo2 = designerDAO.selectLogin(vo);
-		vo2.setDesignerProfile(vo2.getDesignerProfile().replace("\r\n","<br>"));
+		if(vo2.getDesignerProfile()!=null){
+			vo2.setDesignerProfile(vo2.getDesignerProfile().replace("\r\n","<br>"));
+		}
 		return vo2;
+	}
+
+	@Override
+	public List<DesignerVO> getAllDesigner(HashMap map) {
+		return designerDAO.getAllDesigner(map);
+	}
+
+	@Override
+	public int getTotalPage() {
+		double t =  Math.ceil(designerDAO.getTotalCount()/9);
+		return (int)t;
 	}
 
 }

@@ -23,5 +23,18 @@
 			WHERE designerId = #{designerId}
 		]]>
 	</update>
-	
+	<select id="getAllDesigner" parameterType="hash" resultType="design">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM IDX, designer.* FROM siat.designer WHERE rownum>=1 ORDER BY designerId) d, siat.users u
+			WHERE IDX BETWEEN #{first} AND #{end} and u.userId = d.designerId
+			order by userId desc
+		]]>
+	</select>
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			from designer
+		]]>
+	</select>
 </mapper>

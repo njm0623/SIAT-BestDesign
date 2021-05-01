@@ -27,5 +27,11 @@ public interface ContactService {
 
 	String getSequenceNumber(ContactVO parent, String lastChildSeq);
 
+	void boardModify(ContactVO vo);
+
+	void boardDelete(int contactNum);
+
+	ContactVO selectByIdView(int contactNum);
+
 
 }

@@ -20,4 +20,8 @@ public interface ContactDAO {
 	void updateCount(int contactNum);
 
 	String selectLastSequenceNumber(String max, String min);
+
+	void boardModify(ContactVO vo);
+
+	void boardDelete(int contactNum);
 }

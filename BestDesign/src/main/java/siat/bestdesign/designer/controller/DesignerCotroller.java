@@ -1,5 +1,7 @@
 package siat.bestdesign.designer.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +46,24 @@ public class DesignerCotroller {
 		System.out.println("designer 에서 updateProfile");
 		designerService.updateDesigner(vo);
 		return "redirect:/designer/profile.do?designerId="+vo.getDesignerId();
+	}
+	
+	@RequestMapping("designerList.do")
+	public void designerList(Model m, String num) {
+		System.out.println("designer에서 designerList");
+		int first, end;
+		if(num==null) {
+			first = 1;
+			end = 9;
+		}else {
+			first = 1+Integer.parseInt(num)*9;
+			end = 9+Integer.parseInt(num)*9;
+		}
+		HashMap map = new HashMap();
+		map.put("first", first);
+		map.put("end", end);
+		m.addAttribute("dList", designerService.getAllDesigner(map));
+		m.addAttribute("perPage",designerService.getTotalPage());
 	}
 	
 	

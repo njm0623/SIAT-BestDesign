@@ -1,5 +1,7 @@
 package siat.bestdesign.designer.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import siat.bestdesign.designer.domain.DesignerVO;
@@ -19,4 +21,8 @@ public interface DesignerService {
 	DesignerVO selectDesigner(DesignerVO vo);
 
 	DesignerVO editDesigner(DesignerVO vo);
+
+	List<DesignerVO> getAllDesigner(HashMap map);
+
+	int getTotalPage();
 }

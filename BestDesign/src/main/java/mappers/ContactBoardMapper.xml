@@ -46,7 +46,7 @@
 	<update id="updateContact" parameterType="contact">
 		<![CDATA[
 			UPDATE CONTACTBOARD
-			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate
+			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}
 			where contactNum = #{contactNum}
 		]]>
 	</update>

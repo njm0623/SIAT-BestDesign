@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.xml.ws.RequestWrapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +55,7 @@ public class ContactBoardController {
 	@RequestMapping("BoardView.do")
 	public void boardView(Model m, int contactNum) {
 		System.out.println("contactboard에서 boardView.do");
-		m.addAttribute("rec",contactService.selectById(contactNum));
+		m.addAttribute("rec",contactService.selectByIdView(contactNum));
 		contactService.updateCount(contactNum);
 	}
 	
@@ -69,6 +71,24 @@ public class ContactBoardController {
 		vo.setContactSeqNum(sequenceNumber);
 		vo.setContactDate((new Date()).toString());
 		contactService.insertContact(vo);
+		return "redirect:/contactboard/boardList.do";
+	}
+	
+	@RequestMapping("BoardModifyForm.do")
+	public void boardModifyForm(Model m, int contactNum) {
+		System.out.println("contactboard에서 BoardModifyForm");
+		m.addAttribute("list", contactService.selectById(contactNum));
+	}
+	@RequestMapping("BoardModify.do")
+	public String boardModify(ContactVO vo) {
+		System.out.println("contactboard에서 BoardModify");		
+		contactService.boardModify(vo);
+		return "redirect:/contactboard/boardList.do";
+	}
+	@RequestMapping("BoardDelete.do")
+	public String boardDelete(int contactNum) {
+		System.out.println("contactboard에서 BoardDelete");		
+		contactService.boardDelete(contactNum);
 		return "redirect:/contactboard/boardList.do";
 	}
 

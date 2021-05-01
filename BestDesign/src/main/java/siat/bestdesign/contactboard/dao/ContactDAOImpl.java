@@ -55,4 +55,15 @@ public class ContactDAOImpl implements ContactDAO{
 		return mybatis.selectOne("contactBoard.selectLastSequenceNumber",map);
 	}
 
+	@Override
+	public void boardModify(ContactVO vo) {
+		mybatis.update("contactBoard.updateContact",vo);
+	}
+
+	@Override
+	public void boardDelete(int contactNum) {
+		mybatis.delete("contactBoard.deleteContact",contactNum);
+		
+	}
+
 }

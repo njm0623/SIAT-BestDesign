@@ -14,7 +14,7 @@ public class UserDAOImpl implements UserDAO{
 	private SqlSessionTemplate mybatis;
 
 	public void insertUser(UserVO vo) {
-		mybatis.insert("user.userInsert", vo);
+		mybatis.insert("users.userInsert", vo);
 		if(vo.getUserType()==2) {
 			mybatis.insert("designer.designerInsert", vo);
 		}
@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public UserVO selectLogin(UserVO vo) {
-		return mybatis.selectOne("user.userLogin",vo);
+		return mybatis.selectOne("users.userLogin",vo);
 	}
 
 }

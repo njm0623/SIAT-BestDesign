@@ -38,8 +38,10 @@ public class ContactServiceImpl implements ContactService{
 	}
 
 	@Override
-	public ContactVO selectById(int contactNum) {
-		return contactDAO.selectById(contactNum);
+	public ContactVO selectByIdView(int contactNum) {
+		ContactVO vo2 = contactDAO.selectById(contactNum);
+		vo2.setContactContent(vo2.getContactContent().replace("\r\n","<br>"));
+		return vo2;
 	}
 
 	@Override
@@ -107,6 +109,22 @@ public class ContactServiceImpl implements ContactService{
 			return sequenceNumber; 
 		}
 		return sequenceNumber;
+	}
+
+	@Override
+	public void boardModify(ContactVO vo) {
+		contactDAO.boardModify(vo);
+	}
+
+	@Override
+	public void boardDelete(int contactNum) {
+		contactDAO.boardDelete(contactNum);
+		
+	}
+
+	@Override
+	public ContactVO selectById(int contactNum) {
+		return contactDAO.selectById(contactNum);
 	}
 
 }

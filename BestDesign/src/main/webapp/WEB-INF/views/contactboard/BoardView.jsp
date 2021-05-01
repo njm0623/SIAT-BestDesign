@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <c:if test="${rec.contactIsPublic eq 'f' && sessionScope.userID ne rec.userId && sessionScope.type ne '관리자'}">
+<%
+session.setAttribute("messageType", "오류");
+session.setAttribute("messageContent", "비공개 글입니다.");
+%>
+	<c:redirect url="../main/index.do"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -136,8 +143,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			<a href="boardList.do"> 목록보기 </a>
 			<a href="BoardReplyForm.do?parentId=${rec.contactNum}"> 답변하기 </a>
 			<c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
+				<a href="BoardDelete.do?contactNum=${rec.contactNum}"> 삭제하기 </a>
+			</c:if>
+			<c:if test="${rec.userId eq sessionScope.userID}">
 				<a href="BoardModifyForm.do?contactNum=${rec.contactNum}"> 수정하기 </a>
-				<a href="BoardDeleteForm.do?contactNum=${rec.contactNum}"> 삭제하기 </a>
 			</c:if>
 		</td>
 	</tr>

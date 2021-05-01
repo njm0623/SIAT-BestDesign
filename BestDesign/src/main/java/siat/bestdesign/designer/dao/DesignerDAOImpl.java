@@ -1,5 +1,8 @@
 package siat.bestdesign.designer.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +26,14 @@ public class DesignerDAOImpl implements DesignerDAO{
 
 	public void updateDesigner(DesignerVO vo) {
 		mybatis.update("designer.designerUpdate",vo);
+	}
+
+	public List<DesignerVO> getAllDesigner(HashMap map) {
+		return mybatis.selectList("designer.getAllDesigner",map);
+	}
+
+	public int getTotalCount() {
+		return mybatis.selectOne("designer.getTotalCount");
 	}
 
 }
