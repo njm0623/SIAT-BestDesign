@@ -7,7 +7,9 @@
         }
         
         if(userID == null){
-        	response.sendRedirect("../chat/login.do");
+        	session.setAttribute("messageType", "오류");
+        	session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
+        	response.sendRedirect("index.jsp");
         	return;
         }
 %>
@@ -199,11 +201,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <div id="smarteditor" class="container">
-	<form id="frm" action="insertRequestBoard.do" method="post" >
-		<input type="hidden" name="userId" value="<%=userID%>"/>
-		<input type="text" id="title" name="requestTitle" placeholder="제목을 입력해 주세요."/>
+	<form id="frm" action="updateRequestBoard.do" method="post" >
+		<input type="hidden" name="requestNum" value="${requestBoard.requestNum}"/>
+		<input type="text" id="title" name="requestTitle" placeholder="제목을 입력해 주세요." value="${requestBoard.requestTitle}"/>
 		<textarea id="ir1" name="requestContent"></textarea>
-		<input type="file" id="file" onchange="fileChange(this)" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
+		<input type="file" id="file" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
 		<input type="hidden" id="fileName" name="requestImage"/>
 		<input type="button" id="save" value="저장" class="btn"/>
 		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='getRequestBoardList.do'"/>
@@ -280,7 +282,7 @@ var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/wp-embed.min.js?ver=5.7.1' id='wp-embed-js'></script>
 <script>window.GA_ID='';</script><script src='https://demo.colorlib.com/tyche/wp-content/plugins/flying-analytics/js/minimal-analytics.js' defer></script>
 </body>
-<script>
+<script>	
 	var oEditors = [];
 	
 	nhn.husky.EZCreator.createInIFrame({
@@ -301,7 +303,7 @@ var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","
 		},
 		fOnAppLoad : function(){
 			//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-			oEditors.getById["ir1"].exec("PASTE_HTML", [""]);
+			oEditors.getById["ir1"].exec("PASTE_HTML", ['${requestBoard.requestContent}']);
 		}
 	});
 </script>

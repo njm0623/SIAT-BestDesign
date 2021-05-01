@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import siat.bestdesign.requestboard.domain.RequestBoardPagingVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 
 @Repository("requestBoardDAO")
@@ -38,8 +39,14 @@ public class RequestBoardDAOImpl implements RequestBoardDAO {
 	}
 
 	@Override
-	public List<RequestBoardVO> getRequestBoardList(RequestBoardVO vo) {
+	public List<RequestBoardVO> getRequestBoardList(RequestBoardPagingVO vo) {
 		System.out.println("===> Mybatis getRequestBoardList() 호출");
 		return mybatis.selectList("RequestBoardDAO.getRequestBoardList", vo);
-	}	
+	}
+	
+	@Override
+	public int countRequestBoardList() {
+		System.out.println("===> Mybatis countRequestBoardList() 호출");
+		return mybatis.selectOne("RequestBoardDAO.countRequestBoardList");
+	}
 }

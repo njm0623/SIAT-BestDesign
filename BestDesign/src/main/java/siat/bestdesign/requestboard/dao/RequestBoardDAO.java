@@ -2,6 +2,7 @@ package siat.bestdesign.requestboard.dao;
 
 import java.util.List;
 
+import siat.bestdesign.requestboard.domain.RequestBoardPagingVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 
 public interface RequestBoardDAO {
@@ -14,6 +15,7 @@ public interface RequestBoardDAO {
 
 	RequestBoardVO getRequestBoard(RequestBoardVO vo);
 
-	List<RequestBoardVO> getRequestBoardList(RequestBoardVO vo);
+	List<RequestBoardVO> getRequestBoardList(RequestBoardPagingVO vo);
 
+	int countRequestBoardList();
 }

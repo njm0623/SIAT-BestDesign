@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import siat.bestdesign.requestboard.domain.RequestBoardPagingVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 import siat.bestdesign.requestboard.service.RequestBoardService;
 
@@ -26,6 +28,13 @@ public class RequestBoardController {
 		System.out.println("insertRequestBoardList 컨트롤러 호출");
 		requestBoardService.insertRequestBoard(vo);
 		return "redirect:/requestboard/getRequestBoardList.do";
+	}
+	
+	@RequestMapping("/modifyRequestBoard.do")
+	public String modifyRequestBoard(RequestBoardVO vo, Model model) {
+		System.out.println("modifyRequestBoard 컨트롤러 호출");
+		model.addAttribute("requestBoard", requestBoardService.getRequestBoard(vo));
+		return "requestboard/requestModifyBoard";
 	}
 	
 	@RequestMapping("/updateRequestBoard.do")
@@ -50,8 +59,22 @@ public class RequestBoardController {
 	}
 	
 	@RequestMapping("/getRequestBoardList.do")
-	public String getRequestBoardList(RequestBoardVO vo, Model model) {
+	public String getRequestBoardList(RequestBoardPagingVO vo, Model model, @RequestParam(value="nowPage", required = false) String nowPage, @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
 		System.out.println("getRequestBoardList 컨트롤러 호출");
+		
+		int total = requestBoardService.countRequestBoardList();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "9";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "3";
+		}
+		
+		vo = new RequestBoardPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		model.addAttribute("requestBoardListPaging", vo);
 		model.addAttribute("requestBoardList", requestBoardService.getRequestBoardList(vo));
 		return "requestboard/requestList";
 	}
