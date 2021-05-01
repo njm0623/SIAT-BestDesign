@@ -10,6 +10,7 @@
 		<typeAlias alias="user" type="siat.bestdesign.user.domain.UserVO" />
 		<typeAlias alias="design" type="siat.bestdesign.designer.domain.DesignerVO" />
 		<typeAlias alias="requestBoard" type="siat.bestdesign.requestboard.domain.RequestBoardVO" />
+		<typeAlias alias="requestBoardPaging" type="siat.bestdesign.requestboard.domain.RequestBoardPagingVO" />
 	</typeAliases>
 
 

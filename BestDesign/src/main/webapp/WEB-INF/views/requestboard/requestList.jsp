@@ -110,6 +110,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.goodsImage {
 		width: 353px;
 		height: auto;
+		z-index: 1;
 	}
 	
 	.goods {
@@ -136,16 +137,30 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	.requestTitle {
 		font-family: GyeonggiTitleM;
+		width: 353px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
 	}
 	
 	#imageWrapper {
 		height: 200px;
 		overflow: hidden;
+		position: relative;
+	}
+	
+	.stateImage {
+		position: absolute;
+		top:-5px;
+		left:-20px;
+		width: 100px;
+		height: auto;
+		z-index: 2;
 	}
 </style>
 </head>
 
-<body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
+<body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"></jsp:include>
@@ -181,6 +196,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
 		<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
 	</c:choose>
+		<c:if test="${requestBoard.requestState == 1}"><img src="../resources/completed.png" class="stateImage"/></c:if>
 		</div>
 		<h2 class="requestTitle">${requestBoard.requestTitle}</h2>
 		</a>
@@ -189,12 +205,26 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<c:set var="index" value="${index + 1}"/>
 </c:forEach>
 
-
-<div class="row text-center"><ul class="tyche-pager">
-<li class="active"><a href="https://demo.colorlib.com/tyche/shop/">1</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/">2</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
-</ul></div>
+<div class="row text-center">
+	<ul class="tyche-pager">
+	<c:if test="${requestBoardListPaging.nowPage != 1 }">
+		<li><a href="getRequestBoardList.do?nowPage=${requestBoardListPaging.nowPage - 1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text left">PREV</span> <span class="fa fa-long-arrow-left"></span></a></li>
+	</c:if>
+	<c:forEach begin="${requestBoardListPaging.startPage }" end="${requestBoardListPaging.endPage }" var="p">
+		<c:choose>
+			<c:when test="${p == requestBoardListPaging.nowPage }">
+				<li class="active"><a style="pointer-events: none; cursor: default;">${p}</a></li>
+			</c:when>
+			<c:when test="${p != requestBoardListPaging.nowPage }">
+				<li><a href="getRequestBoardList.do?nowPage=${p}&cntPerPage=${requestBoardListPaging.cntPerPage}">${p}</a></li>
+			</c:when>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${requestBoardListPaging.nowPage != requestBoardListPaging.lastPage}">
+		<li><a href="getRequestBoardList.do?nowPage=${requestBoardListPaging.nowPage+1 }&cntPerPage=${requestBoardListPaging.cntPerPage}"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
+	</c:if>
+	</ul>
+</div>
 </div>
 </main>
 </div>

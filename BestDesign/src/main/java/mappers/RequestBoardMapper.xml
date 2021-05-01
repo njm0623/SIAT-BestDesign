@@ -4,10 +4,10 @@
 <mapper namespace="RequestBoardDAO">
 	<insert id="insertRequestBoard" parameterType="requestBoard">
 		INSERT INTO REQUESTBOARD(requestNum, userId, requestTitle, requestContent, requestDate, requestState
-		<if test="requestImage != null">, requestImage</if>
+		<if test="requestImage != ''">, requestImage</if>
 		)
 		VALUES (seq_requestboard.nextval, #{userId}, #{requestTitle}, #{requestContent}, sysdate, 0
-		<if test="requestImage != null">, #{requestImage}</if>
+		<if test="requestImage != ''">, #{requestImage}</if>
 		)
 	</insert>
 	
@@ -15,7 +15,7 @@
 		UPDATE REQUESTBOARD SET
 		requestTitle = #{requestTitle},
 		requestContent = #{requestContent}
-		<if test="requestImage != null">, requestImage = #{requestImage}</if>
+		<if test="requestImage != ''">, requestImage = #{requestImage}</if>
 		WHERE requestNum = #{requestNum}
 	</update>
 	
@@ -30,8 +30,16 @@
 		WHERE requestNum = #{requestNum}
 	</select>
 	
-	<select id="getRequestBoardList" resultType="requestBoard">
-		SELECT * FROM REQUESTBOARD ORDER BY REQUESTNUM DESC
+	<select id="getRequestBoardList" parameterType="requestBoardPaging" resultType="requestBoard">
+		SELECT * FROM (
+			SELECT ROWNUM RN, R.* FROM (
+				SELECT * FROM REQUESTBOARD
+				ORDER BY REQUESTNUM DESC
+			) R
+		) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+	<select id="countRequestBoardList" resultType="int">
+		SELECT COUNT(*) FROM REQUESTBOARD
+	</select>
 </mapper>
