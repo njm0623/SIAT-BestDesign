@@ -18,7 +18,7 @@ public interface RequestBoardDAO {
 
 	List<RequestBoardVO> getRequestBoardList(RequestBoardPagingVO vo);
 
-	int countRequestBoardList(HashMap<String, Object> param);
+	int countRequestBoardList(HashMap param);
 	
 	void updateRequestBoardView(RequestBoardVO vo);
 }

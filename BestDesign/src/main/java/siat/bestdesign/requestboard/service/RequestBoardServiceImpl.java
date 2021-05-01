@@ -35,7 +35,7 @@ public class RequestBoardServiceImpl implements RequestBoardService {
 		return requestBoardDAO.getRequestBoardList(vo);
 	}
 	
-	public int countRequestBoardList(HashMap<String, Object> param) {
+	public int countRequestBoardList(HashMap param) {
 		return requestBoardDAO.countRequestBoardList(param);
 	}
 

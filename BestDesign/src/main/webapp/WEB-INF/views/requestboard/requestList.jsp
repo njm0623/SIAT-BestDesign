@@ -179,8 +179,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </style>
 <script>
 	$(function() {		
+		$("#${requestBoardListPaging.orderby}").attr("selected", "selected");
+		
 		$(".orderby").change(function() {
-			location.href="getRequestBoardList.do?"+this.value
+			location.href="getRequestBoardList.do"
 		})
 	})
 </script>
@@ -203,16 +205,17 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <option value="waiting" id="waiting">대기 중인 작품만</option>
 <option value="completed" id="completed">완료된 작품만</option>
 </select>
-<input type="hidden" name="paged" value="1" />
+<input type="hidden" name="search" value="${requestBoardListPaging.search}" />
 </form>
 </div>
 <br/><br/><br/>
 <div id="btnWrapper">
 <button class="pull-right" id="registerBtn" type="button" onClick="location.href='requestRegister.do'">등록</button>
 </div>
-<form role="search" method="get" class="woocommerce-product-search" id ="searchForm" action="getRequestBoardList.do?">
+<form role="search" method="get" class="woocommerce-product-search" id ="searchForm" action="getRequestBoardList.do">
 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-<input type="search" id="searchText" class="search-field" placeholder="찾는 요청을 검색해보세요." name="search" />
+<input type="search" id="searchText" class="search-field" placeholder="찾는 요청을 검색해보세요." value="${requestBoardListPaging.search}" name="search" />
+<input type="hidden" name="orderby" value="${requestBoardListPaging.orderby}"/>
 <button type="submit" value="Search">검색</button>
 </form>
 <c:set var="index" value="1"/>

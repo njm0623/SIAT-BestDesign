@@ -35,11 +35,24 @@
 			SELECT ROWNUM RN, R.* FROM (
 				SELECT * FROM REQUESTBOARD
 				<choose>
-					<when test="orderby.equals('popularity')">ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
-					<when test="orderby.equals('olderDate')">ORDER BY REQUESTDATE ASC</when>
-					<when test="orderby.equals('waiting')">WHERE REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
-					<when test="orderby.equals('completed')">WHERE REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
-					<otherwise>ORDER BY REQUESTDATE DESC</otherwise>
+					<when test="search != null">
+						<choose>
+							<when test="orderby.equals('popularity')">WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
+							<when test="orderby.equals('olderDate')">WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTDATE ASC</when>
+							<when test="orderby.equals('waiting')">WHERE REQUESTTITLE LIKE '%${search}%' AND REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
+							<when test="orderby.equals('completed')">WHERE REQUESTTITLE LIKE '%${search}%' AND REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
+							<otherwise>WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTDATE DESC</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						<choose>
+							<when test="orderby.equals('popularity')">ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
+							<when test="orderby.equals('olderDate')">ORDER BY REQUESTDATE ASC</when>
+							<when test="orderby.equals('waiting')">WHERE REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
+							<when test="orderby.equals('completed')">WHERE REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
+							<otherwise>ORDER BY REQUESTDATE DESC</otherwise>
+						</choose>
+					</otherwise>					
 				</choose>
 			) R
 		) WHERE RN BETWEEN #{start} AND #{end}
@@ -48,11 +61,24 @@
 	<select id="countRequestBoardList" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) FROM REQUESTBOARD
 		<choose>
-			<when test="_parameter.equals('popularity')">ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
-			<when test="_parameter.equals('olderDate')">ORDER BY REQUESTDATE ASC</when>
-			<when test="_parameter.equals('waiting')">WHERE REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
-			<when test="_parameter.equals('completed')">WHERE REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
-			<otherwise>ORDER BY REQUESTDATE DESC</otherwise>
+			<when test="search != null">
+				<choose>
+					<when test="orderby.equals('popularity')">WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
+					<when test="orderby.equals('olderDate')">WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTDATE ASC</when>
+					<when test="orderby.equals('waiting')">WHERE REQUESTTITLE LIKE '%${search}%' AND REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
+					<when test="orderby.equals('completed')">WHERE REQUESTTITLE LIKE '%${search}%' AND REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
+					<otherwise>WHERE REQUESTTITLE LIKE '%${search}%' ORDER BY REQUESTDATE DESC</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="orderby.equals('popularity')">ORDER BY REQUESTVIEW DESC, REQUESTDATE DESC</when>
+					<when test="orderby.equals('olderDate')">ORDER BY REQUESTDATE ASC</when>
+					<when test="orderby.equals('waiting')">WHERE REQUESTSTATE = 0 ORDER BY REQUESTDATE DESC</when>
+					<when test="orderby.equals('completed')">WHERE REQUESTSTATE = 1 ORDER BY REQUESTDATE DESC</when>
+					<otherwise>ORDER BY REQUESTDATE DESC</otherwise>
+				</choose>
+			</otherwise>			
 		</choose>
 	</select>
 	

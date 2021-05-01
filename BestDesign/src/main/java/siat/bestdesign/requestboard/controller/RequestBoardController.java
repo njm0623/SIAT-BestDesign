@@ -68,9 +68,8 @@ public class RequestBoardController {
 		System.out.println(search);
 		
 		if (orderby == null) orderby="newestDate";
-		if (search == null) search="";
 		
-		HashMap<String, Object> param = new HashMap<String, Object>();
+		HashMap param = new HashMap();
 		param.put("orderby",orderby);
 		param.put("search", search);
 		
@@ -86,7 +85,7 @@ public class RequestBoardController {
 			cntPerPage = "3";
 		}
 		
-		vo = new RequestBoardPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), orderby);
+		vo = new RequestBoardPagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), orderby, search);
 		
 		model.addAttribute("requestBoardListPaging", vo);
 		model.addAttribute("requestBoardList", requestBoardService.getRequestBoardList(vo));

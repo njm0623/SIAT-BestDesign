@@ -46,7 +46,7 @@ public class RequestBoardDAOImpl implements RequestBoardDAO {
 	}
 	
 	@Override
-	public int countRequestBoardList(HashMap<String, Object> param) {
+	public int countRequestBoardList(HashMap param) {
 		System.out.println("===> Mybatis countRequestBoardList() 호출");
 		return mybatis.selectOne("RequestBoardDAO.countRequestBoardList", param);
 	}
