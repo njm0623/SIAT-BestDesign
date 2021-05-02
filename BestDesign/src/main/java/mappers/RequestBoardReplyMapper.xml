@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RequestBoardReplyDAO">
+	<insert id="insertReply" parameterType="requestBoardReply">
+		INSERT INTO AUCTION(AUCTIONNUM, REQUESTNUM, USERID, AUCTIONPRICE, AUCTIONDATE, AUCTIONSTATE
+		<if test="auctionComment != ''">, AUCTIONCOMMENT</if>
+		)
+		VALUES(SEQ_REQUESTBOARDREPLY.nextval, #{requestNum}, #{userId}, #{auctionPrice}, sysdate, 0
+		<if test="auctionComment != ''">, #{auctionComment}</if>
+		)
+	</insert>
+
+	<select id='selectAllReply' parameterType="string" resultType='requestBoardReply'>
+		SELECT * FROM AUCTION
+		WHERE REQUESTNUM = #{requestNum}
+	</select>
+	
+	<delete id='deleteReply' parameterType='string'>
+		DELETE FROM AUCTION WHERE AUCTIONNUM=#{auctionNum}
+	</delete>
+	
+	<update id='modifyReply' parameterType='requestBoardReply'>
+		UPDATE AUCTION SET
+		auctionPrice = #{auctionPrice}
+		auctionComment = #{auctionComment}
+		WHERE auctionNum = #{auctionNum}
+	</update>
+</mapper>

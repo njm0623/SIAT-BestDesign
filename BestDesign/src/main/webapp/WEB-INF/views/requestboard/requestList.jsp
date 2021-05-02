@@ -151,10 +151,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	.stateImage {
 		position: absolute;
-		top:-5px;
-		left:-20px;
-		width: 100px;
-		height: auto;
+		top:0px;
+		left:0px;
 		z-index: 2;
 	}
 	
