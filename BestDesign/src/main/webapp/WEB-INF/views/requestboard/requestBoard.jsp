@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%
+        String userID = null;
+        if(session.getAttribute("userID") != null){
+        	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
+        }
+        
+        pageContext.setAttribute("currentLoginID", userID);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -141,17 +149,28 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.entry-title {
 		font-family:'GyeonggiTitleM'
 	}
+	
+	#updateBtn {
+		margin-left: 490px;
+	}
 </style>
+<script>
+	$(function() {
+		$("#deleteBtn").click(function() {
+			if (confirm("정말로 삭제하시겠습니까?")) {
+				location.href = "deleteRequestBoard.do?requestNum="+${requestBoard.requestNum}
+			}
+		})
+	})
+</script>
 </head>
 <body class="post-template-default single single-post postid-79 single-format-standard wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"></jsp:include>
-<br>
 <div class="site-content">
 <div class="container">
 <main id="main" class="site-main" role="main">
-
 <article id="post-79" class="tyche-blog-post post-79 post type-post status-publish format-standard has-post-thumbnail hentry category-fashion tag-fashion tag-jackets tag-trends">
 <header class="entry-header">
 <div class="tyche-blog-image">
@@ -164,13 +183,25 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="title">
 <h1 class="entry-title">${requestBoard.requestTitle}</h1> </div>
 <div class="meta">
-<ul class="meta-list"><li class="post-author"><icon class="fa fa-user"></icon> By ${requestBoard.userId}</a></li><li class="post-comments"> <span class="sep">/</span> <icon class="fa fa-comments"></icon> <a href="#comments">1 Comments</a></li></ul> </div>
+<ul class="meta-list">
+	<li class="post-author"><icon class="fa fa-user"></icon> &nbsp${requestBoard.userId}</a></li>
+	<li class="post-comments">
+		<span class="sep">/</span>		
+		<icon class="fa fa-comments"></icon>
+		<a href="#comments">1 Comments</a></li>
+		<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp ${requestBoard.requestView}</span>
+</ul> </div>
 </div>
 </header>
 <div class="entry-content">
 ${requestBoard.requestContent}
 </div>
 </article>
+<c:if test="${requestBoard.userId == currentLoginID}">
+<button id="updateBtn" type="button" onClick="location.href='modifyRequestBoard.do?requestNum=${requestBoard.requestNum}'">수정</button>
+<button id="deleteBtn" type="button">삭제</button>
+</c:if>
+
 <hr>
 <div id="comments" class="comments-area">
 <a href="#comment" onfocus="blur()"></a>

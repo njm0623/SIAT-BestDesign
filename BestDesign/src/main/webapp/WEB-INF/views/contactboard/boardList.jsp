@@ -101,11 +101,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		#page{
 			text-align: center;
 		}
-		html body table{ border-spacing: 0 10px;
-						border-collapse:separate; 
-						
-		 }
-		
 	</style>
 
 </head>

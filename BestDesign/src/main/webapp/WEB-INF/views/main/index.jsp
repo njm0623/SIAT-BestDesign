@@ -101,11 +101,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		color: black;
 	}
 </style>
-<script>
-$(function(){
-	
-})
-</script>
+
 <!-- ************************************************************************************************************* -->
 </head>
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
