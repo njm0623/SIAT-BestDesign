@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+<select resultType="main" id="getTopDesigner">
+<![CDATA[
+select d1.designerid, d1.designerimage, dcount
+from
+(select distinct de.designerid, de.designerImage
+from designer de, requestdeal re
+where de.designerid = re.dealsellerId) d1,
+(SELECT r.dealsellerid as designerId, (NVL(r.rcount, 0))+ (NVL(s.scount, 0)) as dCount
+FROM (select dealsellerid, count(*) as rcount from requestdeal group by dealsellerid) r
+FULL OUTER JOIN (select dealsellerid, count(*) as scount from saledeal group by dealsellerid) s
+ON r.dealsellerid = s.dealsellerid) d2
+where d1.designerid = d2.designerid
+]]>
+ </select>
+
+</mapper>

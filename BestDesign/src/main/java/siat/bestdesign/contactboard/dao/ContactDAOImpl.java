@@ -17,6 +17,7 @@ public class ContactDAOImpl implements ContactDAO{
 
 	@Override
 	public List<ContactVO> getContactBoardList(HashMap map) {
+		System.out.println("val : " +map.get("val"));
 		return mybatis.selectList("contactBoard.getContactBoardList",map);
 	}
 
@@ -33,8 +34,9 @@ public class ContactDAOImpl implements ContactDAO{
 	}
 
 	@Override
-	public int getTotalCount() {
-		return mybatis.selectOne("contactBoard.getTotalCount");
+	public int getTotalCount(HashMap map) {
+		
+		return mybatis.selectOne("contactBoard.getTotalCount", map);
 	}
 
 	@Override

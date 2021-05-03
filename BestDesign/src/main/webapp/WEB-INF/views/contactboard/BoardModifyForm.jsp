@@ -118,12 +118,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"/>
 
 	<h4> 문의 게시판 글 쓰기 </h4><br/>
-	나중에 이쁘게 만드시오 <br/><br/>
 	<form name='frm' method='post' action="BoardModify.do">
 	<input type='hidden' name='contactNum' value="${list.contactNum}"><br/><br/>
 	<input type='hidden' name='userId' value="${list.userId}"><br/><br/>
-	제  목 : <input type='text' name='contactTitle' value="${list.contactTitle }"><br/><br/>
-	내  용 : <textarea rows='10' cols='40' name='contactContent'>${list.contactContent}</textarea><br/>	
+	제  목 : <input type='text' name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요." value="${list.contactTitle }"><br/><br/>
+	내  용 : <textarea rows='10' cols='40' name='contactContent' id='contactContent' placeholder="내용을 입력하세요.">${list.contactContent}</textarea><br/>	
 	파일 : <input type='file' name='contactFile' value="${list.contactFile}"><br/><br/>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
@@ -136,7 +135,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	</div>
 </div>
 	<input type='submit' value='작성'>
-	<input type='reset' value='취소'>
+	<input type='reset' value='취소'onclick="location.href='BoardView.do?contactNum=${list.contactNum}'">
 	</form>
 	
 	<%

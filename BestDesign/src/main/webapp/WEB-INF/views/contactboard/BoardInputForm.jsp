@@ -108,7 +108,22 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
+    <script>
+    $(function(){
+    	$("#frm").validate({// 데이터 유효성 검사 플러그인
+            rules:{
+            	contactTitle:"required",
+                contactContent:"required"
+            },
+           messages:{
+            	contactTitle:"제목을 입력하세요.",
+            	contactContent: "내용을 입력하세요."
+            }
+    	})
+    })
+    </script>
 	
 
 </head>
@@ -116,13 +131,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
+<div class="container">
 
 	<h4> 문의 게시판 글 쓰기 </h4><br/>
-	나중에 이쁘게 만드시오 <br/><br/>
-	<form name='frm' method='post' action="BoardSave.do">
+	<form id="frm" name='frm' method='post' action="BoardSave.do">
 	<input type='hidden' name='userId' value="${sessionScope.userID}"><br/><br/>
-	제  목 : <input type='text' name='contactTitle'><br/><br/>
-	내  용 : <textarea rows='10' cols='40' name='contactContent'></textarea><br/>	
+	제  목 : <input type='text' style="width: 500px;"name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요."><br/><br/>
+	내  용 : <textarea rows='10' cols='40' name='contactContent' id='contactContent' placeholder="내용을 입력하세요."></textarea><br/>	
 	파일 : <input type='file' name='contactFile'><br/><br/>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
@@ -135,8 +150,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	</div>
 </div>
 	<input type='submit' value='작성'>
-	<input type='reset' value='취소'>
+	<input type='reset' value='취소' onclick="location.href='boardList.do'">
 	</form>
+	</div>
 	
 	<%
     	String messageContent = null;
@@ -203,6 +219,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		</div>
     	</div>
     </div>
+    <br><br>
 <jsp:include page="../main/footer.jsp"/>
 
 <script type="text/javascript">

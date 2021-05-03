@@ -29,7 +29,7 @@ public class ContactBoardController {
 	}
 	
 	@RequestMapping("boardList.do")
-	public void boardList(Model m, String firstRow, String endRow) {
+	public void boardList(Model m, String firstRow, String endRow, String menu, String search) {
 		System.out.println("contactboard 에서 boardList.do");
 		if(firstRow==null) {
 			firstRow="1";
@@ -38,8 +38,14 @@ public class ContactBoardController {
 		HashMap map = new HashMap();
 		map.put("first", Integer.parseInt(firstRow));
 		map.put("end", Integer.parseInt(endRow));
+		if(menu!=null && search!=null) {
+			map.put("key", menu);
+			map.put("val", search);
+			m.addAttribute("menu",menu);
+			m.addAttribute("search",search);			
+		}
 		m.addAttribute("boardList",contactService.getContactBoardList(map));
-		m.addAttribute("perPage",contactService.getTotalPage());
+		m.addAttribute("perPage",contactService.getTotalPage(map));
 	}
 	
 	@RequestMapping("BoardSave.do")
@@ -55,8 +61,8 @@ public class ContactBoardController {
 	@RequestMapping("BoardView.do")
 	public void boardView(Model m, int contactNum) {
 		System.out.println("contactboard에서 boardView.do");
-		m.addAttribute("rec",contactService.selectByIdView(contactNum));
 		contactService.updateCount(contactNum);
+		m.addAttribute("rec",contactService.selectByIdView(contactNum));
 	}
 	
 	@RequestMapping("BoardReply.do")

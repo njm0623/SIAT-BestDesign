@@ -177,6 +177,43 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <a class="prev" href="#"><i class="fa fa-angle-left"></i></a>
 <a class="next" href="#"><i class="fa fa-angle-right"></i></a>
 </div>
+<c:set var="i" value="1"/>
+<c:forEach var="rec" items="${dList}">
+
+<c:if test="${i%3 eq 1}">
+	<div class="goodsRow">
+	</c:if>
+
+<c:choose>
+    <c:when test="${i%3 eq 1}">
+        <div class="goods first">
+    </c:when>
+    <c:when test="${i%3 eq 2}">
+        <div class="goods">
+    </c:when>
+    <c:when test="${i%3 eq 0}">
+        <div class="goods last">
+    </c:when>
+</c:choose>
+	<a href="profile.do?designerId=${rec.designerId}">
+	<c:choose>
+   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
+</c:choose>
+		<h2>${rec.designerId}</h2>
+		</a>
+	</div>
+	
+	
+	<c:if test="${i%3 eq 0}">
+	</div>
+	</c:if>
+	
+	<c:set var="i" value="${i+1}"/>
+
+</c:forEach>
+</div>
+<%--
 <div class="col-sm-9 col-xs-12">
 <div class="owl-carousel tyche-product-slider" data-attr-elements="3">
 <div class="item">
@@ -215,6 +252,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+--%>
 <div class="col-sm-3 hidden-xs">
 <div class="tyche-banner" style="background-image:url(https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/long-dress-1438140_1920.jpg)">
 <div class="tyche-banner-caption">

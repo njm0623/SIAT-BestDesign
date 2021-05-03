@@ -3,12 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
-		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
 			WHERE IDX BETWEEN #{first} AND #{end}
+			<if test="val != null">and ${key} LIKE '%${val}%' </if>
 			order by contactSeqNum desc
-		]]>
 	</select>
 	<select id="getGroupNum" resultType="contact">
 		<![CDATA[
@@ -16,11 +15,12 @@
 			from dual
 		]]>
 	</select>
-	<select id="getTotalCount" resultType="int">
-		<![CDATA[
+	<select id="getTotalCount" parameterType="hash" resultType="int">
 			SELECT count(*)
 			from contactboard
-		]]>
+			<where>
+			<if test="key != null">${key} LIKE '%${val}%' </if>
+			</where>
 	</select>
 	<select id="selectById" parameterType="int" resultType="contact">
 		<![CDATA[
@@ -46,7 +46,7 @@
 	<update id="updateContact" parameterType="contact">
 		<![CDATA[
 			UPDATE CONTACTBOARD
-			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}
+			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}, contactFile = #{contactFile}
 			where contactNum = #{contactNum}
 		]]>
 	</update>
@@ -63,4 +63,5 @@
 			WHERE contactSeqNum < #{max} AND contactSeqNum >= #{min}
 		]]>
 	</select>
+	
 </mapper>
