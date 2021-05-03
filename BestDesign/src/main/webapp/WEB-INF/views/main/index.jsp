@@ -296,7 +296,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
 	<c:choose>
    <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
-   <c:otherwise><img width="400" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>
+<%--    <c:otherwise><img width="400" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise> --%>
 </c:choose>
 		<h2>${draw.saleTitle}</h2>
 		</a>
