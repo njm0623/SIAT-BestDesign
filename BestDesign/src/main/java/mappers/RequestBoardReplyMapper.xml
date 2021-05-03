@@ -14,6 +14,7 @@
 	<select id='selectAllReply' parameterType="string" resultType='requestBoardReply'>
 		SELECT * FROM AUCTION
 		WHERE REQUESTNUM = #{requestNum}
+		ORDER BY AUCTIONDATE DESC
 	</select>
 	
 	<delete id='deleteReply' parameterType='string'>
@@ -25,5 +26,20 @@
 		auctionPrice = #{auctionPrice}
 		auctionComment = #{auctionComment}
 		WHERE auctionNum = #{auctionNum}
+	</update>
+	
+	<insert id="insertRequestBoardDeal" parameterType="requestBoardDeal">
+		INSERT INTO REQUESTDEAL(DEALNUM, REQUESTNUM, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE
+		<if test="dealImage != ''">, DEALIMAGE</if>
+		)
+		VALUES(SEQ_REQUESTBOARDDEAL.nextval, #{requestNum}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate
+		<if test="dealImage != ''">, #{dealImage}</if>
+		)
+	</insert>
+	
+	<update id="updateRequestBoardState" parameterType="requestBoardDeal">
+		UPDATE REQUESTBOARD
+		SET REQUESTSTATE = 1
+		where requestNum = #{requestNum}
 	</update>
 </mapper>

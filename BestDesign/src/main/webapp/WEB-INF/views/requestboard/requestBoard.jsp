@@ -232,6 +232,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			       }); // end of ajax
 			}); // end of click
 			
+			// 수락 버튼 클릭
+			$('#replyList').on("click", ".acceptReply", function() {
+				if (confirm("정말로 수락하시겠습니까?")) {
+					var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().text()
+					var replyer = $(this).parent().parent().children().children().children('.replyer').children().text()
+					
+					replyPrice = replyPrice.split(":")
+					replyPrice = replyPrice[1].trim()
+					replyPrice = replyPrice.split("원")
+					replyPrice = replyPrice[0].trim()
+					
+					replyer = replyer.split(":")
+					replyer = replyer[1].trim()
+					
+					console.log(replyPrice)
+					console.log(replyer)
+					
+					location.href="reply/accept.do?requestNum=${requestBoard.requestNum}&dealBuyerId=${requestBoard.userId}&dealSellerId="+replyer+"&dealPrice="+replyPrice+"&dealImage=${requestBoard.requestImage}"
+				}
+			});
+			
 			$('#replyList').on("click", ".deleteReply", function() {
 				if (confirm("정말로 삭제하시겠습니까?")) {
 					$.ajax({
@@ -349,7 +370,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			     				article.append(commentBtn);
 				     		}
 				     		
-				     		if('${currentLoginID}' == '${requestBoard.userId}') {
+				     		if('${currentLoginID}' == '${requestBoard.userId}' && '${requestBoard.requestState}' == 0) {
 				     			var commentBtn = $('<div class="comment-btn"/>');
 			     					commentBtn.append('<input type="button" class="acceptReply" value="수락"></input><br>');
 			     				article.append(commentBtn);

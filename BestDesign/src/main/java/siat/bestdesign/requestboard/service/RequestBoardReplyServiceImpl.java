@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import siat.bestdesign.requestboard.dao.RequestBoardReplyDAOImpl;
+import siat.bestdesign.requestboard.domain.RequestBoardDealVO;
 import siat.bestdesign.requestboard.domain.RequestBoardReplyVO;
+import siat.bestdesign.requestboard.domain.RequestBoardVO;
 
 @Service("requestBoardReplyService")
 public class RequestBoardReplyServiceImpl implements RequestBoardReplyService {
@@ -28,7 +30,18 @@ public class RequestBoardReplyServiceImpl implements RequestBoardReplyService {
 		return requestBoardReplyDAO.deleteReply(auctionNum);
 	}
 	
+	@Override
 	public int modifyReply(RequestBoardReplyVO vo) {
 		return requestBoardReplyDAO.modifyReply(vo);
+	}
+	
+	@Override
+	public void insertRequestBoardDeal(RequestBoardDealVO vo) {
+		requestBoardReplyDAO.insertRequestBoardDeal(vo);
+	}
+	
+	@Override
+	public void updateRequestBoardState(RequestBoardDealVO vo) {
+		requestBoardReplyDAO.updateRequestBoardState(vo);
 	}
 }
