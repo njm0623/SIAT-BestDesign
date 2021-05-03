@@ -7,4 +7,6 @@ import siat.bestdesign.main.domain.MainVO;
 public interface MainService {
 
 	List<MainVO> getTopDesigner();
+
+	List<MainVO> getHotDrawing();
 }

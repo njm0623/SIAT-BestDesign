@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,6 +12,7 @@
 
 <title>Home - Tyche Demo</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../resources/js/owl.carousel.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
@@ -90,7 +92,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
 <style>
 	#masthead {
@@ -99,6 +100,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 	.sf-menu>li>a {
 		color: black;
+	}
+	.goodsRow{
+		display:flex;
+		text-align: center;
+	}
+	.goodsRow div{
+		margin: 10px;
 	}
 </style>
 
@@ -165,18 +173,32 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </section>
+
+<%-- <div class="goodsRow">
+<c:forEach var="rec" items="${dList}">
+<c:set var="pic" value="${rec.designerImage}"/>
+<c:if test="${rec.designerImage eq null}">
+<c:set var="pic" value="../resources//main_logo.png"/>
+</c:if>
+<div class="goods first">
+<a href="../designer/profile.do?designerId=${rec.designerId}">
+<img width="200px" src="${pic}" class="attachment-shop_catalog size-shop_catalog"/>
+<h3>인기 디자이너</h3>
+</a>
+</div>
+</c:forEach> --%>
 <div class="site-content">
 
 <section class="content-area-1">
 <div class="container">
 <div class="row">
 <div class="col-xs-12">
-<div id="tyche_products-3" class="tyche-products primary widget widget_tyche_products"><h3 class="widget-title"><span>TOP DESIGNERS</span></h3>
+<div id="tyche_products-3" class="tyche-products primary widget widget_tyche_products"><h3 class="widget-title"><span>TOP DESIGNER</span></h3>
 <div class="row tyche-product-slider-container">
-<div class="tyche-product-slider-navigation hidden-xs">
-<a class="prev" href="#"><i class="fa fa-angle-left"></i></a>
-<a class="next" href="#"><i class="fa fa-angle-right"></i></a>
-</div>
+<div class="col-sm-9 col-xs-12">
+<div class="tyche-product-slider" data-attr-elements="3">
+
+
 <c:set var="i" value="1"/>
 <c:forEach var="rec" items="${dList}">
 
@@ -195,10 +217,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
         <div class="goods last">
     </c:when>
 </c:choose>
-	<a href="profile.do?designerId=${rec.designerId}">
+	<a href="../designer/profile.do?designerId=${rec.designerId }">
 	<c:choose>
-   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
-   <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
+   <c:when test="${empty rec.designerImage}"><img width="330" height="150"  src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:otherwise><img width="330" height="150" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
 </c:choose>
 		<h2>${rec.designerId}</h2>
 		</a>
@@ -213,47 +235,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 </c:forEach>
 </div>
-<%--
-<div class="col-sm-9 col-xs-12">
-<div class="owl-carousel tyche-product-slider" data-attr-elements="3">
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="../resources/bbb.png" data-src="../resources/bbb.png" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="C:\00.siat\test\home\메인페이지썸네일 상세페이지.html" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Black Top</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=19" data-quantity="1" data-product_id="19" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+
 </div>
 </div>
-</div>
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<span class="onsale">Sale!</span>
-<img width="255" height="320" src="../resources/bbb.png" data-src="../resources/bbb.png" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/little-black-top/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Little Black Top</a></h3>
-<span class="price"><del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</bdi></span></ins></span>
-<a rel="nofollow" href="?add-to-cart=17" data-quantity="1" data-product_id="17" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/model-858751_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/model-858751_1920-691x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/little-black-shirt/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Little Black Shirt</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>40.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=15" data-quantity="1" data-product_id="15" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-</div>
-</div>
---%>
-<div class="col-sm-3 hidden-xs">
+
+
+
+
+<!-- <div class="col-sm-3 hidden-xs">
 <div class="tyche-banner" style="background-image:url(https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/long-dress-1438140_1920.jpg)">
 <div class="tyche-banner-caption">
 <span class="first_line"> SAVE UP TO </span>
@@ -263,14 +252,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
 </div>
 </div><div id="tyche_products-4" class="tyche-products secondary widget widget_tyche_products"><h3 class="widget-title"><span>HOT DRAWING</span></h3>
 <div class="row tyche-product-slider-container">
-<div class="tyche-product-slider-navigation hidden-xs">
-<a class="prev" href="#"><i class="fa fa-angle-left"></i></a>
-<a class="next" href="#"><i class="fa fa-angle-right"></i></a>
-</div>
-<div class="col-sm-3 hidden-xs">
+
+
+<!-- <div class="col-sm-3 hidden-xs">
 <div class="tyche-banner" style="background-image:url(https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1426011_1920.jpg)">
 <div class="tyche-banner-caption">
 <span class="first_line"> SAVE UP TO </span>
@@ -280,42 +269,52 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
 <div class="col-sm-9 col-xs-12">
-<div class="owl-carousel tyche-product-slider" data-attr-elements="3">
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<span class="onsale">Sale!</span>
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/elegance-18594_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/elegance-18594_1920-683x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/red-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Red Magawi Shoes</a></h3>
-<span class="price"><del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>25.00</bdi></span></ins></span>
-<a rel="nofollow" href="?add-to-cart=25" data-quantity="1" data-product_id="25" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+<div class="tyche-product-slider" data-attr-elements="3">
+
+
+<c:set var="i" value="1"/>
+<c:forEach var="draw" items="${sList}">
+
+<c:if test="${i%3 eq 1}">
+	<div class="goodsRow">
+	</c:if>
+
+<c:choose>
+    <c:when test="${i%3 eq 1}">
+        <div class="goods first">
+    </c:when>
+    <c:when test="${i%3 eq 2}">
+        <div class="goods">
+    </c:when>
+    <c:when test="${i%3 eq 0}">
+        <div class="goods last">
+    </c:when>
+</c:choose>
+	<a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
+	<c:choose>
+   <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:otherwise><img width="400" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>
+</c:choose>
+		<h2>${draw.saleTitle}</h2>
+		</a>
+	</div>
+	
+	
+	<c:if test="${i%3 eq 0}">
+	</div>
+	</c:if>
+	
+	<c:set var="i" value="${i+1}"/>
+
+</c:forEach>
 </div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/shoe-1040802_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/shoe-1040802_1920-683x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/blue-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Blue Magawi Shoes</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>37.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=23" data-quantity="1" data-product_id="23" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1327020_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1327020_1920-768x698.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/beije-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Beije Magawi Shoes</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>30.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=21" data-quantity="1" data-product_id="21" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
+
+
+
+
 </div>
 </div>
 </div>

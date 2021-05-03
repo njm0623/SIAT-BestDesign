@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import siat.bestdesign.main.domain.MainVO;
 import siat.bestdesign.main.service.MainService;
 
 @Controller
@@ -24,5 +25,6 @@ public class MainController {
 	public void index(Model m) {
 		System.out.println("main 에서 index.do");
 		m.addAttribute("dList",mainService.getTopDesigner());
+		m.addAttribute("sList",mainService.getHotDrawing());		
 	}
 }

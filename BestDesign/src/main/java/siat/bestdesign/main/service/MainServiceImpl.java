@@ -17,5 +17,10 @@ public class MainServiceImpl implements MainService {
 	public List<MainVO> getTopDesigner() {
 		return MainDAO.getTopDesigner();
 	}
+
+	@Override
+	public List<MainVO> getHotDrawing() {
+		return MainDAO.getHotDrawing();
+	}
 	
 }

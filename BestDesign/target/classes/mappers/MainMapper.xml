@@ -13,7 +13,15 @@ where de.designerid = re.dealsellerId) d1,
 FROM (select dealsellerid, count(*) as rcount from requestdeal group by dealsellerid) r
 FULL OUTER JOIN (select dealsellerid, count(*) as scount from saledeal group by dealsellerid) s
 ON r.dealsellerid = s.dealsellerid) d2
-where d1.designerid = d2.designerid
+where d1.designerid = d2.designerid and rownum <=3
+order by dcount desc
+]]>
+ </select>
+<select resultType="main" id="getHotDrawing">
+<![CDATA[
+select salenum, saletitle, saleimage, salerate
+from (select * from saleboard order by salerate desc)
+where TO_CHAR(saledate,'yymm') = TO_CHAR(sysdate,'yymm') and rownum <=3
 ]]>
  </select>
 

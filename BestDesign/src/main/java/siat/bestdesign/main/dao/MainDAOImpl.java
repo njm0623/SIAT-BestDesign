@@ -15,7 +15,7 @@ import siat.bestdesign.review.domain.ReviewVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 import siat.bestdesign.user.domain.UserVO;
 
-@Repository
+@Repository("mainDAO")
 public class MainDAOImpl implements MainDAO{
 
 	@Autowired
@@ -23,6 +23,10 @@ public class MainDAOImpl implements MainDAO{
 
 	public List<MainVO> getTopDesigner() {
 		return mybatis.selectList("main.getTopDesigner");
+	}
+
+	public List<MainVO> getHotDrawing() {
+		return mybatis.selectList("main.getHotDrawing");
 	}
 	
 }

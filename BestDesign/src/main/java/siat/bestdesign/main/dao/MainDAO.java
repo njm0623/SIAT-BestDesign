@@ -13,4 +13,5 @@ import siat.bestdesign.user.domain.UserVO;
 
 public interface MainDAO {
 	List<MainVO> getTopDesigner();
+	List<MainVO> getHotDrawing();
 }
