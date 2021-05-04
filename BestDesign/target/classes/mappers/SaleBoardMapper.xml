@@ -2,8 +2,96 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SaleBoardDAO">
+	<insert id="insertSaleBoard" parameterType="sale">
+		INSERT INTO SALEBOARD(saleNum, designerId, saleTitle, saleContent, saleImage, saleDate, salePrice, saleCate, saleView, saleRate)
+		VALUES (seq_saleboard.nextval, #{designerId}, #{saleTitle}, #{saleContent}, #{saleImage}, sysdate, #{salePrice}, #{saleCate}, 0, 0)
+	</insert>
 	
-
+	<update id="updateSaleBoard" parameterType="sale">
+		UPDATE SALEBOARD SET
+		saleTitle = #{saleTitle},
+		saleContent = #{saleContent}
+		<if test="saleImage != ''">, saleImage = #{saleImage}</if>
+		WHERE saleNum = #{saleNum}
+	</update>
+	
+	<delete id="deleteSaleBoard" parameterType="sale">
+		DELETE SALEBOARD
+		WHERE saleNum = #{saleNum}
+	</delete>
+	
+	<select id="getSaleBoard" parameterType="sale" resultType="sale">
+		SELECT s.*, d.DESIGNERNICKNAME, d.DESIGNERPROFILE
+		FROM SALEBOARD s, DESIGNER d
+		WHERE s.saleNum = #{saleNum} AND s.designerId = d.designerId
+	</select>
+	
+	<select id="getSaleBoardList" parameterType="saleBoardPaging" resultType="sale">
+		SELECT * FROM (
+			SELECT ROWNUM RN, S.* FROM (
+				SELECT * FROM SALEBOARD
+				<choose>
+					<when test="search != null">
+						<choose>
+							<when test="orderby.equals('olderDate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE ASC</when>
+							<when test="orderby.equals('popularity')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('highRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('lowRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE ASC, SALEDATE DESC</when>
+							<when test="orderby.equals('highPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('lowPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+							<otherwise>WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE DESC</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						<choose>
+							<when test="orderby.equals('olderDate')">ORDER BY SALEDATE ASC</when>
+							<when test="orderby.equals('popularity')">ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('highRate')">ORDER BY SALERATE DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('lowRate')">ORDER BY SALERATE ASC, SALEDATE DESC</when>
+							<when test="orderby.equals('highPrice')">ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+							<when test="orderby.equals('lowPrice')">ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+							<otherwise>ORDER BY SALEDATE DESC</otherwise>
+						</choose>
+					</otherwise>					
+				</choose>
+			) S
+		) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="countSaleBoardList" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM SALEBOARD
+		<choose>
+			<when test="search != null">
+				<choose>
+					<when test="orderby.equals('olderDate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE ASC</when>
+					<when test="orderby.equals('popularity')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('highRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('lowRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE ASC, SALEDATE DESC</when>
+					<when test="orderby.equals('highPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('lowPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+					<otherwise>WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE DESC</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="orderby.equals('olderDate')">ORDER BY SALEDATE ASC</when>
+					<when test="orderby.equals('popularity')">ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('highRate')">ORDER BY SALERATE DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('lowRate')">ORDER BY SALERATE ASC, SALEDATE DESC</when>
+					<when test="orderby.equals('highPrice')">ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+					<when test="orderby.equals('lowPrice')">ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+					<otherwise>ORDER BY SALEDATE DESC</otherwise>
+				</choose>
+			</otherwise>			
+		</choose>
+	</select>
+	
+	<update id="updateSaleBoardView" parameterType="sale">
+		UPDATE SALEBOARD
+		SET SALEVIEW = SALEVIEW +1
+		where saleNum = #{saleNum}
+	</update>
+	
 	<select id="saleList" parameterType="sale" resultType="sale">
 		<![CDATA[
 			SELECT *

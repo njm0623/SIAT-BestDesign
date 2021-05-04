@@ -119,15 +119,84 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="../resources/js/bootstrap.js"></script>
 <style id="kirki-inline-styles"></style>
 <!-- ************************************************************************************************************* -->
+<script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
 
-
-<script>
-	$(function() {
-		$("#save").click(function() {
-			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-			$("#frm").submit();
-		})
-	})
+<script type="text/javascript">
+	AWS.config.update({
+        accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
+        secretAccessKey: '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'
+    });
+    AWS.config.region = 'ap-northeast-2';
+    
+	$(function () {		
+	    $("#save").click(function () {
+	    	if ($("#title").val() == '') {
+	    		alert("제목을 입력하세요.")
+	    		return
+	    	}
+	    	
+	    	if ($("#price").val() == '') {
+	    		alert("판매가를 입력하세요.")
+	    		return
+	    	}
+	    	
+	    	if($(".orderby option:selected").val() == 'default') {
+	    		alert("카테고리를 선택하세요.")
+	    		return
+	    	}
+	    	
+	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
+	        let fileChooser = document.getElementById('file');
+	        let file = fileChooser.files[0];
+	        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+	        
+	        let Now = new Date()
+	        StrNow = String(Now)
+	        nowYear = String(Now.getFullYear())
+	        nowMon = String(Now.getMonth()+1)
+	        nowDay = String(Now.getDate())
+		    if(nowMon.length == 1) {
+		    	nowMon = "0"+nowMon
+		    }	    
+		    let divideNow = String(StrNow).split(' ');	    
+		    let divideNowTimeDiv = divideNow[4].split(':');
+		    let divideNowTimeJoin = divideNowTimeDiv[0]+divideNowTimeDiv[1]+divideNowTimeDiv[2];
+		    
+		    let NowToday = nowYear+nowMon+nowDay+divideNowTimeJoin;
+		    
+	        if (file) {
+	        	$("#fileName").val("https://bestdesign.s3.ap-northeast-2.amazonaws.com/<%=userID%>_"+NowToday+"_"+file.name)
+	            var params = {
+	                Key: "<%=userID%>_"+NowToday+"_"+file.name,
+	                ContentType: file.type,
+	                Body: file,
+	                ACL: 'public-read' // 접근 권한
+	            };
+	
+	            bucket.putObject(params, function (err, data) {
+	            	if (err) {
+	            		alert("이미지 업로드에 실패하였습니다.")
+	            		console.log(err, err.stack)
+	            		return;
+	            	}
+	            	else {
+	            		// 업로드 성공
+	                	$("#frm").submit();
+	            	}
+	            });
+	
+	            //bucket.putObject(params).on('httpUploadProgress',
+	            //    function (evt) {
+	            //        console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total) + '%');
+	            //    }).send(function (err, data) {
+	            //        alert("File uploaded successfully.");
+	            //    });
+	        }
+	        else {
+	        	$("#frm").submit();
+	        }
+	    });
+	});
 </script>
 	
 <style>
@@ -159,6 +228,18 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	#save {
 		margin-left: 494px;
 	}
+	
+	.orderby {
+		width: 99%;
+		height: 40px;
+		margin-bottom: 5px;
+		
+		color: #666;
+	    border: 1px solid #ccc;
+	    border-radius: 3px;
+	    padding: 3px;
+	    font-size: 16px;
+	}
 </style>
 
 <!-- ************************************************************************************************************* -->
@@ -168,12 +249,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <div id="smarteditor" class="container">
-	<form id="frm" action="registerboard" method="post" >
-		<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
-		<input type="number" id="price" placeholder="판매가를 입력해 주세요."/>
-		<textarea id="ir1" name="content"></textarea>
-		<input type="file" id="file"/>
-		<input type="button" id="save" value="저장" class="btn"/><input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='requestList.do'"/>
+	<form id="frm" action="insertSaleBoard.do" method="post" >
+		<input type="hidden" name="designerId" value="<%=userID%>"/>
+		<input type="text" id="title" name="saleTitle" placeholder="제목을 입력해 주세요."/>
+		<input type="number" id="price" name="salePrice" placeholder="판매가를 입력해 주세요."/>
+		<select name="saleCate" class="orderby" aria-label="Shop order">
+			<option value="default">카테고리를 선택하세요.</option>
+			<option value="charcter">캐릭터</option>
+			<option value="protraits">초상화</option>
+			<option value="landscape">풍경화</option>
+			<option value="chariculture">캐리커쳐</option>
+			<option value="sentence">문구</option>
+			<option value="comics">만화</option>
+			<option value="poster">포스터</option>
+			<option value="3D">3D 그림</option>
+			<option value="etc">기타</option>
+		</select>
+		<textarea id="ir1" name="saleContent"></textarea>
+		<input type="file" id="file" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
+		<input type="hidden" id="fileName" name="saleImage"/>
+		<input type="button" id="save" value="저장" class="btn"/>
+		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='saleList.do'"/>
 	</form>
 </div>
 

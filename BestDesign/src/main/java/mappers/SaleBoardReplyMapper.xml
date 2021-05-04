@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SaleBoardReplyDAO">
+	<insert id="insertReply" parameterType="saleBoardReply">
+		INSERT INTO REVIEW(REVIEWNUM, SALENUM, USERID, REVIEWDATE, REVIEWRATE
+		<if test="reviewComment != ''">, REVIEWCOMMENT</if>
+		)
+		VALUES(SEQ_SALEBOARDREPLY.nextval, #{saleNum}, #{userId}, sysdate, #{reviewRate}
+		<if test="reviewComment != ''">, #{reviewComment}</if>
+		)
+	</insert>
+
+	<select id='selectAllReply' parameterType="string" resultType='saleBoardReply'>
+		SELECT * FROM REVIEW
+		WHERE SALENUM = #{saleNum}
+		ORDER BY REVIEWDATE DESC
+	</select>
+	
+	<delete id='deleteReply' parameterType='saleBoardReply'>
+		DELETE FROM REVIEW WHERE REVIEWNUM=#{reviewNum}
+	</delete>
+	
+	<update id='modifyReply' parameterType='saleBoardReply'>
+		UPDATE REVIEW SET
+		reviewRate = #{reviewRate}
+		reviewComment = #{reviewComment}
+		WHERE reviewNum = #{reviewNum}
+	</update>
+	
+	<insert id="insertSaleBoardDeal" parameterType="saleBoardDeal">
+		INSERT INTO SALEDEAL(DEALNUM, SALENUM, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE, DEALIMAGE)
+		VALUES(SEQ_SALEBOARDDEAL.nextval, #{saleNum}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate, #{dealImage})
+	</insert>
+	
+	<update id="updateSaleBoardRate" parameterType="saleBoardReply">
+		UPDATE SALEBOARD
+		SET SALERATE = (SELECT AVG(REVIEWRATE) FROM REVIEW WHERE SALENUM = #{saleNum})
+		WHERE SALENUM = #{saleNum}
+	</update>
+</mapper>

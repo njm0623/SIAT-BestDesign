@@ -14,8 +14,11 @@
 		<typeAlias alias="hash" type="java.util.HashMap" />
 		<typeAlias alias="request" type="siat.bestdesign.requestboard.domain.RequestBoardVO"/>
 		<typeAlias alias="requestBoardPaging" type="siat.bestdesign.requestboard.domain.RequestBoardPagingVO"/>
-		<typeAlias alias="review" type="siat.bestdesign.review.domain.ReviewVO"/>
 		<typeAlias alias="sale" type="siat.bestdesign.saleboard.domain.SaleBoardVO"/>
+		<typeAlias alias="saleBoardPaging" type="siat.bestdesign.saleboard.domain.SaleBoardPagingVO"/>
+		<typeAlias alias="saleBoardReply" type="siat.bestdesign.saleboard.domain.SaleBoardReplyVO"/>
+		<typeAlias alias="saleBoardDeal" type="siat.bestdesign.saleboard.domain.SaleBoardDealVO"/>
+		<typeAlias alias="review" type="siat.bestdesign.review.domain.ReviewVO"/>
 		<typeAlias alias="chart" type="siat.bestdesign.manager.domain.ChartVO"/>
 		<typeAlias alias="main" type="siat.bestdesign.main.domain.MainVO"/>
 		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>

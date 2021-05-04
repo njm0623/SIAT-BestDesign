@@ -1,17 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%
-        String userID = null;
-        if(session.getAttribute("userID") != null){
-        	userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
-        }
-        
-        if(userID == null){
-        	session.setAttribute("messageType", "오류");
-        	session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
-        	response.sendRedirect("index.jsp");
-        	return;
-        }
+   String userID = null;
+   if(session.getAttribute("userID") != null){
+		userID = (String) session.getAttribute("userID");// 겟 세션은 Object 를 리턴
+   }
+   
+   String type = null;
+   if(session.getAttribute("type") != null){
+		type = (String) session.getAttribute("type");//
+   }
+   
+   if(userID == null){
+	   session.setAttribute("messageType", "오류");
+	   session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
+	   response.sendRedirect("index.jsp");
+	   return;
+   }
+   
+   System.out.println(type);
+   
+   if(type != "디자이너"){
+	    session.setAttribute("messageType", "안내");
+   		session.setAttribute("messageContent", "디자이너 회원만 수정할 수 있습니다.");
+	   	response.sendRedirect("saleList.do");
+	   	return;
+   }
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -22,7 +36,7 @@
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>그려주세요 수정</title>
+<title>드로잉 샵 수정</title>
 <script src="{{asset("/ckeditor5_custom/build/ckeditor.js")}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -98,7 +112,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <link rel="alternate" type="text/xml+oembed" href="https://demo.colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdemo.colorlib.com%2Ftyche%2F&#038;format=xml" />
 <meta name="jetpack-boost-config-id" content="" />
 <meta name="jetpack-boost-ready" content="true" />
-<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<noscript>
+<style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
@@ -116,12 +131,22 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     AWS.config.region = 'ap-northeast-2';
     
 	$(function () {
-		if ($("#title").val() == '') {
-    		alert("제목을 입력하세요.")
-    		return
-    	}
-		
 	    $("#save").click(function () {
+	    	if ($("#title").val() == '') {
+	    		alert("제목을 입력하세요.")
+	    		return
+	    	}
+	    	
+	    	if ($("#price").val() == '') {
+	    		alert("판매가를 입력하세요.")
+	    		return
+	    	}
+	    	
+	    	if($(".orderby option:selected").val() == 'default') {
+	    		alert("카테고리를 선택하세요.")
+	    		return
+	    	}
+	    	
 	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
 	        let fileChooser = document.getElementById('file');
 	        let file = fileChooser.files[0];
@@ -175,8 +200,15 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	    });
 	});
 </script>
+	
 <style>
 	#title {
+		width: 99%;
+		height: 40px;
+		margin-bottom: 5px;
+	}
+	
+	#price {
 		width: 99%;
 		height: 40px;
 		margin-bottom: 5px;
@@ -198,7 +230,24 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	#save {
 		margin-left: 494px;
 	}
+	
+	.orderby {
+		width: 99%;
+		height: 40px;
+		margin-bottom: 5px;
+		
+		color: #666;
+	    border: 1px solid #ccc;
+	    border-radius: 3px;
+	    padding: 3px;
+	    font-size: 16px;
+	}
 </style>
+<script>
+	$(function() {		
+		$("#${saleBoard.saleCate}").attr("selected", "selected");
+	})
+</script>
 <!-- ************************************************************************************************************* -->
 </head>
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
@@ -206,14 +255,26 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <div id="smarteditor" class="container">
-	<form id="frm" action="updateRequestBoard.do" method="post" >
-		<input type="hidden" name="requestNum" value="${requestBoard.requestNum}"/>
-		<input type="text" id="title" name="requestTitle" placeholder="제목을 입력해 주세요." value="${requestBoard.requestTitle}"/>
-		<textarea id="ir1" name="requestContent"></textarea>
+	<form id="frm" action="updateSaleBoard.do" method="post">
+		<input type="hidden" name="saleNum" value="${saleBoard.saleNum}"/>
+		<input type="text" id="title" name="saleTitle" placeholder="제목을 입력해 주세요." value="${saleBoard.saleTitle}"/>
+		<input type="number" id="price" name="salePrice" placeholder="판매가를 입력해 주세요." value="${saleBoard.salePrice}"/>
+		<select name="saleCate" class="orderby" aria-label="Shop order">
+			<option value="charcter" id="charcter">캐릭터</option>
+			<option value="protraits" id="protraits">초상화</option>
+			<option value="landscape" id="landscape">풍경화</option>
+			<option value="chariculture" id="chariculture">캐리커쳐</option>
+			<option value="sentence" id="sentence">문구</option>
+			<option value="comics" id="comics">만화</option>
+			<option value="poster" id="poster">포스터</option>
+			<option value="3D" id="3D">3D 그림</option>
+			<option value="etc" id="etc">기타</option>
+		</select>
+		<textarea id="ir1" name="saleContent"></textarea>
 		<input type="file" id="file" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
 		<input type="hidden" id="fileName" name="requestImage"/>
 		<input type="button" id="save" value="저장" class="btn"/>
-		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='getRequestBoardList.do'"/>
+		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='getSaleBoardList.do'"/>
 	</form>
 </div>
 
@@ -287,7 +348,7 @@ var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/wp-embed.min.js?ver=5.7.1' id='wp-embed-js'></script>
 <script>window.GA_ID='';</script><script src='https://demo.colorlib.com/tyche/wp-content/plugins/flying-analytics/js/minimal-analytics.js' defer></script>
 </body>
-<script>	
+<script>
 	var oEditors = [];
 	
 	nhn.husky.EZCreator.createInIFrame({
@@ -308,7 +369,7 @@ var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","
 		},
 		fOnAppLoad : function(){
 			//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-			oEditors.getById["ir1"].exec("PASTE_HTML", ['${requestBoard.requestContent}']);
+			oEditors.getById["ir1"].exec("PASTE_HTML", ['${saleBoard.saleContent}']);
 		}
 	});
 </script>

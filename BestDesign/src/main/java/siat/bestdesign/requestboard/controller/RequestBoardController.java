@@ -43,7 +43,7 @@ public class RequestBoardController {
 	public String updateRequestBoard(RequestBoardVO vo) {
 		System.out.println("updateRequestBoardList 컨트롤러 호출");
 		requestBoardService.updateRequestBoard(vo);
-		return "redirect:/requestboard/getRequestBoardList.do";
+		return "redirect:/requestboard/getRequestBoard.do?requestNum="+vo.getRequestNum();
 	}
 	
 	@RequestMapping("/deleteRequestBoard.do")
