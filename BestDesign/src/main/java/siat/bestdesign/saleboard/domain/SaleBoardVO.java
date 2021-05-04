@@ -9,8 +9,30 @@ public class SaleBoardVO {
 	private String saleDate;
 	private int salePrice;
 	private String saleCate;
-	private int SaleView;
+	private int saleView;
+	private int saleRate;
+	private String designerNickname;
 	
+	public String getDesignerNickname() {
+		return designerNickname;
+	}
+	public void setDesignerNickname(String designerNickname) {
+		this.designerNickname = designerNickname;
+	}
+	public String getDesignerProfile() {
+		return designerProfile;
+	}
+	public void setDesignerProfile(String designerProfile) {
+		this.designerProfile = designerProfile;
+	}
+	private String designerProfile;
+	
+	public int getSaleRate() {
+		return saleRate;
+	}
+	public void setSaleRate(int saleRate) {
+		this.saleRate = saleRate;
+	}
 	public int getSaleNum() {
 		return saleNum;
 	}
@@ -60,11 +82,10 @@ public class SaleBoardVO {
 		this.saleCate = saleCate;
 	}
 	public int getSaleView() {
-		return SaleView;
+		return saleView;
 	}
 	public void setSaleView(int saleView) {
-		SaleView = saleView;
+		this.saleView = saleView;
 	}
-	
 	
 }

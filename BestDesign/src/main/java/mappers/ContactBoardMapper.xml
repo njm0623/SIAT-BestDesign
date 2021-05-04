@@ -4,7 +4,7 @@
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
 			SELECT *
-			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
+			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum desc)
 			WHERE IDX BETWEEN #{first} AND #{end}
 			<if test="val != null">and ${key} LIKE '%${val}%' </if>
 			order by contactSeqNum desc

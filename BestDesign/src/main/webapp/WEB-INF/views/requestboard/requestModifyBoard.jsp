@@ -22,7 +22,7 @@
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>그려주세요 등록</title>
+<title>그려주세요 수정</title>
 <script src="{{asset("/ckeditor5_custom/build/ckeditor.js")}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -116,6 +116,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     AWS.config.region = 'ap-northeast-2';
     
 	$(function () {
+		if ($("#title").val() == '') {
+    		alert("제목을 입력하세요.")
+    		return
+    	}
+		
 	    $("#save").click(function () {
 	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
 	        let fileChooser = document.getElementById('file');

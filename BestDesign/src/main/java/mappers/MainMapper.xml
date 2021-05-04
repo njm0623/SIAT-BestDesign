@@ -16,7 +16,7 @@ ON r.dealsellerid = s.dealsellerid) d2
 where d1.designerid = d2.designerid and rownum <=3
 order by dcount desc
 ]]>
- </select>
+</select>
 <select resultType="main" id="getHotDrawing">
 <![CDATA[
 select salenum, saletitle, saleimage, salerate
@@ -24,5 +24,11 @@ from (select * from saleboard order by salerate desc)
 where TO_CHAR(saledate,'yymm') = TO_CHAR(sysdate,'yymm') and rownum <=3
 ]]>
  </select>
-
+<select parameterType="string" resultType="main" id="getDrawing">
+<![CDATA[
+select salenum, saletitle, saleimage, salerate
+from (select * from saleboard where salecate = #{saleCate} order by salerate desc)
+where TO_CHAR(saledate,'yymm') = TO_CHAR(sysdate,'yymm') and rownum <=3
+]]>
+ </select>
 </mapper>

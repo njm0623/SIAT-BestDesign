@@ -28,5 +28,9 @@ public class MainDAOImpl implements MainDAO{
 	public List<MainVO> getHotDrawing() {
 		return mybatis.selectList("main.getHotDrawing");
 	}
+
+	public List<MainVO> getDrawing(String saleCate) {
+		return mybatis.selectList("main.getDrawing",saleCate);
+	}
 	
 }

@@ -86,6 +86,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="../resources/js/bootstrap.js"></script>
 
 <style>
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
 	#requestTop {
 		margin-top: 20px;
 	}
@@ -116,7 +123,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	.tyche-pager {
 		margin: 50px 0;
-		margin-left: 200px;
 	}
 	
 	.goodsRow h2 {
@@ -160,46 +166,61 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     .fn {
     	font-size: 16px;
     }
+    
+    .saleTitle {
+		font-family: GyeonggiTitleM;
+		width: 235px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
 </style>
 <script>
-$(document).on('click', '.toggleBG', function () {
-    var toggleBG = $(this);
-    var toggleFG = $(this).find('.toggleFG');
-    var left = toggleFG.css('left');
-    if(left == '40px') {
-        toggleBG.css('background', '#CCCCCC');
-        toggleActionStart(toggleFG, 'TO_LEFT');
-    }else if(left == '0px') {
-        toggleBG.css('background', '#53FF4C');
-        toggleActionStart(toggleFG, 'TO_RIGHT');
-    }
-});
- 
-// 토글 버튼 이동 모션 함수
-function toggleActionStart(toggleBtn, LR) {
-    // 0.01초 단위로 실행
-    var intervalID = setInterval(
-        function() {
-            // 버튼 이동
-            var left = parseInt(toggleBtn.css('left'));
-            left += (LR == 'TO_RIGHT') ? 5 : -5;
-            if(left >= 0 && left <= 40) {
-                left += 'px';
-                toggleBtn.css('left', left);
-            }
-        }, 10);
-    setTimeout(function(){
-        clearInterval(intervalID);
-    }, 201);
-}
+	$(function() {		
+		$("#${saleBoardListPaging.orderby}").attr("selected", "selected");
+		
+		$(".orderby").change(function() {
+			location.href="getSaleBoardList.do?orderby="+$(this).val()
+		})
+	})
 
-function getToggleBtnState(toggleBtnId){
-    const left_px = parseInt( $('#'+toggleBtnId).css('left') );
+	$(document).on('click', '.toggleBG', function () {
+	    var toggleBG = $(this);
+	    var toggleFG = $(this).find('.toggleFG');
+	    var left = toggleFG.css('left');
+	    if(left == '40px') {
+	        toggleBG.css('background', '#CCCCCC');
+	        toggleActionStart(toggleFG, 'TO_LEFT');
+	    }else if(left == '0px') {
+	        toggleBG.css('background', '#53FF4C');
+	        toggleActionStart(toggleFG, 'TO_RIGHT');
+	    }
+	});
  
-    return (left_px > 0)? "on" : "off";
-}
+	// 토글 버튼 이동 모션 함수
+	function toggleActionStart(toggleBtn, LR) {
+	    // 0.01초 단위로 실행
+	    var intervalID = setInterval(
+	        function() {
+	            // 버튼 이동
+	            var left = parseInt(toggleBtn.css('left'));
+	            left += (LR == 'TO_RIGHT') ? 5 : -5;
+	            if(left >= 0 && left <= 40) {
+	                left += 'px';
+	                toggleBtn.css('left', left);
+	            }
+	        }, 10);
+	    setTimeout(function(){
+	        clearInterval(intervalID);
+	    }, 201);
+	}
+
+	function getToggleBtnState(toggleBtnId){
+	    const left_px = parseInt( $('#'+toggleBtnId).css('left') );
+	 
+	    return (left_px > 0)? "on" : "off";
+	}
 </script>
-
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
 <div id="page" class="site">
@@ -209,23 +230,26 @@ function getToggleBtnState(toggleBtnId){
 <div class="site-content">
 <div class="container">
 <div class="row">
-<div class="col-md-12">
-</div>
-</div>
-<div class="row">
 <div class="col-md-4 hidden-xs">
 <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
-<form role="search" method="get" class="woocommerce-product-search" action="https://demo.colorlib.com/tyche/">
+<form role="search" method="get" class="woocommerce-product-search" action="getSaleBoardList.do">
 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-<input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="원하는 그림을 검색해보세요." value="" name="s" />
+<input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="원하는 그림을 검색해보세요." value="${saleBoardListPaging.search}" name="search" />
+<input type="hidden" name="orderby" value="${requestBoardListPaging.orderby}"/>
 <button type="submit" value="Search">검색</button>
-<input type="hidden" name="post_type" value="product" />
 </form>
 </div>
 <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5 class="widget-title"><span id="searchPriceRange"><b class="fn">가격 범위로 찾기</b></span></h5>
 <form method="get" action="https://demo.colorlib.com/tyche/shop/">
-<input type="number" value="0" class="priceFilter"/>~
-<input type="number" value="10000" class="priceFilter"/>
+<input type="number" value="0" min="0" class="priceFilter"/>~
+<input type="number" value="10000" min="0" class="priceFilter"/>
+<button type="submit" class="button">필터</button>
+</form>
+</div>
+<div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5 class="widget-title"><span id="searchPriceRange"><b class="fn">평점 범위로 찾기</b></span></h5>
+<form method="get" action="">
+<input type="number" value="1" min="1" max="5" class="priceFilter"/>~
+<input type="number" value="1" min="1" max="5" class="priceFilter"/>
 <button type="submit" class="button">필터</button>
 </form>
 </div>
@@ -240,6 +264,7 @@ function getToggleBtnState(toggleBtnId){
 <input type="checkbox" class="checkCate" name="comics" value="comics">만화</input>
 <input type="checkbox" class="checkCate" name="poster" value="poster">포스터</input>
 <input type="checkbox" class="checkCate" name="3D" value="3D">3D 그림</input>
+<input type="checkbox" class="checkCate" name="etc" value="etc">기타</input>
 </form>
 </div>
 <b class="fn">찜한 작품만 보기</b>
@@ -249,87 +274,62 @@ function getToggleBtnState(toggleBtnId){
 </div>
 <div class="col-md-8 tyche-has-sidebar">
 <h1 class="woocommerce-products-header__title page-title">드로잉 샵</h1>
-<div class="woocommerce-notices-wrapper"></div><form class="woocommerce-ordering" method="get">
+<form class="woocommerce-ordering" method="get">
 <select name="orderby" class="orderby" aria-label="Shop order">
-<option value="menu_order" selected='selected'>기본 정렬</option>
-<option value="popularity">인기순</option>
-<option value="rating">평점순</option>
-<option value="date">최신순</option>
-<option value="price">낮은 가격순</option>
-<option value="price-desc">높은 가격순</option>
+<option value="newestDate" id="newestDate">최신순</option>
+<option value="olderDate" id="olderDate">오래된순</option>
+<option value="popularity" id="popularity">조회순</option>
+<option value="highRate" id="highRate">높은 평점순</option>
+<option value="lowRate" id="lowRate">낮은 평점순</option>
+<option value="highPrice" id="highPrice">높은 가격순</option>
+<option value="lowPrice" id="lowPrice">낮은 가격순</option>
 </select>
-<input type="hidden" name="paged" value="1" />
+<input type="hidden" name="search" value="${saleBoardListPaging.search}" />
 </form>
 <br/><br/><br/>
 <button class="pull-right" id="registerBtn" type="button" onclick="location.href='saleRegister.do'">등록</button>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
+<c:set var="index" value="1"/>
+<c:forEach items="${saleBoardList}" var="saleBoard">
+	<c:choose>
+		<c:when test="${index % 3 == 1}"><div class="goodsRow"><div class="goods first"></c:when>
+		<c:when test="${index % 3 == 2}"><div class="goods"></c:when>
+		<c:when test="${index % 3 == 0}"><div class="goods last"></c:when>
+	</c:choose>
+		<a href="getSaleBoard.do?saleNum=${saleBoard.saleNum}">
+		<div id="imageWrapper">
+				<img src="${saleBoard.saleImage}" class="goodsImage"/>
+		</div>
+		<h2 class="saleTitle">${saleBoard.saleTitle}</h2>
 		</a>
 	</div>
-	<div class="goods">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
+	<c:if test="${index%3 == 0}"></div></c:if>
+	<c:set var="index" value="${index + 1}"/>
+</c:forEach>
 </div>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
+</main></div>
+<div class="row text-center">
+	<ul class="tyche-pager">
+	<c:if test="${saleBoardListPaging.nowPage != 1 }">
+		<li><a href="getSaleBoardList.do?orderby=${saleBoardListPaging.orderby}&nowPage=${saleBoardListPaging.nowPage - 1 }&cntPerPage=${saleBoardListPaging.cntPerPage}"><span class="pager-text left">PREV</span> <span class="fa fa-long-arrow-left"></span></a></li>
+	</c:if>
+	<c:forEach begin="${saleBoardListPaging.startPage }" end="${saleBoardListPaging.endPage }" var="p">
+		<c:choose>
+			<c:when test="${p == saleBoardListPaging.nowPage }">
+				<li class="active"><a style="pointer-events: none; cursor: default;">${p}</a></li>
+			</c:when>
+			<c:when test="${p != saleBoardListPaging.nowPage }">
+				<li><a href="getSaleBoardList.do?orderby=${saleBoardListPaging.orderby}&nowPage=${p}&cntPerPage=${saleBoardListPaging.cntPerPage}">${p}</a></li>
+			</c:when>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${saleBoardListPaging.nowPage != saleBoardListPaging.lastPage}">
+		<li><a href="getSaleBoardList.do?orderby=${saleBoardListPaging.orderby}&nowPage=${saleBoardListPaging.nowPage+1 }&cntPerPage=${saleBoardListPaging.cntPerPage}"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
+	</c:if>
+	</ul>
 </div>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
+
+
 </div>
-</div>
-<div class="row text-center"><ul class="tyche-pager">
-<li class="active"><a href="https://demo.colorlib.com/tyche/shop/">1</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/">2</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
-</ul></div>
-</div>
-</main></div> </div>
 </div>
 </div>
 	<%
