@@ -144,12 +144,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 					$("#checkModal").modal("show");
 				}
 			})
+			$("#editProfile").click(function(){
+				location.replace("../designer/edit.do?designerId=${param.designerId}");
+			})
 		})
-		$("#editProfile").click(function(){
-			location.replace("../designer/edit.do?designerId=${param.designerId}");
-		})
-		
-	})
 </script>
 <style>
 	.columns-4{
@@ -164,7 +162,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	html body #a_dimage .dimage{
 		max-width: none;
-		width: 220px; height: 130px;
+		width: 220px; height: 150px;
 	}
 </style>
 </head>
@@ -229,7 +227,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <ul class="products columns-4">
 <c:forEach var="rec" items="${draw}">
 <li class="product type-product post-64 status-publish first instock product_cat-shirts product_cat-trends product_tag-blouse product_tag-blue product_tag-shirt has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
-<a href="../saleboard/saleBoard?saleNum=${rec.saleNum}" id="a_dimage"><img width="330" height="200" src="${rec.saleImage}" class="dimage"alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" id="a_dimage"><img width="330" height="200" src="${rec.saleImage}" class="dimage"alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
 </a></li>
 </c:forEach>
 
