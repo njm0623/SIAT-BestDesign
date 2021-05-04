@@ -18,5 +18,7 @@
 		<typeAlias alias="sale" type="siat.bestdesign.saleboard.domain.SaleBoardVO"/>
 		<typeAlias alias="chart" type="siat.bestdesign.manager.domain.ChartVO"/>
 		<typeAlias alias="main" type="siat.bestdesign.main.domain.MainVO"/>
+		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>
+		<typeAlias alias="requestBoardDeal" type="siat.bestdesign.requestboard.domain.RequestBoardDealVO"/>
 	</typeAliases>
 </configuration>

@@ -132,7 +132,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
-<img width="1600" height="545" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" />
+<img width="100%" height="auto" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" />
 <div class="main-slider-bar hidden-xs">
 <div class="container">
 <ul class="main-slider-info">

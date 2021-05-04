@@ -153,6 +153,42 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	#updateBtn {
 		margin-left: 490px;
 	}
+	
+	#auctionPrice {
+		height: 41px;
+		width: 200px;
+	}
+	
+	#inputPrice {
+		font-family:'GyeonggiTitleM';
+		font-size: x-large;
+	}
+	
+	.replyContent {
+		font-family:'GyeonggiTitleM';
+	}
+	
+	#modifyReply {
+		width: 255px;
+		resize: none;
+	}
+	
+	.stateImage {
+		position: absolute;
+		top:0px;
+		left:0px;
+		width: 100px;
+		height: auto;
+		z-index: 2;
+	}
+	
+	.tyche-blog-image {
+		position: relative;
+	}
+	
+	.goodsImage {
+		z-index: 1;
+	}
 </style>
 <script>
 	$(function() {
@@ -161,6 +197,195 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				location.href = "deleteRequestBoard.do?requestNum="+${requestBoard.requestNum}
 			}
 		})
+		
+		$(function(){
+			$('#replyBtn').click(function(){
+					if ('${currentLoginID}' == "") {
+						alert("로그인 후 이용하실 수 있습니다.")
+						return
+					}
+				
+					if ($("#reply").val() == "" || $("#auctionPrice").val() == "") {
+						alert("댓글과 가격을 모두 입력하세요")
+						return
+					}
+				
+					//serialize() jquery api 메소드를 이용해서 form 의 모든 element의 name과 value 값을 넘길수 있음!!         
+			        var params = $('#replyFrm').serialize();
+				
+					$.ajax({
+		             	type :'post',	             	  
+		             	data : params,
+		             	url : 'reply/new.do',
+		             	success : function(result){
+		             		var replyList = $('#replyList');
+		             		replyList.empty();
+		             		replyListView();
+		             		$("#reply").val("");
+		             		$("#auctionPrice").val("");
+		             		
+		             	},
+		            	error : function(err){
+		            		alert('error');
+		            		console.log(err);
+		            	}
+			       }); // end of ajax
+			}); // end of click
+			
+			// 수락 버튼 클릭
+			$('#replyList').on("click", ".acceptReply", function() {
+				if (confirm("정말로 수락하시겠습니까?")) {
+					var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().text()
+					var replyer = $(this).parent().parent().children().children().children('.replyer').children().text()
+					
+					replyPrice = replyPrice.split(":")
+					replyPrice = replyPrice[1].trim()
+					replyPrice = replyPrice.split("원")
+					replyPrice = replyPrice[0].trim()
+					
+					replyer = replyer.split(":")
+					replyer = replyer[1].trim()
+					
+					console.log(replyPrice)
+					console.log(replyer)
+					
+					location.href="reply/accept.do?requestNum=${requestBoard.requestNum}&dealBuyerId=${requestBoard.userId}&dealSellerId="+replyer+"&dealPrice="+replyPrice+"&dealImage=${requestBoard.requestImage}"
+				}
+			});
+			
+			$('#replyList').on("click", ".deleteReply", function() {
+				if (confirm("정말로 삭제하시겠습니까?")) {
+					$.ajax({
+			         	type :'get',            	  
+			         	data : {auctionNum:$(this).parent().parent().children().children().children('.replyNum').children().val()},
+			         	url : 'reply/delete.do',
+			         	success : function(result){
+			         		var replyList = $('#replyList');
+			         		replyList.empty();
+			         		replyListView();
+			         	},
+			        	error : function(err){
+			        		alert('error');
+			        		console.log(err);
+			        	}
+					}); // end of ajax
+				}
+			});
+			
+			// 수정 버튼 클릭
+			$('#replyList').on("click", ".modifyReply", function(){
+				var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().text()
+				var replyComment = $(this).parent().parent().children().children().children('.replyComment').children().text()
+				$(this).parent().parent().children().children().children('.replyPrice').html('<span class="replyContent">등록 경매가: </span><input type="number" name="auctionPrice" id="modifyAuctionPrice"/>')
+				$(this).parent().parent().children().children().children('.replyComment').html('<textarea type="text" id="modifyReply" name="auctionComment" placeholder="수정할 댓글을 입력하세요."/>')
+				$(this).val("등록")
+				$(this).attr("class","modifyRegister")
+				$(this).next().next().val("취소")
+				$(this).next().next().attr("class", "cancel")
+			});
+			
+			// 수정하기
+			$('#replyList').on("click", ".modifyRegister", function(){
+				console.log($(this).parent().parent().children().children().children('.replyNum').children().val())
+				var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().next().val()
+				var replyComment = $(this).parent().parent().children().children().children('.replyComment').children().val()
+				
+				if(replyPrice == "" || replyComment == "") {
+					alert("댓글과 가격을 모두 입력하세요")
+					return
+				}
+				
+				$.ajax({
+					type :'post',
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	             	data : {
+	             		auctionNum:$(this).parent().parent().children().children().children('.replyNum').children().val(),
+	             		auctionPrice: $(this).parent().parent().children().children().children('.replyPrice').children().next().val(),
+	             		auctionComment: $(this).parent().parent().children().children().children('.replyComment').children().val()
+	             	},
+	             	url : 'reply/modify.do',
+	             	success : function(result){
+	             		var replyList = $('#replyList');
+	             		replyList.empty();
+	             		replyListView();
+	             	},
+	            	error : function(err){
+	            		alert('error');
+	            		console.log(err);
+	            	}
+				}); // end of ajax
+			});
+			
+			$('#replyList').on("click", ".cancel", function(){
+				var replyList = $('#replyList');
+         		replyList.empty();
+         		replyListView();
+			});
+			
+			replyListView();
+			function replyListView(){
+				$.ajax({
+		     	type :'get',
+		     	url : 'reply.do?requestNum=${requestBoard.requestNum}',
+		     	dataType : 'json',
+		     	success : function(result){
+		     		// alert(result);
+		     		console.log(result);
+		     		// 화면에 출력
+		     		var replyList = $('#replyList');
+		     		for(row of result){
+		     			var article = $('<article/>');
+		     				var commentDiv = $('<div id="comment"/>');
+		     			
+				     			var commentContent = $('<div class="comment-content"/>');
+				     				var div1 = $('<div class="replyNum"/>');
+				     				var div2 = $('<div class="replyer"/>');
+				     				var div3 = $('<div class="replyPrice"/>');
+				     				var div4 = $('<div class="replyComment"/>');
+				     				var div5 = $('<div class="replyDate"/>');
+				     					var replyNum = $('<input type="hidden">').attr('value', row["auctionNum"]);
+					     				var replyer = $('<span class="replyContent"/>').html('작성자: '+row["userId"]);
+					     				var replyPrice = $('<span class="replyContent"/>').html('등록 경매가: '+row["auctionPrice"]+'원');
+					     				var replyComment = $('<span class="replyContent"/>').html('내용: '+row["auctionComment"]);
+					     				var replyDate = $('<span class="replyContent"/>').html('작성 날짜: '+row["auctionDate"]);
+				     				
+				     				div1.append(replyNum);
+				     				commentContent.append(div1);
+				     				div2.append(replyer);
+				     				commentContent.append(div2);
+				     				div3.append(replyPrice);
+				     				commentContent.append(div3);
+				     				div4.append(replyComment);
+				     				commentContent.append(div4);
+				     				div5.append(replyDate);
+				     				commentContent.append(div5);				     				
+				     				commentDiv.append(commentContent);
+				     				
+				     				article.append(commentDiv);
+		     			
+				     		if(row["userId"] == '${currentLoginID}') {
+			     				var commentBtn = $('<div class="comment-btn"/>');
+			     					commentBtn.append('<input type="button" class="modifyReply" value="수정"></input><br>');
+			     					commentBtn.append('<input type="button" class="deleteReply" value="삭제"></input>');
+			     				article.append(commentBtn);
+				     		}
+				     		
+				     		if('${currentLoginID}' == '${requestBoard.userId}' && '${requestBoard.requestState}' == 0) {
+				     			var commentBtn = $('<div class="comment-btn"/>');
+			     					commentBtn.append('<input type="button" class="acceptReply" value="수락"></input><br>');
+			     				article.append(commentBtn);
+				     		}
+		     				
+		     			replyList.append(article);
+		     		}
+		     	},
+		    	error : function(request, status, err){
+		    		alert('error');
+		    		console.log(err);
+		    	}
+		       }); // end of ajax 
+			}
+		});
 	})
 </script>
 </head>
@@ -175,8 +400,19 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <header class="entry-header">
 <div class="tyche-blog-image">
 <c:choose>
-	<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png"/></c:when>
-	<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}"/></c:otherwise>
+	<c:when test="${requestBoard.requestState == 1}">
+		<c:choose>
+			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png" class="goodsImage" style="opacity:0.3;"/></c:when>
+			<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}" style="opacity:0.5;"/></c:otherwise>
+		</c:choose>
+		<img src="../resources/completed.png" class="stateImage"/>			
+	</c:when>
+	<c:otherwise>
+		<c:choose>
+			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png" class="goodsImage"/></c:when>
+			<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}"/></c:otherwise>
+		</c:choose>
+	</c:otherwise>
 </c:choose>
 </div>
 <div class="tyche-blog-meta">
@@ -185,12 +421,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="meta">
 <ul class="meta-list">
 	<li class="post-author"><icon class="fa fa-user"></icon> &nbsp${requestBoard.userId}</a></li>
-	<li class="post-comments">
-		<span class="sep">/</span>		
-		<icon class="fa fa-comments"></icon>
-		<a href="#comments">1 Comments</a></li>
-		<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp ${requestBoard.requestView}</span>
-</ul> </div>
+	<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp ${requestBoard.requestView}</span>
+</ul>
+</div>
 </div>
 </header>
 <div class="entry-content">
@@ -205,30 +438,21 @@ ${requestBoard.requestContent}
 <hr>
 <div id="comments" class="comments-area">
 <a href="#comment" onfocus="blur()"></a>
+
+
 <div id="replyDiv">
-<textarea type="text" id="reply" placeholder="댓글을 남겨 요청에 응답하세요."></textarea>
+<form name="replyFrm", id="replyFrm">
+<input type="hidden" name="requestNum" value="${requestBoard.requestNum}">
+<input type="hidden" name="userId" value="${currentLoginID}">
+<textarea type="text" id="reply" name="auctionComment" placeholder="댓글을 남겨 경매에 참여하세요."></textarea>
+<span id="inputPrice">등록할 경매 가격: </span><input type="number" name="auctionPrice" id="auctionPrice"/>
 <input id="replyBtn" type="button" value="등록"></input>
+</form>
 </div>
+
+
 <ol class="comment-list">
-	<li id="comment-1485" class="comment even thread-even depth-1">
-	<article id="div-comment-1485">
-	<div id="comment">
-	<div>
-	<b class="fn">디자이너1</b>
-	</div>
-	<div class="comment-content">
-	<p>내가 그려줄게요</p>
-	</div>
-	<div class="comment-metadata">
-	<div>2021.04.28</div>
-	</div>
-	</div>
-	<div class="comment-btn">
-	<input type="button" value="수정"></input><br>
-	<input type="button" value="삭제"></input>
-	</div>
-	</article>
-	</li>
+	<li id="replyList" class="comment even thread-even depth-1"/>
 </ol>
 </div>
 </main>

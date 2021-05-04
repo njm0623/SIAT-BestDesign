@@ -1,3 +1,5 @@
+// CREATE TABLE
+
 // USERS
 CREATE TABLE SIAT.USERS
 (  USERID VARCHAR2(30 BYTE) NOT NULL PRIMARY KEY,
@@ -127,79 +129,160 @@ CREATE TABLE SIAT.AUCTION
    AUCTIONCOMMENT VARCHAR2(3000)
 );
 
-// CONSTRAINTS
+
+// ADD CONSTRAINTS
+
 ALTER TABLE siat.chat
 ADD CONSTRAINTS FK_chatToId FOREIGN KEY (chatToId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.chat
 ADD CONSTRAINTS FK_chatFromId FOREIGN KEY (chatFromId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.designercart
 ADD CONSTRAINTS FK_userId_desginerCart FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.designercart
 ADD CONSTRAINTS FK_designerId_designerCart FOREIGN KEY (designerId)
-REFERENCES siat.designer(designerId);
+REFERENCES siat.designer(designerId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.contactboard
 ADD CONSTRAINTS FK_userId_contactBoard FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.requestboard
 ADD CONSTRAINTS FK_userId_requestBoard FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.requestdeal
 ADD CONSTRAINTS FK_dealrequestnum_requestdeal FOREIGN KEY (requestNum)
-REFERENCES siat.requestboard(requestNum);
+REFERENCES siat.requestboard(requestNum)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.requestdeal
 ADD CONSTRAINTS FK_dealbuyerId_requestdeal FOREIGN KEY (dealbuyerId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.requestdeal
 ADD CONSTRAINTS FK_dealsellerId_requestdeal FOREIGN KEY (dealsellerId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.saledeal
 ADD CONSTRAINTS FK_dealbuyerId_saledeal FOREIGN KEY (dealbuyerId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.saledeal
 ADD CONSTRAINTS FK_dealsellerId_saledeal FOREIGN KEY (dealsellerId)
-REFERENCES siat.designer(designerId);
+REFERENCES siat.designer(designerId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.saledeal
 ADD CONSTRAINTS FK_saleNum_saledeal FOREIGN KEY (salenum)
-REFERENCES siat.saleboard(salenum);
+REFERENCES siat.saleboard(salenum)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.salecart
 ADD CONSTRAINTS FK_salecart_saleNum FOREIGN KEY (saleNum)
-REFERENCES siat.saleboard(saleNum);
+REFERENCES siat.saleboard(saleNum)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.salecart
 ADD CONSTRAINTS FK_salecart_userId FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.review
 ADD CONSTRAINTS FK_review_userId FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.review
 ADD CONSTRAINTS FK_review_salenum FOREIGN KEY (salenum)
-REFERENCES siat.saleboard(salenum);
+REFERENCES siat.saleboard(salenum)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.saleboard
 ADD CONSTRAINTS FK_saleboard_designerId FOREIGN KEY (designerId)
-REFERENCES siat.designer(designerId);
+REFERENCES siat.designer(designerId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.auction
 ADD CONSTRAINTS FK_userId_auction FOREIGN KEY (userId)
-REFERENCES siat.users(userId);
+REFERENCES siat.users(userId)
+ON DELETE CASCADE;
 
 ALTER TABLE siat.auction
 ADD CONSTRAINTS FK_requestNum_auction FOREIGN KEY (requestNum)
-REFERENCES siat.requestBoard(requestNum);
+REFERENCES siat.requestBoard(requestNum)
+ON DELETE CASCADE;
+
+
+// DROP CONSTRAINTS
+
+ALTER TABLE siat.chat
+DROP CONSTRAINT FK_chatToId;
+
+ALTER TABLE siat.chat
+DROP CONSTRAINT FK_chatFromId;
+
+ALTER TABLE siat.designercart
+DROP CONSTRAINT FK_userId_desginerCart;
+
+ALTER TABLE siat.designercart
+DROP CONSTRAINT FK_designerId_designerCart;
+
+ALTER TABLE siat.contactboard
+DROP CONSTRAINT FK_userId_contactBoard;
+
+ALTER TABLE siat.requestboard
+DROP CONSTRAINT FK_userId_requestBoard;
+
+ALTER TABLE siat.requestdeal
+DROP CONSTRAINT FK_dealrequestnum_requestdeal;
+
+ALTER TABLE siat.requestdeal
+DROP CONSTRAINT FK_dealbuyerId_requestdeal;
+
+ALTER TABLE siat.requestdeal
+DROP CONSTRAINT FK_dealsellerId_requestdeal;
+
+ALTER TABLE siat.saledeal
+DROP CONSTRAINT FK_dealbuyerId_saledeal;
+
+ALTER TABLE siat.saledeal
+DROP CONSTRAINT FK_dealsellerId_saledeal;
+
+ALTER TABLE siat.saledeal
+DROP CONSTRAINT FK_saleNum_saledeal;
+
+ALTER TABLE siat.salecart
+DROP CONSTRAINT FK_salecart_saleNum;
+
+ALTER TABLE siat.salecart
+DROP CONSTRAINT FK_salecart_userId;
+
+ALTER TABLE siat.review
+DROP CONSTRAINT FK_review_userId;
+
+ALTER TABLE siat.review
+DROP CONSTRAINT FK_review_salenum;
+
+ALTER TABLE siat.saleboard
+DROP CONSTRAINT FK_saleboard_designerId;
+
+ALTER TABLE siat.auction
+DROP CONSTRAINT FK_userId_auction;
+
+ALTER TABLE siat.auction
+DROP CONSTRAINT FK_requestNum_auction;
