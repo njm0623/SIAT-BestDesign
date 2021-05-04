@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import siat.bestdesign.requestboard.domain.RequestBoardDealVO;
+import siat.bestdesign.requestboard.domain.RequestBoardPagingVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 import siat.bestdesign.requestboard.service.RequestBoardService;
 

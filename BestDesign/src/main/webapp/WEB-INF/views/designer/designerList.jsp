@@ -261,6 +261,43 @@ function getToggleBtnState(toggleBtnId){
 <input type="hidden" name="paged" value="1" />
 </form>
 <br/><br/><br/>
+<c:set var="i" value="1"/>
+<c:forEach var="rec" items="${dList}">
+
+<c:if test="${i%3 eq 1}">
+	<div class="goodsRow">
+	</c:if>
+
+<c:choose>
+    <c:when test="${i%3 eq 1}">
+        <div class="goods first">
+    </c:when>
+    <c:when test="${i%3 eq 2}">
+        <div class="goods">
+    </c:when>
+    <c:when test="${i%3 eq 0}">
+        <div class="goods last">
+    </c:when>
+</c:choose>
+	<a href="profile.do?designerId=${rec.userId }">
+	<c:choose>
+   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/artist.png" class="wp-post-image"/></c:when>
+   <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
+</c:choose>
+		<h2>${rec.userId}</h2>
+		</a>
+	</div>
+	
+	
+	<c:if test="${i%3 eq 0}">
+	</div>
+	</c:if>
+	
+	<c:set var="i" value="${i+1}"/>
+
+</c:forEach>
+</div>
+<!-- 
 <div class="goodsRow">
 	<div class="goods first">
 		<a href="profile.do?designerId=designer1">

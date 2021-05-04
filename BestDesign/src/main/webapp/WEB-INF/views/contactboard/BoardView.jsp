@@ -117,41 +117,39 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"/>
 
 	<h4> 게시판 글 보기 </h4><br/>
-	<table border="1" bordercolor="red">
-	<tr>
-		<td> 제  목 : </td>
-		<td>${rec.contactTitle}</td>
-	</tr>
-	<tr>
-		<td> 작성자 : </td>
-		<td>${rec.userId}</td>
-	</tr>
-	<tr>
-		<td> 작성일자 : </td>
-		<td>${rec.contactDate}</td>
-	</tr>
-	<tr>
-		<td> 내  용 : </td>
-		<td>${rec.contactContent}</td>
-	</tr>
-	<tr>
-		<td> 조회수 : </td>
-		<td>${rec.contactCount}</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<a href="boardList.do"> 목록보기 </a>
-			<a href="BoardReplyForm.do?parentId=${rec.contactNum}"> 답변하기 </a>
-			<c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
-				<a href="BoardDelete.do?contactNum=${rec.contactNum}"> 삭제하기 </a>
-			</c:if>
-			<c:if test="${rec.userId eq sessionScope.userID}">
-				<a href="BoardModifyForm.do?contactNum=${rec.contactNum}"> 수정하기 </a>
-			</c:if>
-		</td>
-	</tr>
-	</table>
-	</div>
+   <table border="1"  id="table1">
+ 
+   <tr>
+      <td colspan="2" id="td2"><a href="boardList.do" font-size="10px">문의 게시판 ></a><h2>${rec.contactTitle}</h2></td>
+   </tr>
+   <tr>
+      <td colspan="2" id="td1"> <div id="topt"><span id="whghl1">  ${rec.userId} </span>  <br> <span id="whghl">  ${rec.contactDate}  &nbsp;&nbsp; 조회수 : ${rec.contactCount} </span><br><br></div></td>
+   </tr>
+  
+   <tr height="300">
+       <td colspan="2" tyle="border-top: none;"id="td3">${rec.contactContent}</td>
+   </tr>
+   <c:if test="${rec.contactFile ne null}">
+   <tr>
+      <td colspan="2" ><a href="${rec.contactFile}" download>파일 다운로드</a><br><br></td>      
+   </tr>
+   </c:if>
+   <tr>
+      <td colspan="2">
+         <button onclick="location.href='boardList.do'">목록</button>
+         <c:if test="${sessionScope.type eq '관리자'}">
+         <button onclick="location.href='BoardReplyForm.do?parentId=${rec.contactNum}'">답변</button>
+		</c:if>         
+         <c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
+         <button onclick="location.href='BoardModifyForm.do?contactNum=${rec.contactNum}'">수정</button>
+         <button onclick="location.href='BoardDelete.do?contactNum=${rec.contactNum}'">삭제</button>
+         </c:if>
+   <br><br>
+      </td>
+   </tr>
+   </table>
+   </div>
+   </div>
 	<%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

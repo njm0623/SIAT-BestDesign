@@ -160,6 +160,20 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     .fn {
     	font-size: 16px;
     }
+    
+    .saleTitle {
+		font-family: GyeonggiTitleM;
+		width: 235px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	
+	#imageWrapper {
+		height: 135px;
+		overflow: hidden;
+		position: relative;
+	}
 </style>
 <script>
 $(document).on('click', '.toggleBG', function () {
@@ -302,32 +316,6 @@ function getToggleBtnState(toggleBtnId){
 		</a>
 	</div>
 </div>
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="saleBoard.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-</div>
-</div>
-<div class="row text-center"><ul class="tyche-pager">
-<li class="active"><a href="https://demo.colorlib.com/tyche/shop/">1</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/">2</a></li>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
-</ul></div>
 </div>
 </main></div> </div>
 </div>

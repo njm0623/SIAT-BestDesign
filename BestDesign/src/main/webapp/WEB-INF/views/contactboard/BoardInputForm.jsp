@@ -104,6 +104,31 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<link rel="stylesheet" href="../resources/css/custom.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="../resources/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	AWS.config.update({
+        accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
+        secretAccessKey: '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'
+    });
+    AWS.config.region = 'ap-northeast-2';
+    
+	$(function () {
+		$("#frm").validate({// 데이터 유효성 검사 플러그인
+			rules:{
+				contactTitle:"required",
+				contactContent:"required"
+			},
+		messages:{
+				contactTitle:"제목을 입력하세요.",
+				contactContent: "내용을 입력하세요."
+			}
+		})
 
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
@@ -121,9 +146,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	나중에 이쁘게 만드시오 <br/><br/>
 	<form name='frm' method='post' action="BoardSave.do">
 	<input type='hidden' name='userId' value="${sessionScope.userID}"><br/><br/>
-	제  목 : <input type='text' name='contactTitle'><br/><br/>
-	내  용 : <textarea rows='10' cols='40' name='contactContent'></textarea><br/>	
-	파일 : <input type='file' name='contactFile'><br/><br/>
+	제  목 : <input type='text' style="width: 500px;"name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요."><br/><br/>
+	내  용 : <textarea rows='10' cols='40' name='contactContent' id='contactContent' placeholder="내용을 입력하세요."></textarea><br/>	
+	파일 : <input type='file' id="file"><br/><br/>
+	<input type="hidden" id="fileName" name="contactFile"/>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
 		<label class="btn  btn-primary active">
