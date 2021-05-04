@@ -97,64 +97,34 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
-    <script>
-    $(function(){
-    	$("#write").click(function(){
-    		location.href="BoardInputForm.do";
-    	})
-    	
-    })
-    </script>
 	<style>
-      #page{
-         text-align: center;
-      }
-   </style>
-   
-   <!-- 테이블 -->
-   <style>
-      html body table #number{
-         width: 2%;
-      }
-      
-      html body table #sentence{
-         text-align: center;
-         width: 5%
-      }
-      
-      html body table #Writer{
-         text-align: center;
-         width: 5%
-      }
-      
-      html body table #views,html body table #views1{
-         width: 3%;
-         text-align: center;         
-      }
-      #rmf{
-         font-size: 30px;
-         
-      }
-      
-      table, tr,td{
-         border-left: 0px solid #fff;
-         border-right: 0px solid #fff;
-         font-size: 12px;
-      }
-      
-      html body table{
-         border-spacing: 0 8px;
-            border-collapse:separate;
-            padding-top: 10px;
-            border-top: 3px solid black;
-       }
-       html body a{
-       	color: black;
-       }
-      
-      
-   </style>
-
+		#page{
+			text-align: center;
+		}
+	</style>
+	
+	<!-- 테이블 -->
+	<style>
+		html body table #number{
+			width: 2%;
+		}
+		
+		html body table #sentence{
+			text-align: center;
+			width: 10%
+		}
+		
+		html body table #Writer{
+			text-align: center;
+			width: 5%
+		}
+		
+		html body table #views,html body table #views1{
+			width: 3%;
+			text-align: center;			
+		}
+		
+	</style>
 
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
@@ -164,72 +134,52 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="container">
 	<h3> 게시판 목록 </h3>
 	
-	<table border="1" bordercolor="darkblue">
+	<table>
 	<tr>
-		<td> 글번호 </td>
-		<td colspan="3"> 제 목 </td>
-		<td> 작성자 </td>
-		<td> 작성일 </td>
-		<td> 조회수 </td>
+		<td id="number"> 글번호 </td>
+		<td id="sentence"> 제 목 </td>
+		<td id="Writer"> 작성자 </td>
+		<td id="sentence"> 작성일 </td>
+		<td id="views"> 조회수 </td>
 	</tr>
 	
 	<c:choose>
-    <c:when test="${empty boardList}">
+    <c:when  test="${empty boardList}">
         <tr><td colspan="5"> 등록된 게시물이 없습니다. </td></tr>
     </c:when>
     <c:otherwise>
      	<c:forEach var="list" items="${boardList}">
      		<tr>
-			<td>${list.contactNum}</td>
-			<td colspan="3">
+			<td id="number">${list.contactNum}</td>
+			<td>
 				<c:forEach begin="0" end="${list.getLevel()}">
 					&nbsp;				
 				</c:forEach>
 				<c:if test="${list.getLevel() ne 0}">
 					<img src="../resources/board_re.gif"/>
 				</c:if>
-				<c:if test="${list.contactIsPublic eq 't' || sessionScope.userID eq list.userId || sessionScope.type eq '관리자'}">
 				<a href="BoardView.do?contactNum=${list.contactNum}">${list.contactTitle}</a>
-				<c:if test="${list.contactFile ne null}">
-					<img src="../resources/clip.png" width="15px" height="15px"/>
-				</c:if>
-				</c:if>
-				<c:if test="${list.contactIsPublic eq 'f' && sessionScope.userID ne list.userId && sessionScope.type ne '관리자'}">
-				비공개입니다.
-				</c:if>
 			</td>
-			<td>${list.userId}</td>		
-			<td>${list.contactDate}</td>
-			<td>${list.contactCount}</td>
+			<td id="views1">${list.userId}</td>		
+			<td id="views1">${list.contactDate}</td>
+			<td id="views1">${list.contactCount}</td>
 		</tr>
      	</c:forEach>
     </c:otherwise>
 </c:choose>
+		<tr>
+			<td colspan="5" id="">
+				<a href="BoardInputForm.do">글쓰기</a>
+			</td>
+		</tr>
 	</table>
-				
+	
 	<c:forEach var="i" begin="0" end="${perPage}">
 		<c:set var="first" value="${1+10*i}"/>
 		<c:set var="end" value="${10+10*i}"/>
-			<c:set var="para" value=""/>
-		<c:if test="${menu ne null}">
-		<c:set var="para" value="menu=${menu}&search=${search}"/>
-		</c:if>
-		<a href="boardList.do?firstRow=${first}&endRow=${end}&${para}">[${i+1}]</a>
+		<a href="boardList.do?firstRow=${first}&endRow=${end}">[${i+1}]</a>
 	</c:forEach>
 	</div>
-	<button id="write">글쓰기</button>
-	<br>
-	<div id="woocommerce_product_search-3" >
-		<form role="search" method="post" class="woocommerce-product-search" action="boardList.do">
-		<select name="menu">
-			<option value="contactContent">제목</option>
-			<option value="userId">글쓴이</option>
-		</select>
-		<label class="screen-reader-text" for="woocommerce-product-search-field-0">검색해주세요</label>
-		<input width="100px"type="search" id="search" name="search" value="${search}"/>
-		<button type="submit" value="Search" height="20px">검색</button>
-		</form>
-</div>
 	</div>
 	<%
     	String messageContent = null;
@@ -296,6 +246,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     		</div>
     	</div>
     </div>
+    
+    
+    
+    
 <jsp:include page="../main/footer.jsp"/>
 
 <script type="text/javascript">

@@ -13,7 +13,7 @@ public interface ContactDAO {
 
 	int getGroupId();
 	
-	int getTotalCount(HashMap map);
+	int getTotalCount();
 
 	ContactVO selectById(int contactNum);
 

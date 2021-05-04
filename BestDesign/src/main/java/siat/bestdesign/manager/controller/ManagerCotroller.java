@@ -1,25 +1,16 @@
 package siat.bestdesign.manager.controller;
 
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import siat.bestdesign.contactboard.domain.ContactVO;
-import siat.bestdesign.manager.domain.ChartVO;
 import siat.bestdesign.manager.domain.ManagerVO;
 import siat.bestdesign.manager.service.ManagerService;
-import siat.bestdesign.requestboard.domain.RequestBoardVO;
-import siat.bestdesign.review.domain.ReviewVO;
-import siat.bestdesign.saleboard.domain.SaleBoardVO;
-import siat.bestdesign.user.domain.UserVO;
 
 @Controller
 @RequestMapping("manager")
@@ -65,51 +56,8 @@ public class ManagerCotroller {
 		return "redirect:/"+href;
 		
 	}
-		@RequestMapping("chart.do")
-		@ResponseBody
-		public List<ChartVO> getChartList() {
-			System.out.println("호출");
-			return managerService.getChartList();
-		}
-		//고객목록
-		@RequestMapping("userBoardList.do")//model방식
-		public void userBoard(Model m, UserVO vo) {
-			System.out.println("고객 리스트목록");
-			m.addAttribute("userBoard", managerService.getWriteList(vo));
-		}
-		//디자이너목록
-		@RequestMapping("designBoardList.do")//model방식
-		public void designBoard(Model m, UserVO vo) {
-			System.out.println("디자이너 목록");
-			m.addAttribute("designList", managerService.getDesignList(vo));
-		}
-		//디자이너 게시판
-		@RequestMapping("designSaleList.do")//model방식
-		public void designSaleList(Model m, SaleBoardVO vo) {
-			System.out.println("디자이너 게시판");
-			m.addAttribute("designSale", managerService.getDesignSale(vo));
-		}
-		//고객 ID별 게시판, 리뷰 목록
-		@RequestMapping("registWriteList.do")//model방식
-		public void registWriteList(Model m, ReviewVO vo, RequestBoardVO vo1 ,ContactVO vo2) {
-			System.out.println("고객 id별 게시판,리뷰");
-			m.addAttribute("registWrite", managerService.getRegiWrite(vo1));
-			m.addAttribute("registContact", managerService.getRegiContact(vo2));
-			m.addAttribute("registReview", managerService.getRegiReview(vo));
-		}
-		
-		//그려주세요 리스트
-		@RequestMapping("requestBoardList.do")//model방식
-		public void requestBoardList(Model m, RequestBoardVO vo) {
-			System.out.println("그려주세요 리스트");
-			m.addAttribute("requestList", managerService.getRequestList(vo));
-		}
-		
-		@RequestMapping("saleBoardList.do")//model방식
-		public void requestBoardList(Model m, SaleBoardVO vo) {
-			System.out.println("그려주세요 리스트");
-			m.addAttribute("saleList", managerService.getSaleList(vo));
-		}
+	
+	
+	
+	
 }
-
-

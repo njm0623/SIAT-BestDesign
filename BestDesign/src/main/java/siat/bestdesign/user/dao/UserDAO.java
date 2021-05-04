@@ -7,4 +7,10 @@ public interface UserDAO {
 	void insertUser(UserVO vo);
 	
 	UserVO selectLogin(UserVO vo);
+
+	//ȸ�� ��������
+	int userUpdate(UserVO vo);
+
+	//ȸ�� ����
+	void withdrawal(UserVO vo);
 }

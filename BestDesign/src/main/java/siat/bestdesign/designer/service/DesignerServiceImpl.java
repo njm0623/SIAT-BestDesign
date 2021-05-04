@@ -1,15 +1,14 @@
 package siat.bestdesign.designer.service;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import siat.bestdesign.designer.dao.DesignerDAOImpl;
 import siat.bestdesign.designer.domain.DesignerVO;
-import siat.bestdesign.saleboard.domain.SaleBoardVO;
+import siat.bestdesign.designer.dao.DesignerDAOImpl;
 
 @Service("designerService")
 public class DesignerServiceImpl implements DesignerService{
@@ -61,26 +60,8 @@ public class DesignerServiceImpl implements DesignerService{
 	@Override
 	public DesignerVO selectDesigner(DesignerVO vo) {
 		DesignerVO vo2 = designerDAO.selectLogin(vo);
-		if(vo2.getDesignerProfile()!=null){
-			vo2.setDesignerProfile(vo2.getDesignerProfile().replace("\r\n","<br>"));
-		}
+		vo2.setDesignerProfile(vo2.getDesignerProfile().replace("\r\n","<br>"));
 		return vo2;
-	}
-
-	@Override
-	public List<DesignerVO> getAllDesigner(HashMap map) {
-		return designerDAO.getAllDesigner(map);
-	}
-
-	@Override
-	public int getTotalPage() {
-		double t =  Math.ceil(designerDAO.getTotalCount()/9);
-		return (int)t;
-	}
-
-	@Override
-	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
-		return designerDAO.designerPerDrawing(vo);
 	}
 
 }
