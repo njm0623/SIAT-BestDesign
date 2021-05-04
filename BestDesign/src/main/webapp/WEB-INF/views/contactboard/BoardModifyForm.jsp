@@ -104,12 +104,73 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
-
-    <link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-    <script src="../resources/js/bootstrap.js"></script>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<link rel="stylesheet" href="../resources/css/custom.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="../resources/js/bootstrap.js"></script>
+<script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script type="text/javascript">
+	AWS.config.update({
+        accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
+        secretAccessKey: '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'
+    });
+    AWS.config.region = 'ap-northeast-2';
+    
+	$(function () {
+	    $("#save").click(function () {
+	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
+	        let fileChooser = document.getElementById('file');
+	        let file = fileChooser.files[0];
+	        
+	        let Now = new Date()
+	        StrNow = String(Now)
+	        nowYear = String(Now.getFullYear())
+	        nowMon = String(Now.getMonth()+1)
+	        nowDay = String(Now.getDate())
+		    if(nowMon.length == 1) {
+		    	nowMon = "0"+nowMon
+		    }	    
+		    let divideNow = String(StrNow).split(' ');	    
+		    let divideNowTimeDiv = divideNow[4].split(':');
+		    let divideNowTimeJoin = divideNowTimeDiv[0]+divideNowTimeDiv[1]+divideNowTimeDiv[2];
+		    
+		    let NowToday = nowYear+nowMon+nowDay+divideNowTimeJoin;
+		    
+	        if (file) {
+	        	$("#fileName").val("https://bestdesign.s3.ap-northeast-2.amazonaws.com/<%=userID%>_"+NowToday+"_"+file.name)
+	            var params = {
+	                Key: "<%=userID%>_"+NowToday+"_"+file.name,
+	                ContentType: file.type,
+	                Body: file,
+	                ACL: 'public-read' // 접근 권한
+	            };
 	
+	            bucket.putObject(params, function (err, data) {
+	            	if (err) {
+	            		alert("이미지 업로드에 실패하였습니다.")
+	            		console.log(err, err.stack)
+	            		return;
+	            	}
+	            	else {
+	            		// 업로드 성공
+	                	$("#frm").submit();
+	            	}
+	            });
+	
+	            //bucket.putObject(params).on('httpUploadProgress',
+	            //    function (evt) {
+	            //        console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total) + '%');
+	            //    }).send(function (err, data) {
+	            //        alert("File uploaded successfully.");
+	            //    });
+	        }
+	        else {
+	        	$("#frm").submit();
+	        }
+	    });
+	});
+</script>
+
 
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
@@ -124,7 +185,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='hidden' name='userId' value="${list.userId}"><br/><br/>
 	제  목 : <input type='text' name='contactTitle' value="${list.contactTitle }"><br/><br/>
 	내  용 : <textarea rows='10' cols='40' name='contactContent'>${list.contactContent}</textarea><br/>	
-	파일 : <input type='file' name='contactFile' value="${list.contactFile}"><br/><br/>
+	파일 : <input type='file' name='contactFile' id="file"><br/><br/>
+	<input type="hidden" id="fileName" name="contactFile"/>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
 		<label class="btn  btn-primary active">
@@ -135,7 +197,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		</label>
 	</div>
 </div>
-	<input type='submit' value='작성'>
+	<input type='button' value='작성'>
 	<input type='reset' value='취소'>
 	</form>
 	

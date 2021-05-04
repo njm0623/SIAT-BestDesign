@@ -115,6 +115,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     
 	$(function () {
 	    $("#save").click(function () {
+	    	if ($("#title").val() == '') {
+	    		alert("제목을 입력하세요.")
+	    		return
+	    	}
+	    	
 	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
 	        let fileChooser = document.getElementById('file');
 	        let file = fileChooser.files[0];
@@ -204,7 +209,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		<input type="hidden" name="userId" value="<%=userID%>"/>
 		<input type="text" id="title" name="requestTitle" placeholder="제목을 입력해 주세요."/>
 		<textarea id="ir1" name="requestContent"></textarea>
-		<input type="file" id="file" onchange="fileChange(this)" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
+		<input type="file" id="file" accept="image/bmp, image/rle, image/dib, image/tif, image/tiff, image/gif, image/jpg, image/jpeg, image/png"/>
 		<input type="hidden" id="fileName" name="requestImage"/>
 		<input type="button" id="save" value="저장" class="btn"/>
 		<input type="button" id ="cancel" value="취소" class="btn" onclick="location.href='getRequestBoardList.do'"/>
