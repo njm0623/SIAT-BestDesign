@@ -108,6 +108,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <link rel="stylesheet" href="../resources/css/custom.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
 <script type="text/javascript">
 	AWS.config.update({
@@ -117,6 +118,17 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     AWS.config.region = 'ap-northeast-2';
     
 	$(function () {
+		$("#frm").validate({// 데이터 유효성 검사 플러그인
+			rules:{
+				contactTitle:"required",
+				contactContent:"required"
+			},
+		messages:{
+				contactTitle:"제목을 입력하세요.",
+				contactContent: "내용을 입력하세요."
+			}
+		})
+
 	    $("#save").click(function () {
 	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
 	        let fileChooser = document.getElementById('file');
@@ -177,14 +189,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
-
+<div class="container">
 	<h4> 문의 게시판 글 쓰기 </h4><br/>
 	<form name='frm' method='post' action="BoardModify.do">
 	<input type='hidden' name='contactNum' value="${list.contactNum}"><br/><br/>
 	<input type='hidden' name='userId' value="${list.userId}"><br/><br/>
-	제  목 : <input type='text' name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요." value="${list.contactTitle }"><br/><br/>
+	제  목 : <input type='text' style="width: 500px;" name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요." value="${list.contactTitle }"><br/><br/>
 	내  용 : <textarea rows='10' cols='40' name='contactContent' id='contactContent' placeholder="내용을 입력하세요.">${list.contactContent}</textarea><br/>	
-	파일 : <input type='file' name='contactFile' id="file"><br/><br/>
+	파일 : <input type='file'  id="file"><br/><br/>
 	<input type="hidden" id="fileName" name="contactFile"/>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
@@ -199,7 +211,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='button' id="save" value='작성'>
 	<input type='reset' value='취소'onclick="location.href='BoardView.do?contactNum=${list.contactNum}'">
 	</form>
-	
+	</div>
 	<%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

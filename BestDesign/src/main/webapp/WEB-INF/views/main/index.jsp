@@ -12,7 +12,6 @@
 
 <title>Home - Tyche Demo</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../resources/js/owl.carousel.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
@@ -92,6 +91,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
 <style>
 	#masthead {
@@ -336,27 +336,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
 
-
+<c:forEach var="rec" items="${a_List}">
 
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
-<img width="160" height="120" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/belts-823257_1920-160x120.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/belts-823257_1920-768x549.jpg" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
 </div>
 <div class="col-xs-6">
 <div class="tyche-product-body text-left">
-<h3><a href="https://demo.colorlib.com/tyche/product/fitt-belts/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">FITT Belts</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=31" data-quantity="1" data-product_id="31" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button green"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+<h3>${rec.saleTitle }</a></h3>
 </div>
 </div>
 </div>
 </div>
 
+</c:forEach>
 
 
-<div class="tyche-product green">
+<!-- <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
@@ -388,7 +388,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
-</div>
+</div> -->
 
 
 </div>
@@ -403,6 +403,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>초상화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
+
+
+<!-- 
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -418,6 +421,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -433,6 +439,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -448,14 +457,39 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
+<c:forEach var="rec" items="${b_List}">
+
+<div class="tyche-product blue">
+<div class="row">
+<div class="col-xs-6">
+<div class="tyche-product-image">
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
+</div>
+<div class="col-xs-6">
+<div class="tyche-product-body text-left">
+<h3>${rec.saleTitle }</a></h3>
+</div>
+</div>
+</div>
+</div>
+
+</c:forEach>
 </div>
 </div>
 </div> </div>
+
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
 <div id="tyche_products-7" class="tyche-products black widget widget_tyche_products"><h3 class="widget-title"><span>풍경화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
-<div class="tyche-product black">
+
+
+<!-- <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
@@ -470,6 +504,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
 <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
@@ -485,6 +521,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
 <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
@@ -499,7 +537,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+</div> -->
+
+<c:forEach var="rec" items="${c_List}">
+
+<div class="tyche-product black">
+<div class="row">
+<div class="col-xs-6">
+<div class="tyche-product-image">
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
 </div>
+<div class="col-xs-6">
+<div class="tyche-product-body text-left">
+<h3>${rec.saleTitle }</a></h3>
+</div>
+</div>
+</div>
+</div>
+
+</c:forEach>
+
 </div>
 </div>
 </div> </div>

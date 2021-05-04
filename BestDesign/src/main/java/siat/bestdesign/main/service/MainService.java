@@ -9,4 +9,6 @@ public interface MainService {
 	List<MainVO> getTopDesigner();
 
 	List<MainVO> getHotDrawing();
+
+	List<MainVO> getDrawing(String saleCate);
 }

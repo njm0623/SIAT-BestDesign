@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import siat.bestdesign.designer.dao.DesignerDAOImpl;
+import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -81,6 +82,16 @@ public class DesignerServiceImpl implements DesignerService{
 	@Override
 	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
 		return designerDAO.designerPerDrawing(vo);
+	}
+
+	@Override
+	public DesignerCartVO checkCart(HashMap map) {
+		return designerDAO.checkCart(map);
+	}
+
+	@Override
+	public DesignerCartVO checkCartView(HashMap map) {
+		return designerDAO.checkCartView(map);
 	}
 
 }
