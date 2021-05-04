@@ -44,4 +44,23 @@
 			from designer
 		]]>
 	</select>
+	<select id="checkCart" parameterType="hash" resultType="dcart">
+		<![CDATA[
+			SELECT *
+			from designercart
+			where userId = #{userId} and designerId = #{designerId}
+		]]>
+	</select>
+	<insert id="insertCart" parameterType="hash">
+		<![CDATA[
+			INSERT INTO designerCart
+			values(seq_designerCart.nextval, #{userId}, #{designerId})
+		]]>
+	</insert>
+	<delete id="deleteCart" parameterType="dcart">
+		<![CDATA[
+			DELETE FROM designerCart
+			where cartNum = #{cartNum}
+		]]>
+	</delete>
 </mapper>

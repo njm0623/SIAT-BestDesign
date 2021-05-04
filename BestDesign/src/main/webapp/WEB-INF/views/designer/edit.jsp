@@ -192,7 +192,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="woocommerce-notices-wrapper"></div><div id="product-19" class="product type-product post-19 status-publish first instock product_cat-tops product_cat-trends has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
 <figure class="woocommerce-product-gallery__wrapper">
-<div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><img width="540" height="360" src="../resources/main_logo.png" class="wp-post-image"/></div> </figure>
+<div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><img width="540" height="360" src="${Profile.designerImage }" class="wp-post-image"/></div> </figure>
 </div>
 
 <div class="con">

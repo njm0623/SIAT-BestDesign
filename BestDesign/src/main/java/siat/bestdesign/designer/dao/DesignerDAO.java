@@ -3,6 +3,7 @@ package siat.bestdesign.designer.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -17,4 +18,7 @@ public interface DesignerDAO {
 	int getTotalCount();
 	
 	List<SaleBoardVO> designerPerDrawing(DesignerVO vo);
+	
+	DesignerCartVO checkCart(HashMap map);
+	DesignerCartVO checkCartView(HashMap map);
 }

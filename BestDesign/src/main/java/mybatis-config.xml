@@ -23,5 +23,6 @@
 		<typeAlias alias="main" type="siat.bestdesign.main.domain.MainVO"/>
 		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>
 		<typeAlias alias="requestBoardDeal" type="siat.bestdesign.requestboard.domain.RequestBoardDealVO"/>
+		<typeAlias alias="dcart" type="siat.bestdesign.designer.domain.DesignerCartVO"/>
 	</typeAliases>
 </configuration>

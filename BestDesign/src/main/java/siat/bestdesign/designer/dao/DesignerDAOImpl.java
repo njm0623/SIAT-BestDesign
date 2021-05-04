@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -39,6 +40,20 @@ public class DesignerDAOImpl implements DesignerDAO{
 
 	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
 		return mybatis.selectList("designer.designerPerDrawing",vo);
+	}
+
+	public DesignerCartVO checkCart(HashMap map) {
+		DesignerCartVO vo = mybatis.selectOne("designer.checkCart",map);
+		if(vo!=null) {
+			mybatis.delete("designer.deleteCart",vo);
+		}else {
+			mybatis.insert("designer.insertCart",map);
+		}
+		return vo;
+	}
+
+	public DesignerCartVO checkCartView(HashMap map) {
+		return mybatis.selectOne("designer.checkCart",map);
 	}
 
 }

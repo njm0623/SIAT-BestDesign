@@ -116,12 +116,43 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			$("#editProfile").click(function(){
 				location.replace("../designer/edit.do?designerId=${param.designerId}");
 			})
-			
+			$("#dcart").click(function(){
+				let userID = "${sessionScope.userID}";
+				let designerId = "${param.designerId}";
+				$.ajax({
+					data:{userId: userID,
+						   designerId:designerId},
+					type:"post",
+					dataType:"text",
+					url:"../designer/checkCart.do",
+					success:Check,
+					error:function(error){
+						alert("에러");
+						console.log(error);
+					}
+				})
+				function Check(star){
+					$("#dcart").text(star);
+					if(star=="☆"){
+						$("#checkMessage").html("즐겨찾기가 해제되었습니다.");
+						$("checkType").attr("class","modal-content panel-warning");
+					}else{
+						flag=true;
+						$("#checkMessage").html("즐겨찾기가 등록되었습니다.");
+						$("#checkType").attr("class","modal-content panel-success");
+					}
+					$("#checkModal").modal("show");
+				}
+			})
 		})
 	</script>
 <style>
 	.columns-4{
 		display:flex;
+	}
+	html body #a_dimage .dimage{
+		max-width: none;
+		width: 220px; height: 130px;
 	}
 </style>
 </head>
@@ -134,7 +165,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<nav class="woocommerce-breadcrumb"><a href="../main/index.do">Home</a>&nbsp;&#47;&nbsp;디자이너 프로필</nav>
+
 <div class="woocommerce-notices-wrapper"></div><div id="product-19" class="product type-product post-19 status-publish first instock product_cat-tops product_cat-trends has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
 <figure class="woocommerce-product-gallery__wrapper">
@@ -179,12 +210,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <c:if test="${sessionScope.userID eq param.designerId}">
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="editProfile">수정하기</button>
 </c:if>
-
-<div class="product_meta">
-<span class="posted_in">Categories: <a href="https://demo.colorlib.com/tyche/product-category/tops/" rel="tag">Tops</a>, <a href="https://demo.colorlib.com/tyche/product-category/trends/" rel="tag">Trends</a></span>
 </div>
-</div>
-
+<button type="button" class="single_add_to_cart_button button alt" id="dcart">${dcart}</button>
 
 
 <section class="related products">
@@ -196,7 +223,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 
 <li class="product type-product post-64 status-publish first instock product_cat-shirts product_cat-trends product_tag-blouse product_tag-blue product_tag-shirt has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
-<a href="../saleboard/saleBoard?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="${rec.saleImage }" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
+<a href="../saleboard/saleBoard?saleNum=${rec.saleNum}" id="a_dimage"><img width="330" height="200" src="${rec.saleImage}" class="dimage"alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
 </a></li>
 
 

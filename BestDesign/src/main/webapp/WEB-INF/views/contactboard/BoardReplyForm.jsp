@@ -13,6 +13,18 @@
         	response.sendRedirect("../main/index.do");
         	return;
         }
+        
+        String type = null;
+        if(session.getAttribute("type") != null){
+        	type = (String) session.getAttribute("type");// 겟 세션은 Object 를 리턴
+        }
+        if(!type.equals("관리자")){
+        	session.setAttribute("messageType", "오류");
+        	session.setAttribute("messageContent", "관리자만 답글을 쓸 수 있습니다");
+        	response.sendRedirect("../main/index.do");
+        	return;
+        }
+        
     %>
 <html lang="ko">
 <head>
@@ -108,21 +120,34 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
-	
+	<script>
+	$(function(){
+		$("#frm").validate({// 데이터 유효성 검사 플러그인
+			rules:{
+				contactTitle:"required",
+				contactContent:"required"
+			},
+		messages:{
+				contactTitle:"제목을 입력하세요.",
+				contactContent: "내용을 입력하세요."
+			}
+		})
+	})
+	</script>
 
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
-
+<div class="container">
 	<h4> 답글 게시판 글 쓰기 </h4><br/>
-	나중에 이쁘게 만드시오 <br/><br/>
 	<form name='frm' method='post' action="BoardReply.do">
 	<input type='hidden' name='userId' value="${sessionScope.userID}"><br/><br/>
 	<input type='hidden' name='parentId' value="${param.parentId}"><br/><br/>
-	제  목 : <input type='text' name='contactTitle'><br/><br/>
+	제  목 : <input type='text' width="400px" name='contactTitle'><br/><br/>
 	내  용 : <textarea rows='10' cols='40' name='contactContent'></textarea><br/>	
 	파일 : <input type='file' name='contactFile'><br/><br/>
 	<div class="form-group">
@@ -138,7 +163,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='submit' value='작성'>
 	<input type='reset' value='취소'>
 	</form>
-	
+	</div>
 	<%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

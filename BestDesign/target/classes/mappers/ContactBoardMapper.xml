@@ -3,10 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
-			SELECT *
-			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum desc)
-			WHERE IDX BETWEEN #{first} AND #{end}
-			<if test="val != null">and ${key} LIKE '%${val}%' </if>
+			select *
+			from (select ROWNUM IDX, c.*
+				  from (SELECT * FROM contactBoard ORDER BY contactNum desc) c
+				 )
+			WHERE IDX BETWEEN #{first} AND #{end}<if test="val != null"> and ${key} LIKE '%${val}%' </if>
 			order by contactSeqNum desc
 	</select>
 	<select id="getGroupNum" resultType="contact">
