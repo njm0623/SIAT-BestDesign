@@ -108,6 +108,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.goodsRow div{
 		margin: 10px;
 	}
+	body img{
+		max-width: none;
+	}
 </style>
 
 <!-- ************************************************************************************************************* -->
@@ -296,7 +299,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
 	<c:choose>
    <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
-<%--    <c:otherwise><img width="400" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise> --%>
+ 	<c:otherwise><img width="330" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>
 </c:choose>
 		<h2>${draw.saleTitle}</h2>
 		</a>
@@ -326,10 +329,15 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <section class="content-area-2">
 <div class="container">
 <div class="row">
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
 <div id="tyche_products-5" class="tyche-products green widget widget_tyche_products"><h3 class="widget-title"><span>팬아트</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
+
+
+
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
@@ -345,6 +353,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
@@ -360,6 +371,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
@@ -375,9 +389,16 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
 </div>
 </div>
 </div> </div>
+
+
+
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
 <div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>초상화</span></h3>
 <div class="tyche-product-list-container">

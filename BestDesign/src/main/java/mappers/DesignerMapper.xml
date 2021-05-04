@@ -16,6 +16,13 @@
 			WHERE designerId = #{designerId}
 		]]>
 	</select>
+	<select id="designerPerDrawing" parameterType="design" resultType="sale">
+		<![CDATA[
+			select salenum, saletitle, saleimage
+			from(select * from saleboard order by dbms_random.random)
+			where rownum <=4 and designerid = #{designerId}
+		]]>
+	</select>
 	<update id="designerUpdate" parameterType="design">
 		<![CDATA[
 			UPDATE designer

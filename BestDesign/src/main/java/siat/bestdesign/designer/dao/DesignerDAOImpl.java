@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import siat.bestdesign.designer.domain.DesignerVO;
+import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
 @Repository("designerDAO")
 public class DesignerDAOImpl implements DesignerDAO{
@@ -34,6 +35,10 @@ public class DesignerDAOImpl implements DesignerDAO{
 
 	public int getTotalCount() {
 		return mybatis.selectOne("designer.getTotalCount");
+	}
+
+	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
+		return mybatis.selectList("designer.designerPerDrawing",vo);
 	}
 
 }

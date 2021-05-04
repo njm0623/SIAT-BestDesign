@@ -30,6 +30,7 @@ public class DesignerCotroller {
 			return "redirect:/main/index.do";
 		}
 		m.addAttribute("Profile", designerService.selectDesigner(vo));
+		m.addAttribute("draw", designerService.designerPerDrawing(vo));
 		return null;
 	}
 	@RequestMapping(value= {"edit.do"})
