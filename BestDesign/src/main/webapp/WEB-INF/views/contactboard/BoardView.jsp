@@ -191,7 +191,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
    <tr>
       <td colspan="2">
          <button onclick="location.href='boardList.do'">목록</button>
+         <c:if test="${sessionScope.type eq '관리자'}">
          <button onclick="location.href='BoardReplyForm.do?parentId=${rec.contactNum}'">답변</button>
+		</c:if>         
          <c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
          <button onclick="location.href='BoardModifyForm.do?contactNum=${rec.contactNum}'">수정</button>
          <button onclick="location.href='BoardDelete.do?contactNum=${rec.contactNum}'">삭제</button>

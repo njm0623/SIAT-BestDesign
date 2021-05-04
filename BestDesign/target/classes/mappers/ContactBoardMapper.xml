@@ -4,11 +4,10 @@
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
 			select *
-			from (SELECT ROWNUM IDX, r.*
-					FROM (SELECT * FROM contactBoard WHERE rownum>=1 ORDER BY contactNum desc) r
-				)
-				WHERE IDX BETWEEN ${first} AND ${end}
-			<if test="val != null"> and ${key} LIKE '%${val}%' </if>
+			from (select ROWNUM IDX, c.*
+				  from (SELECT * FROM contactBoard ORDER BY contactNum desc) c
+				 )
+			WHERE IDX BETWEEN #{first} AND #{end}<if test="val != null"> and ${key} LIKE '%${val}%' </if>
 			order by contactSeqNum desc
 	</select>
 	<select id="getGroupNum" resultType="contact">

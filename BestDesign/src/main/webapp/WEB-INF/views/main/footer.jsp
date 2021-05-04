@@ -57,26 +57,26 @@
 <div class="container">
 <div class="row">
 <div class="col-md-3 col-sm-6">
-<div id="meta-4" class="widget widget_meta"><h5 class="widget-title"><span>Meta</span></h5>
+<div id="meta-4" class="widget widget_meta"><h5 class="widget-title"><img width="200px"src="../resources/BestDesign_Logo.png"/></h5>
 <ul>
-<li><a rel="nofollow" href="https://demo.colorlib.com/tyche/wp-login.php">Log in</a></li>
-<li><a href="https://demo.colorlib.com/tyche/feed/">Entries feed</a></li>
-<li><a href="https://demo.colorlib.com/tyche/comments/feed/">Comments feed</a></li>
-<li><a href="https://wordpress.org/">WordPress.org</a></li>
+<li>Estimate</li>
+<li>Request</li>
+<li>Sale</li>
+<li>Chatting</li>
 </ul>
 </div> </div>
 <div class="col-md-3 col-sm-6">
 
-<div id="tyche_recent-5" class="tyche-recent-posts widget widget_tyche_recent"><h5 class="widget-title"><span>Recent Posts</span></h5>
+<div id="tyche_recent-5" class="tyche-recent-posts widget widget_tyche_recent"><h5 class="widget-title"><span>Recent Update</span></h5>
 <div class="tyche-recent-post-widget">
 <div class="tyche-image">
 <a href="https://demo.colorlib.com/tyche/2017/06/12/jackets-soul-color/">
-<img width="65" height="65" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/down-jackets-1281699_1920-65x65.jpg" class="attachment-tyche-recent-post-list-image size-tyche-recent-post-list-image wp-post-image" alt="" loading="lazy" /> </a>
+<img width="65" height="65" src="../resources/BestDesign_Logo.png" class="attachment-tyche-recent-post-list-image size-tyche-recent-post-list-image wp-post-image" alt="" loading="lazy" /> </a>
 </div>
 <div class="tyche-post-content">
 <div class="tyche-title">
 <p>
-<a href="https://demo.colorlib.com/tyche/2017/06/12/jackets-soul-color/">Jackets For The Soul. What Color Is Yours?</a>
+BeSign is Open(21.05.04)
 </p>
 </div>
 </div>
@@ -85,18 +85,22 @@
 <div class="col-md-3 col-sm-6">
 
 
-<div id="text-3" class="widget widget_text"><h5 class="widget-title"><span>About</span></h5> <div class="textwidget"><p>Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam.</p>
+<div id="text-3" class="widget widget_text"><h5 class="widget-title"><span>About</span></h5> <div class="textwidget"><p>BestKimNa of SIAT</p>
 </div>
 </div> </div>
 
 
 <div class="col-md-3 col-sm-6">
-<div id="tag_cloud-3" class="widget widget_tag_cloud"><h5 class="widget-title"><span>Tags</span></h5><div class="tagcloud"><a href="C:\00.siat\test\home\메인페이지 하단 tags를 클릭한화면.html" class="tag-cloud-link tag-link-52 tag-link-position-1" style="font-size: 8pt;" aria-label="Autumn (1 item)">Autumn</a>
-<a href="https://demo.colorlib.com/tyche/tag/dress/" class="tag-cloud-link tag-link-56 tag-link-position-2" style="font-size: 8pt;" aria-label="dress (1 item)">dress</a>
-<a href="https://demo.colorlib.com/tyche/tag/fashion/" class="tag-cloud-link tag-link-54 tag-link-position-3" style="font-size: 18.5pt;" aria-label="fashion (3 items)">fashion</a>
-<a href="https://demo.colorlib.com/tyche/tag/jackets/" class="tag-cloud-link tag-link-57 tag-link-position-4" style="font-size: 8pt;" aria-label="jackets (1 item)">jackets</a>
-<a href="https://demo.colorlib.com/tyche/tag/stockings/" class="tag-cloud-link tag-link-55 tag-link-position-5" style="font-size: 8pt;" aria-label="stockings (1 item)">stockings</a>
-<a href="https://demo.colorlib.com/tyche/tag/trends/" class="tag-cloud-link tag-link-53 tag-link-position-6" style="font-size: 22pt;" aria-label="trends (4 items)">trends</a></div>
+<div id="tag_cloud-3" class="widget widget_tag_cloud"><h5 class="widget-title"><span>Tags</span></h5><div class="tagcloud">
+<a class="tag-cloud-link tag-link-52 tag-link-position-1" style="font-size: 8pt;" aria-label="Autumn (1 item)">charcter</a>
+<a class="tag-cloud-link tag-link-56 tag-link-position-2" style="font-size: 8pt;" aria-label="dress (1 item)">protraits</a>
+<a class="tag-cloud-link tag-link-54 tag-link-position-3" style="font-size: 18.5pt;" aria-label="fashion (3 items)">landscape</a>
+<a class="tag-cloud-link tag-link-57 tag-link-position-4" style="font-size: 8pt;" aria-label="jackets (1 item)">chariculture</a>
+<a class="tag-cloud-link tag-link-55 tag-link-position-5" style="font-size: 8pt;" aria-label="stockings (1 item)">comics</a>
+<a class="tag-cloud-link tag-link-54 tag-link-position-3" style="font-size: 18.5pt;" aria-label="fashion (3 items)">poster</a>
+<a class="tag-cloud-link tag-link-57 tag-link-position-4" style="font-size: 8pt;" aria-label="jackets (1 item)">3D</a>
+<a class="tag-cloud-link tag-link-53 tag-link-position-6" style="font-size: 22pt;" aria-label="trends (4 items)">sentence</a>
+<a class="tag-cloud-link tag-link-55 tag-link-position-5" style="font-size: 8pt;" aria-label="stockings (1 item)">etc</a></div>
 </div> </div>
 </div>
 </div>
@@ -115,7 +119,7 @@
 <li id="menu-item-92" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-92"><a href="https://youtube.com"><span class="screen-reader-text">YouTube</span></a></li>
 </ul></div>
 <div class="copyright-text pull-right">
-Copyright © 2021 | Theme: Tyche | Powered by WordPress. </div>
+카피라이트 © 이천이십일 | 테마: Tyche(호환성 꽝) | By Colorlib. </div>
 </div>
 </div>
 </div>
