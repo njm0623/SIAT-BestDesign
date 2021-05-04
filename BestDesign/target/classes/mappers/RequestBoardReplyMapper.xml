@@ -23,16 +23,16 @@
 	
 	<update id='modifyReply' parameterType='requestBoardReply'>
 		UPDATE AUCTION SET
-		auctionPrice = #{auctionPrice}
+		auctionPrice = #{auctionPrice},
 		auctionComment = #{auctionComment}
 		WHERE auctionNum = #{auctionNum}
 	</update>
 	
 	<insert id="insertRequestBoardDeal" parameterType="requestBoardDeal">
-		INSERT INTO REQUESTDEAL(DEALNUM, REQUESTNUM, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE
+		INSERT INTO REQUESTDEAL(DEALNUM, REQUESTNUM, REQUESTTITLE, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE
 		<if test="dealImage != ''">, DEALIMAGE</if>
 		)
-		VALUES(SEQ_REQUESTBOARDDEAL.nextval, #{requestNum}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate
+		VALUES(SEQ_REQUESTBOARDDEAL.nextval, #{requestNum}, #{requestTitle}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate
 		<if test="dealImage != ''">, #{dealImage}</if>
 		)
 	</insert>

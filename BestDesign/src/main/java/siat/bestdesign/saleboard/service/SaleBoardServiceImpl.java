@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import siat.bestdesign.saleboard.dao.SaleBoardDAOImpl;
+import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -48,5 +49,9 @@ public class SaleBoardServiceImpl implements SaleBoardService {
 	@Override
 	public void updateSaleBoardView(SaleBoardVO vo) {
 		saleBoardDAO.updateSaleBoardView(vo);
+	}
+	
+	public void saleBoardPurchase(SaleBoardDealVO vo) {
+		saleBoardDAO.saleBoardPurchase(vo);
 	}
 }

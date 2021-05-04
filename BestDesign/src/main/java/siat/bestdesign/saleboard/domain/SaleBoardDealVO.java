@@ -3,12 +3,19 @@ package siat.bestdesign.saleboard.domain;
 public class SaleBoardDealVO {
 	private int dealNum;
 	private int saleNum;
+	private String saleTitle;
 	private String dealBuyerId;
 	private String dealSellerId;
 	private int dealPrice;
 	private String dealDate;
 	private String dealImage;
 	
+	public String getSaleTitle() {
+		return saleTitle;
+	}
+	public void setSaleTitle(String saleTitle) {
+		this.saleTitle = saleTitle;
+	}
 	public int getDealNum() {
 		return dealNum;
 	}
