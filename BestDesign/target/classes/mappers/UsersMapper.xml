@@ -2,31 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
-	<insert id="userInsert" parameterType="user">
+   <insert id="userInsert" parameterType="user">
+      <![CDATA[
+         INSERT INTO
+         users
+         VALUES(#{userId},#{userPwd},#{userName},#{userEmail},#{userBirth},#{userPhone},#{userType})
+         ]]>
+   </insert>
+   <select id="userLogin" parameterType="user" resultType="user">
+      <![CDATA[
+         SELECT *
+         FROM users
+         WHERE userId = #{userId}
+      ]]>
+   </select>
+   <select id="userList" parameterType="user" resultType="user">
+      <![CDATA[
+         SELECT *
+         FROM users
+      ]]>
+   </select>
+   <select id="designerList" parameterType="user" resultType="user">
+      <![CDATA[
+         SELECT *
+         FROM users
+         WHERE userType = 2
+      ]]>
+   </select>
+   
+   <!-- 회원정보 수정 -->
+	<update id="userUpdate" parameterType="user">
 		<![CDATA[
-			INSERT INTO
-			users
-			VALUES(#{userId},#{userPwd},#{userName},#{userEmail},#{userBirth},#{userPhone},#{userType})
-			]]>
-	</insert>
-	<select id="userLogin" parameterType="user" resultType="user">
+			update users
+				set
+				  userName = #{userName}
+				, userPhone =  #{userPhone}
+				, userEmail = #{userEmail}
+				where userId = #{userId}
+				]]>
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="withdrawal" parameterType="user">
 		<![CDATA[
-			SELECT *
-			FROM users
-			WHERE userId = #{userId}
+			 delete from users
+			     where userId = #{userId}
+			         and userPwd = #{userPwd}
 		]]>
-	</select>
-	<select id="userList" parameterType="user" resultType="user">
-		<![CDATA[
-			SELECT *
-			FROM users
-		]]>
-	</select>
-	<select id="designerList" parameterType="user" resultType="user">
-		<![CDATA[
-			SELECT *
-			FROM users
-			WHERE userType = 2
-		]]>
-	</select>
+	</delete>
+   
 </mapper>

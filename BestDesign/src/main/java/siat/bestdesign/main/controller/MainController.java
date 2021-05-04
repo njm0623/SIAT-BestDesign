@@ -1,20 +1,16 @@
 package siat.bestdesign.main.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import siat.bestdesign.main.domain.MainVO;
-import siat.bestdesign.main.service.MainService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("main")
 public class MainController {
-	
-	@Autowired
-	MainService mainService;
 	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
