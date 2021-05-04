@@ -9,12 +9,14 @@
 			ORDER BY chatId DESC
 		]]>
 	</select>
+	
 	<insert id="insertChat" parameterType="chat">
 		<![CDATA[
 			INSERT INTO chat
 			VALUES(seq_chatID.nextval, #{chatFromId}, #{chatToId} ,#{chatContent} , sysdate, 0)
 		]]>
 	</insert>
+	
 	<select id="getChatListByRecent" parameterType="chat" resultType="chat">
 		<![CDATA[
 			SELECT * 
@@ -23,6 +25,7 @@
 			and chatId > (select max(chatId) - #{chatId} from chat where (chatFromId = #{chatFromId} and chatToId = #{chatToId}) or (chatFromId = #{chatToId} and chatToId = #{chatFromId})) order by chatDate
 		]]>
 	</select>
+	
 	<select id="getChatListByID" parameterType="chat" resultType="chat">
 		<![CDATA[
 			SELECT * 
@@ -30,16 +33,19 @@
 			WHERE ((chatFromId = #{chatFromId} and chatToId = #{chatToId}) or (chatFromId = #{chatToId} and chatToId = #{chatFromId})) and chatId > #{chatId} order by chatDate
 		]]>
 	</select>
+	
 	<select id="unReadChat" parameterType="chat" resultType="chat">
 		<![CDATA[
 			select * from chat where chatToId = #{chatToId} and chatRead = 0
 		]]>
 	</select>
+	
 	<select id="getBox" parameterType="chat" resultType="chat">
 		<![CDATA[
 			select DISTINCT chatFromId from chat where chatToId = #{chatToId}
 		]]>
 	</select>
+	
 	<update id="readChat" parameterType="chat">
 		<![CDATA[
 			UPDATE chat SET chatRead = 1 where (chatFromId = #{chatToId} and chatToId = #{chatFromId})

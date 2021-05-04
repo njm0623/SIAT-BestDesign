@@ -48,8 +48,6 @@
     	border-color: #f2a154;
 	}
 </style>
-<link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
 <!-- ************************************************************************************************************* -->
 </head>
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">

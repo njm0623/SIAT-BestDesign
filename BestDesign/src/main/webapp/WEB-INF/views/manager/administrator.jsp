@@ -165,17 +165,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
 	
 	<jsp:include page="../main/header.jsp"/>
+	<br><br>
 		<!--탑부분 삭제: 185 라인 main-slider부터 site-content 위에 section 끝나는부분까지(239라인)-->
 		<div class="site-content">
 			<div class="container">
 				<!-- 썸네일 페이지  188라인 col-xs-12부터 467 colophon footer전까지 삭제-->
-				<div class="row">
-					<div class="col-md-12">
-						<nav class="woocommerce-breadcrumb">
-							<a href="https://demo.colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Administrator
-						</nav>
-					</div>
-				</div>
 				<!-- 본문 -->
 				<div class="row">
 					<!-- 왼쪽 side메뉴 -->

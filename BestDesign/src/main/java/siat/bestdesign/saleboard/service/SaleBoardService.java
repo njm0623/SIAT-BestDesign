@@ -3,6 +3,7 @@ package siat.bestdesign.saleboard.service;
 import java.util.HashMap;
 import java.util.List;
 
+import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -22,4 +23,5 @@ public interface SaleBoardService {
 
 	void updateSaleBoardView(SaleBoardVO vo);
 
+	void saleBoardPurchase(SaleBoardDealVO vo);
 }

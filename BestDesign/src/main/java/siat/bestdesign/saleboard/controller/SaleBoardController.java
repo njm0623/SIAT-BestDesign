@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import siat.bestdesign.chat.domain.ChatVO;
+import siat.bestdesign.chat.service.ChatService;
+import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 import siat.bestdesign.saleboard.service.SaleBoardService;
@@ -18,6 +21,9 @@ import siat.bestdesign.saleboard.service.SaleBoardService;
 public class SaleBoardController {
 	@Autowired
 	private SaleBoardService saleBoardService;
+	
+	@Autowired
+	ChatService chatService;
 	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
@@ -90,5 +96,23 @@ public class SaleBoardController {
 		model.addAttribute("saleBoardListPaging", vo);
 		model.addAttribute("saleBoardList", saleBoardService.getSaleBoardList(vo));
 		return "saleboard/saleList";
+	}
+	
+	@RequestMapping("purchase.do")
+	public String saleBoardPurchase(SaleBoardDealVO vo) {
+		ChatVO chatvo1 = new ChatVO();
+		chatvo1.setChatFromId(vo.getDealSellerId());
+		chatvo1.setChatToId(vo.getDealBuyerId());
+		chatvo1.setChatContent(vo.getDealBuyerId() + "님, '" + vo.getSaleTitle() + "' 작품을 구매해주셔서 감사합니다.");
+		chatService.insertChat(chatvo1);
+		
+		ChatVO chatvo2 = new ChatVO();
+		chatvo2.setChatFromId("manager1");
+		chatvo2.setChatToId(vo.getDealSellerId());
+		chatvo2.setChatContent(vo.getDealBuyerId() + "님께서  '" + vo.getSaleTitle() + "' 작품을 구매하셨습니다.");
+		chatService.insertChat(chatvo2);
+		
+		saleBoardService.saleBoardPurchase(vo);
+		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 }

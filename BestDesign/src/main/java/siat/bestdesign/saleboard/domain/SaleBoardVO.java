@@ -10,7 +10,7 @@ public class SaleBoardVO {
 	private int salePrice;
 	private String saleCate;
 	private int saleView;
-	private int saleRate;
+	private double saleRate;
 	private String designerNickname;
 	
 	public String getDesignerNickname() {
@@ -27,10 +27,10 @@ public class SaleBoardVO {
 	}
 	private String designerProfile;
 	
-	public int getSaleRate() {
+	public double getSaleRate() {
 		return saleRate;
 	}
-	public void setSaleRate(int saleRate) {
+	public void setSaleRate(double saleRate) {
 		this.saleRate = saleRate;
 	}
 	public int getSaleNum() {

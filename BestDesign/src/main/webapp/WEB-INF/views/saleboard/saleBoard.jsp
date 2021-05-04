@@ -162,188 +162,247 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		color:#FFAB1A;
 		font-size: large;
 	}
+	
+	.reviewContent {
+		font-family:'GyeonggiTitleM';
+	}
+	
+	article {
+		height: 100px;
+		margin-bottom: 10px;
+	}
+	
+	.woocommerce #review_form #respond #modifyReply {
+		width: 300px;
+		resize: none;
+	}
+	
+	#modifyRating {
+		width: 50px;
+	}
 </style>
 
 <script>
 	$(function() {
+		// 삭제 버튼 클릭
 		$("#deleteBtn").click(function() {
 			if (confirm("정말로 삭제하시겠습니까?")) {
 				location.href = "deleteSaleBoard.do?saleNum="+${saleBoard.saleNum}
 			}
 		})
 		
-		$(function(){
-			$('#replyBtn').click(function(){				
-					if ('${currentLoginID}' == "") {
-						alert("로그인 후 이용하실 수 있습니다.")
-						return
-					}
-				
-					if ($("#comment").val() == "" || $("#rating option:selected").val() == "") {
-						alert("평점과 리뷰를 모두 입력하세요")
-						return
-					}
-					
-					alert($("#comment").val())
-					alert($("#rating option:selected").val())
-					return
-				
-					//serialize() jquery api 메소드를 이용해서 form 의 모든 element의 name과 value 값을 넘길수 있음!!         
-			        // var params = $('#replyFrm').serialize();
-				
-					$.ajax({
-		             	type :'post',	             	  
-		             	data : {
-		             		reviewComment: $("#comment").val()
-		             		reviewRate:
-		             	},
-		             	contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		             	url : 'reply/new.do',
-		             	success : function(result){
-		             		var replyList = $('#replyList');
-		             		replyList.empty();
-		             		replyListView();
-		             		$("#reply").val("");
-		             		$("#replyRate").val("");
-		             		
-		             	},
-		            	error : function(err){
-		            		alert('error');
-		            		console.log(err);
-		            	}
-			       }); // end of ajax
-			}); // end of click
+		// 구매하기 버튼 클릭
+		$('#purchase').click(function() {
+			if ('${currentLoginID}' == "") {
+				alert("로그인 후 이용하실 수 있습니다.")
+				return
+			}
 			
-			$('#replyList').on("click", ".deleteReply", function() {
-				if (confirm("정말로 삭제하시겠습니까?")) {
-					$.ajax({
-			         	type :'get',            	  
-			         	data : {auctionNum:$(this).parent().parent().children().children().children('.replyNum').children().val()},
-			         	url : 'reply/delete.do',
-			         	success : function(result){
-			         		var replyList = $('#replyList');
-			         		replyList.empty();
-			         		replyListView();
-			         	},
-			        	error : function(err){
-			        		alert('error');
-			        		console.log(err);
-			        	}
-					}); // end of ajax
-				}
-			});
-			
-			// 수정 버튼 클릭
-			$('#replyList').on("click", ".modifyReply", function(){
-				var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().text()
-				var replyComment = $(this).parent().parent().children().children().children('.replyComment').children().text()
-				$(this).parent().parent().children().children().children('.replyPrice').html('<span class="replyContent"></span><input type="number" name="auctionPrice" id="modifyAuctionPrice"/>')
-				$(this).parent().parent().children().children().children('.replyComment').html('<textarea type="text" id="modifyReply" name="auctionComment" placeholder="수정할 댓글을 입력하세요."/>')
-				$(this).val("등록")
-				$(this).attr("class","modifyRegister")
-				$(this).next().next().val("취소")
-				$(this).next().next().attr("class", "cancel")
-			});
-			
-			// 수정하기
-			$('#replyList').on("click", ".modifyRegister", function(){
-				console.log($(this).parent().parent().children().children().children('.replyNum').children().val())
-				var replyPrice = $(this).parent().parent().children().children().children('.replyPrice').children().next().val()
-				var replyComment = $(this).parent().parent().children().children().children('.replyComment').children().val()
-				
-				if(replyPrice == "" || replyComment == "") {
-					alert("댓글과 가격을 모두 입력하세요")
+			if (confirm("정말로 구매하시겠습니까?")) {				
+				location.href="purchase.do?saleNum=${saleBoard.saleNum}&saleTitle=${saleBoard.saleTitle}&dealBuyerId=${currentLoginID}&dealSellerId=${saleBoard.designerId}&dealPrice=${saleBoard.salePrice}&dealImage=${saleBoard.saleImage}"
+			}
+		});
+		
+		$('#replyBtn').click(function(){				
+				if ('${currentLoginID}' == "") {
+					alert("로그인 후 이용하실 수 있습니다.")
 					return
 				}
-				
+			
+				if ($("#comment").val() == "" || $("#rating option:selected").val() == "") {
+					alert("평점과 리뷰를 모두 입력하세요")
+					return
+				}
+			
+				//serialize() jquery api 메소드를 이용해서 form 의 모든 element의 name과 value 값을 넘길수 있음!!         
+		        // var params = $('#replyFrm').serialize();
+			
 				$.ajax({
-					type :'post',
-					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	             	type :'post',	             	  
 	             	data : {
-	             		auctionNum:$(this).parent().parent().children().children().children('.replyNum').children().val(),
-	             		auctionPrice: $(this).parent().parent().children().children().children('.replyPrice').children().next().val(),
-	             		auctionComment: $(this).parent().parent().children().children().children('.replyComment').children().val()
+	             		saleNum: ${saleBoard.saleNum},
+						userId: '${currentLoginID}',
+	             		reviewRate: $("#rating option:selected").val(),
+	             		reviewComment: $("#comment").val()
 	             	},
-	             	url : 'reply/modify.do',
+	             	contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	             	url : 'reply/new.do',
 	             	success : function(result){
 	             		var replyList = $('#replyList');
 	             		replyList.empty();
 	             		replyListView();
+	             		$("#reply").val("");
+	             		$("#replyRate").val("");
+	             		
 	             	},
 	            	error : function(err){
 	            		alert('error');
 	            		console.log(err);
 	            	}
-				}); // end of ajax
-			});
-			
-			$('#replyList').on("click", ".cancel", function(){
-				var replyList = $('#replyList');
-         		replyList.empty();
-         		replyListView();
-			});
-			
-			replyListView();
-			function replyListView(){
+		       }); // end of ajax
+		}); // end of click
+		
+		// 삭제 버튼 클릭
+		$('#replyList').on("click", ".deleteReply", function() {
+			if (confirm("정말로 삭제하시겠습니까?")) {
 				$.ajax({
-		     	type :'get',
-		     	url : 'reply.do?saleNum=${saleBoard.saleNum}',
-		     	dataType : 'json',
-		     	success : function(result){
-		     		// alert(result);
-		     		console.log(result);
-		     		// 화면에 출력
-		     		var replyList = $('#replyList');
-		     		for(row of result){
-		     			var article = $('<article/>');
-		     				var reviewDiv = $('<div id="review"/>');
-		     				
-			     				var reviewNumDiv = $('<div class="reviewNum"/>');
-			     				var reviewerDiv = $('<div class="reviewer"/>');
-			     				var reviewRateDiv = $('<div class="reviewRate"/>');
-			     				var reviewCommentDiv = $('<div class="reviewComment"/>');
-			     				var reviewDateDiv = $('<div class="replyDate"/>');			     				
-			     				
-			     					var reviewNum = $('<input type="hidden">').attr('value', row["reviewNum"]);
-				     				var reviewer = $('<span class="reviewContent"/>').html(row["userId"]);
-				     				var reviewRate = $('<span class="reviewContent"/>').html(row["reviewRate"]);
-				     				var reviewComment = $('<span class="reviewContent"/>').html(row["reviewComment"]);
-				     				var reviewDate = $('<span class="reviewContent"/>').html(row["reviewDate"]);
-				     				
-				     				reviewNumDiv.append(replyNum);
-				     				reviewDiv.append(reviewNumDiv);
-				     				
-				     				reviewerDiv.append(reviewer);
-				     				reviewDiv.append(reviewerDiv);
-				     				
-				     				reviewRateDiv.append(reviewRate);
-				     				reviewDiv.append(reviewRateDiv);
-				     				
-				     				reviewCommentDiv.append(reviewComment);
-				     				reviewDiv.append(reviewCommentDiv);
-				     				
-				     				reviewDateDiv.append(reviewDate);	
-				     				reviewDiv.append(reviewDateDiv);
-				     				
-				     				article.append(reviewDiv);
-		     			
-				     		if(row["userId"] == '${currentLoginID}') {
-			     				var commentBtn = $('<div class="form-submit"/>');
-			     					commentBtn.append('<input type="button" class="modifyReply" value="수정"/><br>');
-			     					commentBtn.append('<input type="button" class="deleteReply" value="삭제"/>');
-			     				article.append(commentBtn);
-				     		}
-		     				
-		     			replyList.append(article);
-		     		}
-		     	},
-		    	error : function(request, status, err){
-		    		alert('error');
-		    		console.log(err);
-		    	}
-		       }); // end of ajax 
+		         	type :'get',            	  
+		         	data : {
+		         		saleNum:$(this).parent().parent().children().children('.saleNum').children().val(),
+		         		reviewNum:$(this).parent().parent().children().children('.reviewNum').children().val()
+		         	},
+		         	url : 'reply/delete.do',
+		         	success : function(result){
+		         		var replyList = $('#replyList');
+		         		replyList.empty();
+		         		replyListView();
+		         	},
+		        	error : function(err){
+		        		alert('error');
+		        		console.log(err);
+		        	}
+				}); // end of ajax
 			}
 		});
+		
+		// 수정 버튼 클릭
+		$('#replyList').on("click", ".modifyReply", function(){
+			var reviewRate = $(this).parent().parent().children().children('.reviewRate').children().text()
+			var reviewComment = $(this).parent().parent().children().children('.reviewComment').children().text()
+			// $(this).parent().parent().children().children('.reviewRate').html('<span class="replyContent"></span><input type="number" name="auctionPrice" id="modifyAuctionPrice"/>')
+			$(this).parent().parent().children().children('.reviewRate').html('<select name="reviewRate" id="modifyRating" required><option value="">평점</option>'+
+					'<option value="5" id="5">5</option><option value="4" id="4">4</option><option value="3" id="3">3</option>'+
+					'<option value="2" id="2">2</option><option value="1" id="1">1</option></select>')
+			
+			$(this).parent().parent().children().children('.reviewComment').html('<textarea type="text" id="modifyReply" name="auctionComment" placeholder="수정할 댓글을 입력하세요.">'+reviewComment+'</textarea>')
+			$(this).val("등록")
+			$(this).attr("class","modifyRegister")
+			$(this).next().next().val("취소")
+			$(this).next().next().attr("class", "cancel")
+		});
+		
+		// 수정하기
+		$('#replyList').on("click", ".modifyRegister", function(){
+			var reviewRate = $(this).parent().parent().children().children('.reviewRate').children().val()
+			var reviewComment = $(this).parent().parent().children().children('.reviewComment').children().val()
+			
+			if(reviewRate == "" || reviewComment == "") {
+				alert("평점과 리뷰를 모두 입력하세요")
+				return
+			}
+			
+			console.log($(this).parent().parent().children().children('.saleNum').children().val())
+        		console.log($(this).parent().parent().children().children('.reviewNum').children().val())
+        		console.log($(this).parent().parent().children().children('.reviewRate').children().val())
+        		console.log($(this).parent().parent().children().children('.reviewComment').children().val())
+        		
+			$.ajax({
+				type :'post',
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+             	data : {
+             		saleNum:$(this).parent().parent().children().children('.saleNum').children().val(),
+             		reviewNum:$(this).parent().parent().children().children('.reviewNum').children().val(),
+             		reviewRate:$(this).parent().parent().children().children('.reviewRate').children().val(),
+             		reviewComment:$(this).parent().parent().children().children('.reviewComment').children().val()
+             	},
+             	url : 'reply/modify.do',
+             	success : function(result){
+             		var replyList = $('#replyList');
+             		replyList.empty();
+             		replyListView();
+             	},
+            	error : function(err){
+            		alert('error');
+            		console.log(err);
+            	}
+			}); // end of ajax
+		});
+		
+		$('#replyList').on("click", ".cancel", function(){
+			var replyList = $('#replyList');
+        		replyList.empty();
+        		replyListView();
+		});
+		
+		replyListView();
+		function replyListView(){
+			$.ajax({
+	     	type :'get',
+	     	url : 'reply.do?saleNum=${saleBoard.saleNum}',
+	     	dataType : 'json',
+	     	success : function(result){
+	     		// alert(result);
+	     		console.log(result);
+	     		// 화면에 출력
+	     		var replyList = $('#replyList');
+	     		for(row of result){
+	     			var article = $('<article/>');
+	     				var reviewDiv = $('<div id="review"/>');
+	     				
+	     					var saleNumDiv = $('<div class="saleNum"/>');
+		     				var reviewNumDiv = $('<div class="reviewNum"/>');
+		     				var reviewerDiv = $('<div class="reviewer"/>');
+		     				var reviewRateDiv = $('<div class="reviewRate"/>');
+		     				var reviewRateNumDiv = $('<div class="reviewRateNum"/>');
+		     				var reviewCommentDiv = $('<div class="reviewComment"/>');
+		     				var reviewDateDiv = $('<div class="replyDate"/>');			     				
+		     				
+		     					var saleNum = $('<input type="hidden">').attr('value', '${saleBoard.saleNum}');
+		     					var reviewNum = $('<input type="hidden">').attr('value', row["reviewNum"]);
+			     				var reviewer = $('<span class="reviewContent"/>').html('작성자: ' + row["userId"]);
+			     								     				
+			     				var starRate = ""
+			     				for(var i = 0; i < row["reviewRate"]; i++) {
+			     					starRate += '★'
+			     				}
+			     				for(var i = 0; i < 5 - row["reviewRate"]; i++) {
+			     					starRate += '☆'
+			     				}
+			     					
+			     				var reviewRate = $('<span class="reviewContent"/>').html(starRate);
+			     				var reviewRateNum = $('<input type="hidden">').html(row["reviewRate"]);
+			     				var reviewComment = $('<span class="reviewContent"/>').html(row["reviewComment"]);
+			     				var reviewDate = $('<span class="reviewContent"/>').html(row["reviewDate"]);
+			     				
+			     				saleNumDiv.append(saleNum);
+			     				reviewDiv.append(saleNumDiv);
+			     				
+			     				reviewNumDiv.append(reviewNum);
+			     				reviewDiv.append(reviewNumDiv);
+			     				
+			     				reviewerDiv.append(reviewer);
+			     				reviewDiv.append(reviewerDiv);
+			     				
+			     				reviewRateDiv.append(reviewRate);
+			     				reviewDiv.append(reviewRateDiv);
+			     				
+			     				reviewRateNumDiv.append(reviewRateNum);
+			     				reviewDiv.append(reviewRateNumDiv);
+			     				
+			     				reviewCommentDiv.append(reviewComment);
+			     				reviewDiv.append(reviewCommentDiv);
+			     				
+			     				reviewDateDiv.append(reviewDate);	
+			     				reviewDiv.append(reviewDateDiv);
+			     				
+			     				article.append(reviewDiv);
+	     			
+			     		if(row["userId"] == '${currentLoginID}') {
+		     				var commentBtn = $('<div class="form-submit"/>');
+		     					commentBtn.append('<input type="button" class="modifyReply" value="수정"/><br>');
+		     					commentBtn.append('<input type="button" class="deleteReply" value="삭제"/>');
+		     				article.append(commentBtn);
+			     		}
+	     				
+	     			replyList.append(article);
+	     		}
+	     	},
+	    	error : function(request, status, err){
+	    		alert('error');
+	    		console.log(err);
+	    	}
+	       }); // end of ajax 
+		}
 	})
 </script>
 
@@ -383,8 +442,17 @@ ${saleBoard.designerProfile}
 </div>
 <p class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>${saleBoard.salePrice}원</bdi></span></p>
 
-<input type="button" value="찜하기"></input>
-<input type="button" value="구매하기"></input>
+<c:choose>
+	<c:when test="${saleBoard.designerId == currentLoginID}">
+		<input type="button" value="수정" id="modifyBtn" onClick="location.href='modifySaleBoard.do?saleNum=${saleBoard.saleNum}'"></input>
+		<input type="button" value="삭제" id="deleteBtn"></input>
+	</c:when>
+	<c:otherwise>
+		<input type="button" value="찜하기" id="insertCart"></input>
+		<input type="button" value="구매하기" id="purchase"></input>
+	</c:otherwise>
+</c:choose>
+
 
 </div>
 <div class="woocommerce-tabs wc-tabs-wrapper">
@@ -431,29 +499,7 @@ ${saleBoard.designerProfile}
 <hr>
 <ol class="comment-list">
 	<li id="replyList" class="comment even thread-even depth-1">
-		<article>
-			<div id = "review">
-				<div class="reviewNum">
-					<input type="hidden" value="1"/>
-				</div>
-				<div class="reviewer">
-					<span class="replyContent">디자이너1</span>
-				</div>
-				<div class="reviewRate">
-					<span class="replyContent">★★★☆☆</span>
-				</div>
-				<div class="reviewComment">
-					<span class="replyContent">내가 그려줄게요</span>
-				</div>
-				<div class="reviewDate">
-					<span class="replyContent">2021.04.28</span>
-				</div>
-			</div>
-			<div class="form-submit">
-				<input name="submit" type="submit" class="submit" value="수정" /> <br>
-				<input name="submit" type="submit" class="submit" value="삭제" />
-			</div>
-		</article>
+		
 	</li>
 </ol>
 </div>
@@ -471,7 +517,7 @@ ${saleBoard.designerProfile}
 <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@graph":[{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Tops","@id":"https:\/\/demo.colorlib.com\/tyche\/product-category\/tops\/"}},{"@type":"ListItem","position":3,"item":{"name":"Black Top","@id":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/"}}]},{"@context":"https:\/\/schema.org\/","@type":"Product","@id":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/#product","name":"Black Top","url":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","image":"https:\/\/demo.colorlib.com\/tyche\/wp-content\/uploads\/sites\/64\/2017\/06\/woman-1477091_1920.jpg","sku":19,"offers":[{"@type":"Offer","price":"35.00","priceValidUntil":"2022-12-31","priceSpecification":{"price":"35.00","priceCurrency":"USD","valueAddedTaxIncluded":"false"},"priceCurrency":"USD","availability":"http:\/\/schema.org\/InStock","url":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/","seller":{"@type":"Organization","name":"Tyche Demo","url":"https:\/\/demo.colorlib.com\/tyche"}}]}]}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@graph":[{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Tops","@id":"https:\/\/demo.colorlib.com\/tyche\/product-category\/tops\/"}},{"@type":"ListItem","position":3,"item":{"name":"Black Top","@id":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/"}}]},{"@context":"https:\/\/schema.org\/","@type":"Product","@id":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/#product","name":"Black Top","url":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","image":"https:\/\/demo.colorlib.com\/tyche\/wp-content\/uploads\/sites\/64\/2017\/06\/woman-1477091_1920.jpg","sku":19,"offers":[{"@type":"Offer","price":"35.00","priceValidUntil":"2022-12-31","priceSpecification":{"price":"35.00","priceCurrency":"USD","valueAddedTaxIncluded":"false"},"priceCurrency":"USD","availability":"http:\/\/schema.org\/InStock","url":"https:\/\/demo.colorlib.com\/tyche\/product\/black-top\/","seller":{"@type":"Organization","name":"Tyche Demo","url":"https:\/\/demo.colorlib.com\/tyche"}}]}]}</script>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="pswp__bg"></div>
 <div class="pswp__scroll-wrap">

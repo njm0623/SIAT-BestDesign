@@ -174,6 +174,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		text-overflow:ellipsis;
 		white-space:nowrap;
 	}
+	
+	#imageWrapper {
+		height: 135px;
+		overflow: hidden;
+		position: relative;
+	}
 </style>
 <script>
 	$(function() {		
@@ -327,8 +333,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	</c:if>
 	</ul>
 </div>
-
-
 </div>
 </div>
 </div>

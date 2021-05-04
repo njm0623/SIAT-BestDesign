@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -55,5 +56,10 @@ public class SaleBoardDAOImpl implements SaleBoardDAO {
 	public void updateSaleBoardView(SaleBoardVO vo) {
 		System.out.println("===> Mybatis updateSaleBoardView() 호출");
 		mybatis.update("SaleBoardDAO.updateSaleBoardView", vo);
+	}
+	
+	public void saleBoardPurchase(SaleBoardDealVO vo) {
+		System.out.println("===> Mybatis saleBoardPurchase() 호출");
+		mybatis.insert("SaleBoardDAO.saleBoardPurchase", vo);
 	}
 }

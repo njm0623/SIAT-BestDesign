@@ -23,7 +23,7 @@
 	
 	<update id='modifyReply' parameterType='saleBoardReply'>
 		UPDATE REVIEW SET
-		reviewRate = #{reviewRate}
+		reviewRate = #{reviewRate},
 		reviewComment = #{reviewComment}
 		WHERE reviewNum = #{reviewNum}
 	</update>
@@ -35,7 +35,7 @@
 	
 	<update id="updateSaleBoardRate" parameterType="saleBoardReply">
 		UPDATE SALEBOARD
-		SET SALERATE = (SELECT AVG(REVIEWRATE) FROM REVIEW WHERE SALENUM = #{saleNum})
+		SET SALERATE = (SELECT ROUND(AVG(REVIEWRATE), 2) FROM REVIEW WHERE SALENUM = #{saleNum})
 		WHERE SALENUM = #{saleNum}
 	</update>
 </mapper>

@@ -97,31 +97,36 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
-
-    <link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-    <script src="../resources/js/bootstrap.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#goChat").click(function(){
-				if("${sessionScope.userID}"=="${param.designerId}"){
-					$("#checkMessage").html("본인과 채팅은 못합니다");
-					$("#checkType").attr("class","modal-content panel-warning");
-					$("#checkModal").modal("show");
-				}else{
-					location.href="../chat/chat.do?toID=${param.designerId}";
-				}
-			})
-			$("#editProfile").click(function(){
-				location.replace("../designer/edit.do?designerId=${param.designerId}");
-			})
-			
+   <link rel="stylesheet" href="../resources/css/bootstrap.css">
+<link rel="stylesheet" href="../resources/css/custom.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+   <script src="../resources/js/bootstrap.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#goChat").click(function(){
+			if("${sessionScope.userID}"=="${param.designerId}"){
+				$("#checkMessage").html("본인과 채팅은 못합니다");
+				$("#checkType").attr("class","modal-content panel-warning");
+				$("#checkModal").modal("show");
+			}else{
+				location.href="../chat/chat.do?toID=${param.designerId}";
+			}
 		})
-	</script>
+		$("#editProfile").click(function(){
+			location.replace("../designer/edit.do?designerId=${param.designerId}");
+		})
+		
+	})
+</script>
 <style>
 	.columns-4{
 		display:flex;
+	}
+	
+	.woocommerce div.product div.images img {
+		width: 420px;
+		height: auto;
+		float: right;
 	}
 </style>
 </head>
@@ -129,18 +134,17 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
-
+<br><br>
 <div class="site-content">
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<nav class="woocommerce-breadcrumb"><a href="../main/index.do">Home</a>&nbsp;&#47;&nbsp;디자이너 프로필</nav>
 <div class="woocommerce-notices-wrapper"></div><div id="product-19" class="product type-product post-19 status-publish first instock product_cat-tops product_cat-trends has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
 <figure class="woocommerce-product-gallery__wrapper">
 <c:choose>
-   <c:when test="${empty Profile.designerImage}"><img width="540" height="360" src="../resources/BestDesign_Logo.png" class="wp-post-image" alt="" loading="lazy" title="디자이너 프로필 사진" data-caption="" data-src="../resources/BestDesign_Logo.png" data-large_image="../resources/BestDesign_Logo.png" data-large_image_width="1920" data-large_image_height="1281" srcset="../resources/BestDesign_Logo.png 1920w, ../resources/BestDesign_Logo.png 300w, ../resources/BestDesign_Logo.png 768w, ../resources/BestDesign_Logo.png 1024w" sizes="(max-width: 540px) 100vw, 540px" /></c:when>
-   <c:otherwise><img width="540" height="360" src="${Profile.designerImage} class="wp-post-image" alt="" loading="lazy" title="woman-1477091_1920" data-caption="" data-src="${Profile.designerImage}" data-large_image="${Profile.designerImage}" data-large_image_width="1920" data-large_image_height="1281" srcset="${Profile.designerImage} 1920w, ${Profile.designerImage} 300w, ${Profile.designerImage} 768w, ${Profile.designerImage} 1024w" sizes="(max-width: 540px) 100vw, 540px" /></c:otherwise>
+   <c:when test="${empty Profile.designerImage}"><img src="../resources/artist.png"/></c:when>
+   <c:otherwise><img src="${Profile.designerImage}" /></c:otherwise>
 </c:choose>
  </figure>
 </div>
@@ -169,9 +173,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </c:choose>
 </p>
 
-
-
-
 </div>
 
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="goChat">채팅하기</button>
@@ -179,27 +180,17 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <c:if test="${sessionScope.userID eq param.designerId}">
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="editProfile">수정하기</button>
 </c:if>
-
-<div class="product_meta">
-<span class="posted_in">Categories: <a href="https://demo.colorlib.com/tyche/product-category/tops/" rel="tag">Tops</a>, <a href="https://demo.colorlib.com/tyche/product-category/trends/" rel="tag">Trends</a></span>
 </div>
-</div>
-
-
 
 <section class="related products">
+<c:if test="${not empty draw}">
 <h2>${Profile.designerId} 의 드로잉</h2>
+</c:if>
 <ul class="products columns-4">
-
 <c:forEach var="rec" items="${draw}">
-
-
-
 <li class="product type-product post-64 status-publish first instock product_cat-shirts product_cat-trends product_tag-blouse product_tag-blue product_tag-shirt has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
-<a href="../saleboard/saleBoard?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="${rec.saleImage }" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="${rec.saleImage }" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
 </a></li>
-
-
 </c:forEach>
 
 <!-- 

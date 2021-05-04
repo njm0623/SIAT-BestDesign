@@ -109,6 +109,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 <script src="../resources/js/bootstrap.js"></script>
 <script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script type="text/javascript">
 	AWS.config.update({
         accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
@@ -195,7 +196,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='hidden' name='userId' value="${sessionScope.userID}"><br/><br/>
 	제  목 : <input type='text' style="width: 500px;"name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요."><br/><br/>
 	내  용 : <textarea rows='10' cols='40' name='contactContent' id='contactContent' placeholder="내용을 입력하세요."></textarea><br/>	
-	파일 : <input type='file' name='contactFile' id="file"><br/><br/>
+	파일 : <input type='file' id="file"><br/><br/>
 	<input type="hidden" id="fileName" name="contactFile"/>
 	<div class="form-group">
 		<div class="btn-group" data-toggle="buttons">

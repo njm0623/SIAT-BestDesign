@@ -12,7 +12,6 @@
 
 <title>Home - Tyche Demo</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../resources/js/owl.carousel.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
@@ -92,6 +91,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
 <style>
 	#masthead {
@@ -132,9 +132,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
-<img width="100%" height="auto" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" />
-<div class="main-slider-bar hidden-xs">
 <div class="container">
+<img width="100%" height="auto" src="../resources/mainImage.png"/>
+<div class="main-slider-bar hidden-xs">
 <ul class="main-slider-info">
 <li class="col-sm-4 col-xs-12">
 <div class="main-slider-info-cell">
@@ -296,7 +296,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
         <div class="goods last">
     </c:when>
 </c:choose>
-	<a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
+	<a href="../saleboard/getSaleBoard.do?saleNum=${draw.saleNum }">
 	<c:choose>
    <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
  	<c:otherwise><img width="330" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>

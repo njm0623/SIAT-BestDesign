@@ -11,7 +11,7 @@
 		UPDATE SALEBOARD SET
 		saleTitle = #{saleTitle},
 		saleContent = #{saleContent}
-		<if test="saleImage != ''">, saleImage = #{saleImage}</if>
+		<if test="saleImage != null">, saleImage = #{saleImage}</if>
 		WHERE saleNum = #{saleNum}
 	</update>
 	
@@ -91,6 +91,11 @@
 		SET SALEVIEW = SALEVIEW +1
 		where saleNum = #{saleNum}
 	</update>
+	
+	<insert id="saleBoardPurchase" parameterType="saleBoardDeal">
+		INSERT INTO SALEDEAL(DEALNUM, SALENUM, SALETITLE, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE, DEALIMAGE)
+		VALUES(SEQ_SALEBOARDDEAL.nextval, #{saleNum}, #{saleTitle}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate, #{dealImage})
+	</insert>	
 	
 	<select id="saleList" parameterType="sale" resultType="sale">
 		<![CDATA[

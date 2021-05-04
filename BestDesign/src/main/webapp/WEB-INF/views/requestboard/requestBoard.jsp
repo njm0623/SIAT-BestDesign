@@ -249,7 +249,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 					console.log(replyPrice)
 					console.log(replyer)
 					
-					location.href="reply/accept.do?requestNum=${requestBoard.requestNum}&dealBuyerId=${requestBoard.userId}&dealSellerId="+replyer+"&dealPrice="+replyPrice+"&dealImage=${requestBoard.requestImage}"
+					location.href="reply/accept.do?requestNum=${requestBoard.requestNum}&requestTitle=${requestBoard.requestTitle}&dealBuyerId=${requestBoard.userId}&dealSellerId="+replyer+"&dealPrice="+replyPrice+"&dealImage=${requestBoard.requestImage}"
 				}
 			});
 			
@@ -402,14 +402,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <c:choose>
 	<c:when test="${requestBoard.requestState == 1}">
 		<c:choose>
-			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png" class="goodsImage" style="opacity:0.3;"/></c:when>
+			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/no-image.png" class="goodsImage" style="opacity:0.3;"/></c:when>
 			<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}" style="opacity:0.5;"/></c:otherwise>
 		</c:choose>
 		<img src="../resources/completed.png" class="stateImage"/>			
 	</c:when>
 	<c:otherwise>
 		<c:choose>
-			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/goods.png" class="goodsImage"/></c:when>
+			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/no-image.png" class="goodsImage"/></c:when>
 			<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}"/></c:otherwise>
 		</c:choose>
 	</c:otherwise>
@@ -421,7 +421,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="meta">
 <ul class="meta-list">
 	<li class="post-author"><icon class="fa fa-user"></icon> &nbsp${requestBoard.userId}</a></li>
-	<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp ${requestBoard.requestView}</span>
+	<span class="sep"> / &nbsp${requestBoard.requestDate} &nbsp/&nbsp 조회수: ${requestBoard.requestView}</span>
 </ul>
 </div>
 </div>

@@ -3,12 +3,19 @@ package siat.bestdesign.requestboard.domain;
 public class RequestBoardDealVO {
 	private int dealNum;
 	private int requestNum;
+	private String requestTitle;
 	private String dealBuyerId;
 	private String dealSellerId;
 	private int dealPrice;
 	private String dealDate;
 	private String dealImage;
 	
+	public String getRequestTitle() {
+		return requestTitle;
+	}
+	public void setRequestTitle(String requestTitle) {
+		this.requestTitle = requestTitle;
+	}
 	public int getDealNum() {
 		return dealNum;
 	}

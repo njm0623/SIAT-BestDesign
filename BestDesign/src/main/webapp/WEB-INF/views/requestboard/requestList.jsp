@@ -222,14 +222,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			<c:choose>
 				<c:when test="${requestBoard.requestState == 1}">
 					<c:choose>
-						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage" style="opacity:0.3;"/></c:when>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/no-image.png" class="goodsImage" style="opacity:0.3;"/></c:when>
 						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage" style="opacity:0.5;"/></c:otherwise>
 					</c:choose>
 					<img src="../resources/completed.png" class="stateImage"/>			
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/no-image.png" class="goodsImage"/></c:when>
 						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
 					</c:choose>
 				</c:otherwise>
