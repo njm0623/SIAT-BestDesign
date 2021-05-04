@@ -5,6 +5,7 @@ import java.util.List;
 import siat.bestdesign.contactboard.domain.ContactVO;
 import siat.bestdesign.manager.domain.ChartVO;
 import siat.bestdesign.manager.domain.ManagerVO;
+import siat.bestdesign.manager.domain.RequestChartVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 import siat.bestdesign.review.domain.ReviewVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
@@ -12,7 +13,7 @@ import siat.bestdesign.user.domain.UserVO;
 
 public interface ManagerService {
 
-List<ChartVO> getChartList();//차트
+	List<RequestChartVO> getChartList(String board, String deal);//차트
 	
 	List<UserVO> getBoardList(UserVO vo);//고객목록게시판
 	
@@ -30,8 +31,10 @@ List<ChartVO> getChartList();//차트
 	
 	List<RequestBoardVO> getRequestList(RequestBoardVO vo);//그려주세요 리스트
 	
-	List<SaleBoardVO> getSaleList(SaleBoardVO vo);//그려주세요 리스트
+	List<SaleBoardVO> getSaleList(SaleBoardVO vo);//드로잉샵 리스트
 	
-	ManagerVO selectLogin(ManagerVO vo);
+	List<ContactVO> getContactList(ContactVO vo);//문의글 리스트
 
+	ManagerVO selectLogin(ManagerVO vo);
+	
 }

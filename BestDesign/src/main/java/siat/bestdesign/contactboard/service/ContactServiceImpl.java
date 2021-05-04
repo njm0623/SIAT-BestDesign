@@ -32,8 +32,8 @@ public class ContactServiceImpl implements ContactService{
 	}
 
 	@Override
-	public int getTotalPage(HashMap map) {
-		double t =  Math.ceil(contactDAO.getTotalCount(map)/10);
+	public int getTotalPage() {
+		double t =  Math.ceil(contactDAO.getTotalCount()/10);
 		return (int)t;
 	}
 

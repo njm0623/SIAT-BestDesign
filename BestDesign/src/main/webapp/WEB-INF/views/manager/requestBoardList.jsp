@@ -54,6 +54,9 @@ img.emoji {
 	background: none !important;
 	padding: 0 !important;
 }
+tr > th, tr > td{
+	text-align:center;
+}
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
 <link rel='stylesheet' id='wc-block-vendors-style-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/vendors-style.css?ver=4.7.2' type='text/css' media='all' />
@@ -122,7 +125,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				<div class="row">
 					<div class="col-md-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="https://demo.colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Administrator
+<!-- 							<a href="https://demo.colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Administrator -->
 						</nav>
 					</div>
 				</div>
@@ -147,7 +150,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 							<tr>
 								<td>${req.requestNum}</td><!--위에 VAR명이랑 일치  -->
 								<td>${req.userId}</td>
-								<td>${req.requestTitle}</td>
+								<td><a href="../requestboard/getRequestBoard.do?requestNum=${req.requestNum}">${req.requestTitle}</a></td>
 								<td>${req.requestDate}</td>
 							</tr>
 						</c:forEach>

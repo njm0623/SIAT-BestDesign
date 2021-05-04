@@ -2,6 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chart">
-<select resultType="chart" parameterType="chart" id="getChartList"> SELECT * FROM CHART </select>
-<!-- <select id="getChart" parameterType="chartVO" resultType="chartVO">SELECT * FROM CHART</select> -->
+<select id="getChartList" resultType="requestChart"> 
+<![CDATA[
+select TO_CHAR(requestdate,'yyyy') as year, TO_CHAR(requestdate,'mm') as month, count(*) as amount
+from requestboard
+group by TO_CHAR(requestdate,'yyyy'),TO_CHAR(requestdate,'mm')
+]]>
+</select>
+
+<select id="getRequestYear" resultType="requestChart"> 
+<![CDATA[
+SELECT rb.year, rb.writecnt, rd.amount
+  FROM (select TO_CHAR(requestdate,'yyyy') as year, count(*) as writecnt
+from  requestboard b
+group by TO_CHAR(requestdate,'yyyy')) rb                            
+  LEFT OUTER JOIN (select TO_CHAR(requestdate,'yyyy') as year, count(*) as amount
+from  requestboard b, requestdeal d
+where b.requestnum = d. requestnum
+group by TO_CHAR(requestdate,'yyyy')) rd               
+  ON (rb.year = rd.year)
+]]>
+</select>
+<select id="getRequestMonth" resultType="requestChart"> 
+<![CDATA[
+SELECT rb.month, rb.writecnt, rd.amount
+  FROM (select TO_CHAR(b.requestdate,'mm') as month, count(*) as writecnt
+from  requestboard b
+group by TO_CHAR(b.requestdate,'mm')) rb                            
+  LEFT OUTER JOIN (select TO_CHAR(b.requestdate,'mm') as month, count(*) as amount
+from  requestboard b, requestdeal d
+where b.requestnum = d. requestnum
+group by TO_CHAR(b.requestdate,'mm')) rd               
+  ON (rb.month = rd.month)
+]]>
+</select>
+<select id="getSaleYear" resultType="requestChart"> 
+<![CDATA[
+SELECT rb.year, rb.writecnt, rd.amount
+  FROM (select TO_CHAR(saledate,'yyyy') as year, count(*) as writecnt
+from  saleboard b
+group by TO_CHAR(saledate,'yyyy')) rb                            
+  LEFT OUTER JOIN (select TO_CHAR(saledate,'yyyy') as year, count(*) as amount
+from  saleboard b, saledeal d
+where b.salenum = d.salenum
+group by TO_CHAR(saledate,'yyyy')) rd               
+  ON (rb.year = rd.year)
+]]>
+</select>
+<select id="getSaleMonth" resultType="requestChart"> 
+<![CDATA[
+SELECT rb.month, rb.writecnt, rd.amount
+  FROM (select TO_CHAR(b.saledate,'mm') as month, count(*) as writecnt
+from  saleboard b
+group by TO_CHAR(b.saledate,'mm')) rb                            
+  LEFT OUTER JOIN (select TO_CHAR(b.saledate,'mm') as month, count(*) as amount
+from  saleboard b, saledeal d
+where b.salenum = d. salenum
+group by TO_CHAR(b.saledate,'mm')) rd               
+  ON (rb.month = rd.month)
+]]>
+</select>
+
 </mapper>

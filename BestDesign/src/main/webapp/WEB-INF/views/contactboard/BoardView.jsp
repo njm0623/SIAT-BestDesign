@@ -109,99 +109,49 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			text-align: center;
 		}
 	</style>
-	 <style>
-      #table1{ 
-         margin-left:auto; 
-          margin-right:auto;
-         text-align: center;
-         width: 90%;
-         border: 1px solid black;
-      }
-      html body table #td1{
-         width: 20%;
-         text-align: left;
-         font-size: 15px;
-         
-         padding-left: 20px;
-      }
-      html body table #td2{
-         font-size: 35px;
-         text-align: left;
-         padding-left: 20px;
-      }
-      html body table #td2 a{
-         font-size: 10px;
-      }
-      html body table #td3{
-         font-size: 15px;
-         vertical-align: top;
-         text-align: left;
-         padding-left: 20px;
-         padding-top: 20px;
-         }
-      #whghl{
-      	 font-size: 12px;
-      	 color: grey;
-      }
-      #whghl1{
-         font-weight: bold;
-      }
-      #btn-primary.focus{
-         color: black;
-      }
-      html body a{
-      	color: black;
-      }
-      tr, td{
-      	border:0px;
-      }
-      body table #td1{
-      
-      }
-      #topt{
-      border-bottom: 1px solid grey;
-      	width: 95%;
-      }
-   </style>
 
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
-<div class="container">
+
 	<h4> 게시판 글 보기 </h4><br/>
-   <table border="1"  id="table1">
- 
-   <tr>
-      <td colspan="2" id="td2"><a href="boardList.do" font-size="10px">문의 게시판 ></a><h2>${rec.contactTitle}</h2></td>
-   </tr>
-   <tr>
-      <td colspan="2" id="td1"> <div id="topt"><span id="whghl1">  ${rec.userId} </span>  <br> <span id="whghl">  ${rec.contactDate}  &nbsp;&nbsp; 조회수 : ${rec.contactCount} </span><br><br></div></td>
-   </tr>
-  
-   <tr height="300">
-       <td colspan="2" tyle="border-top: none;"id="td3">${rec.contactContent}</td>
-   </tr>
-   <c:if test="${rec.contactFile ne null}">
-   <tr>
-      <td colspan="2" ><a href="${rec.contactFile}" download>파일 다운로드</a><br><br></td>      
-   </tr>
-   </c:if>
-   <tr>
-      <td colspan="2">
-         <button onclick="location.href='boardList.do'">목록</button>
-         <button onclick="location.href='BoardReplyForm.do?parentId=${rec.contactNum}'">답변</button>
-         <c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
-         <button onclick="location.href='BoardModifyForm.do?contactNum=${rec.contactNum}'">수정</button>
-         <button onclick="location.href='BoardDelete.do?contactNum=${rec.contactNum}'">삭제</button>
-         </c:if>
-   <br><br>
-      </td>
-   </tr>
-   </table>
-   </div>
-   </div>
+	<table border="1" bordercolor="red">
+	<tr>
+		<td> 제  목 : </td>
+		<td>${rec.contactTitle}</td>
+	</tr>
+	<tr>
+		<td> 작성자 : </td>
+		<td>${rec.userId}</td>
+	</tr>
+	<tr>
+		<td> 작성일자 : </td>
+		<td>${rec.contactDate}</td>
+	</tr>
+	<tr>
+		<td> 내  용 : </td>
+		<td>${rec.contactContent}</td>
+	</tr>
+	<tr>
+		<td> 조회수 : </td>
+		<td>${rec.contactCount}</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<a href="boardList.do"> 목록보기 </a>
+			<a href="BoardReplyForm.do?parentId=${rec.contactNum}"> 답변하기 </a>
+			<c:if test="${rec.userId eq sessionScope.userID || sessionScope.type eq '관리자'}">
+				<a href="BoardDelete.do?contactNum=${rec.contactNum}"> 삭제하기 </a>
+			</c:if>
+			<c:if test="${rec.userId eq sessionScope.userID}">
+				<a href="BoardModifyForm.do?contactNum=${rec.contactNum}"> 수정하기 </a>
+			</c:if>
+		</td>
+	</tr>
+	</table>
+	</div>
 	<%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

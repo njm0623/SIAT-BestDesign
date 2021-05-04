@@ -12,16 +12,13 @@
 		<typeAlias alias="design" type="siat.bestdesign.designer.domain.DesignerVO" />
 		<typeAlias alias="contact" type="siat.bestdesign.contactboard.domain.ContactVO" />
 		<typeAlias alias="hash" type="java.util.HashMap" />
-		<typeAlias alias="request" type="siat.bestdesign.requestboard.domain.RequestBoardVO"/>
-		<typeAlias alias="requestBoardPaging" type="siat.bestdesign.requestboard.domain.RequestBoardPagingVO"/>
-		<typeAlias alias="sale" type="siat.bestdesign.saleboard.domain.SaleBoardVO"/>
-		<typeAlias alias="saleBoardPaging" type="siat.bestdesign.saleboard.domain.SaleBoardPagingVO"/>
-		<typeAlias alias="saleBoardReply" type="siat.bestdesign.saleboard.domain.SaleBoardReplyVO"/>
-		<typeAlias alias="saleBoardDeal" type="siat.bestdesign.saleboard.domain.SaleBoardDealVO"/>
-		<typeAlias alias="review" type="siat.bestdesign.review.domain.ReviewVO"/>
-		<typeAlias alias="chart" type="siat.bestdesign.manager.domain.ChartVO"/>
-		<typeAlias alias="main" type="siat.bestdesign.main.domain.MainVO"/>
-		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>
-		<typeAlias alias="requestBoardDeal" type="siat.bestdesign.requestboard.domain.RequestBoardDealVO"/>
+		<typeAlias type="siat.bestdesign.requestboard.domain.RequestBoardVO" alias="request"/>
+		<typeAlias type="siat.bestdesign.review.domain.ReviewVO" alias="review"/>
+		<typeAlias type="siat.bestdesign.saleboard.domain.SaleBoardVO" alias="sale"/>
+		<typeAlias type="siat.bestdesign.manager.domain.ChartVO" alias="chart"/>
+		<typeAlias type="siat.bestdesign.manager.domain.RequestChartVO" alias="requestChart"/>
 	</typeAliases>
+
+
 </configuration>
+

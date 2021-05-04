@@ -199,11 +199,6 @@ function getToggleBtnState(toggleBtnId){
     return (left_px > 0)? "on" : "off";
 }
 </script>
-<script type="text/javascript">
-$(function(){
-	$(".tyche-pager>li:eq(${param.num})").addClass("active");
-})
-</script>
 
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-custom-logo theme-tyche woocommerce-shop woocommerce woocommerce-page woocommerce-no-js hfeed elementor-default elementor-kit-1236">
@@ -266,46 +261,6 @@ $(function(){
 <input type="hidden" name="paged" value="1" />
 </form>
 <br/><br/><br/>
-
-
-
-<c:set var="i" value="1"/>
-<c:forEach var="rec" items="${dList}">
-
-<c:if test="${i%3 eq 1}">
-	<div class="goodsRow">
-	</c:if>
-
-<c:choose>
-    <c:when test="${i%3 eq 1}">
-        <div class="goods first">
-    </c:when>
-    <c:when test="${i%3 eq 2}">
-        <div class="goods">
-    </c:when>
-    <c:when test="${i%3 eq 0}">
-        <div class="goods last">
-    </c:when>
-</c:choose>
-	<a href="profile.do?designerId=${rec.userId }">
-	<c:choose>
-   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
-   <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
-</c:choose>
-		<h2>${rec.userId}</h2>
-		</a>
-	</div>
-	
-	
-	<c:if test="${i%3 eq 0}">
-	</div>
-	</c:if>
-	
-	<c:set var="i" value="${i+1}"/>
-
-</c:forEach>
-</div>
-<!-- 
 <div class="goodsRow">
 	<div class="goods first">
 		<a href="profile.do?designerId=designer1">
@@ -326,7 +281,6 @@ $(function(){
 		</a>
 	</div>
 </div>
-
 <div class="goodsRow">
 	<div class="goods first">
 		<a href="profile.do">
@@ -347,8 +301,6 @@ $(function(){
 		</a>
 	</div>
 </div>
-
-
 <div class="goodsRow">
 	<div class="goods first">
 		<a href="profile.do">
@@ -369,14 +321,10 @@ $(function(){
 		</a>
 	</div>
 </div>
- -->
- 
- 
 </div>
 <div class="row text-center"><ul class="tyche-pager">
-<c:forEach var="i" begin="0" end="${perPage}">
-<li><a href="../designer/designerList.do?num=${i}">${i+1}</a></li>
-</c:forEach>
+<li class="active"><a href="https://demo.colorlib.com/tyche/shop/">1</a></li>
+<li><a href="https://demo.colorlib.com/tyche/shop/page/2/">2</a></li>
 <li><a href="https://demo.colorlib.com/tyche/shop/page/2/"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
 </ul></div>
 </div>

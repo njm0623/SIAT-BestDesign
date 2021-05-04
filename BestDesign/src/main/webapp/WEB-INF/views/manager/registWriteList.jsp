@@ -54,6 +54,9 @@ img.emoji {
 	background: none !important;
 	padding: 0 !important;
 }
+tr > th, tr > td{
+	text-align:center;
+}
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
 <link rel='stylesheet' id='wc-block-vendors-style-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/vendors-style.css?ver=4.7.2' type='text/css' media='all' />
@@ -122,7 +125,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				<div class="row">
 					<div class="col-md-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="https://demo.colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Administrator
 						</nav>
 					</div>
 				</div>
@@ -132,7 +134,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 					<jsp:include page="../manager/nav.jsp"/>
 						
 					<div class="col-md-8 tyche-has-sidebar">
-							<h4>고객 - 글목록</h4>
+							<h4>고객 - 견적글</h4>
 					<form action='registWriteList.do' method='post'>
 					</form>
 					<table border="1">
@@ -140,7 +142,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 						<th bgcolor="gray" width="100">글번호</th>
 						<th bgcolor="gray" width="100">회원아이디</th>
 						<th bgcolor="gray" width="100">요청제목</th>
-						<th bgcolor="gray" width="150">요청내용</th>
 						<th bgcolor="gray" width="100">요청날짜</th>
 						<th bgcolor="gray" width="150">작품가격</th>			
 					</tr>
@@ -150,9 +151,26 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 								<td>${regi.requestNum}</td><!--위에 VAR명이랑 일치  -->
 								<td>${regi.userId}</td>
 								<td>${regi.requestTitle}</td>
-								<td>${regi.requestContent}</td>
 								<td>${regi.requestDate}</td>
 								<td>${regi.requestState}</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<h4>고객 - 문의글</h4>
+					<table border="1">
+					<tr>
+						<th bgcolor="gray" width="100">글번호</th>
+						<th bgcolor="gray" width="100">회원아이디</th>
+						<th bgcolor="gray" width="100">문의제목</th>
+						<th bgcolor="gray" width="100">등록날짜</th>
+					</tr>
+									<!-- DB값 호출 -->			
+						<c:forEach items="${registContact}" var="cont">
+							<tr>
+								<td>${cont.contactNum}</td><!--위에 VAR명이랑 일치  -->
+								<td>${cont.userId}</td>
+								<td>${cont.contactTitle}</td>
+								<td>${cont.contactDate}</td>
 							</tr>
 						</c:forEach>
 					</table>

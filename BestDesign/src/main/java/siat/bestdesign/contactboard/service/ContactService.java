@@ -15,7 +15,7 @@ public interface ContactService {
 
 	int getGroupId();
 	
-	int getTotalPage(HashMap map);
+	int getTotalPage();
 
 	ContactVO selectById(int contactNum);
 

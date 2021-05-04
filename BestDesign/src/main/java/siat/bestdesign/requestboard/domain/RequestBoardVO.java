@@ -8,14 +8,7 @@ public class RequestBoardVO {
 	private String requestDate;
 	private int requestState;
 	private String requestImage;
-	private int requestView;
 	
-	public int getRequestView() {
-		return requestView;
-	}
-	public void setRequestView(int requestView) {
-		this.requestView = requestView;
-	}
 	public int getRequestNum() {
 		return requestNum;
 	}

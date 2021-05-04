@@ -4,8 +4,9 @@
 <mapper namespace="ReviewDAO">
 	<select id="reviewList" parameterType="review" resultType="review">
 		<![CDATA[
-		SELECT * FROM REVIEW
-		WHERE userid = #{userId}
+		SELECT * FROM review
+		WHERE userId = #{userId}
+		order by reviewNum asc
 		]]>
 	</select>
 </mapper>

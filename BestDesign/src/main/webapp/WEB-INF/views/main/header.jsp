@@ -99,7 +99,7 @@
 <% if(type.equals("관리자")){%>
 
 <li class="top-account">
-<a href="../manager/administrator.do"><i class="fa fa-user"></i> 관리자 </a>
+<a href="../manager/userBoardList.do""><i class="fa fa-user"></i> 관리자 </a>
 </li>
 
 <%} else{%>
@@ -163,9 +163,9 @@
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<ul id="desktop-menu" class="sf-menu"><li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-83 active"><a title="Home" href="../main/index.do">홈</a></li>
+<ul id="desktop-menu" class="sf-menu"><li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-83 active"><a title="Home" href="C:\00.siat\test\home\main.html">홈</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-86"><a title="Shop" href="../requestboard/getRequestBoardList.do">그려주세요</a></li>
-<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="../saleboard/getSaleBoardList.do">드로잉 샵</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="../saleboard/saleList.do">드로잉 샵</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="../designer/designerList.do">디자이너</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a title="Contact" href="../contactboard/boardList.do">문의 게시판</a></li>
 </ul> 

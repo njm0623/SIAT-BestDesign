@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="requestadm">
+	<select id="writeList" parameterType="request" resultType="request">
+		<![CDATA[
+		SELECT * FROM REQUESTBOARD
+		WHERE userid = #{userId}
+		order by requestnum asc
+		]]>
+	</select>
+	<select id="allList" parameterType="request" resultType="request">
+		<![CDATA[
+		SELECT * FROM REQUESTBOARD
+		order by requestnum asc
+		]]>
+	</select>
+</mapper>
