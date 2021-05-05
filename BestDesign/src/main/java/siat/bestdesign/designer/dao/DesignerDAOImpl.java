@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import siat.bestdesign.designer.domain.DesignerCartVO;
+import siat.bestdesign.designer.domain.DesignerListPagingVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -30,13 +31,14 @@ public class DesignerDAOImpl implements DesignerDAO{
 		mybatis.update("designer.designerUpdate",vo);
 	}
 
-	public List<DesignerVO> getAllDesigner(HashMap map) {
-		return mybatis.selectList("designer.getAllDesigner",map);
+	public List<DesignerVO> getAllDesigner(DesignerListPagingVO vo) {
+		return mybatis.selectList("designer.getAllDesigner", vo);
 	}
-
-	public int getTotalCount() {
-		return mybatis.selectOne("designer.getTotalCount");
+	
+	public int getTotalCount(DesignerListPagingVO vo) {
+		return mybatis.selectOne("designer.getTotalCount", vo);
 	}
+	
 
 	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
 		return mybatis.selectList("designer.designerPerDrawing",vo);

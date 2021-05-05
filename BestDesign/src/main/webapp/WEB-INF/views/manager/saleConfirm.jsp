@@ -325,8 +325,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
             crossorigin="anonymous"></script>
-    <script src="/BestDesign/resources/css/manager/manager.css"></script>
-    <script src="/BestDesign/resources/js/manager/manager.js"></script>
     <script type="text/javascript"
             src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 
@@ -336,7 +334,6 @@
         rel="stylesheet">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="resources/css/custom.css">
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css"
           rel="stylesheet" type="text/css">
 
@@ -358,9 +355,9 @@
     <script src="../resources/js/bootstrap.js"></script>
     <script>
       $(function () {
-    	  send();
-    	  function send(){
-    		  let board = $("select[name='board']").val();
+         send();
+         function send(){
+            let board = $("select[name='board']").val();
               let deal = $("select[name='deal']").val();
               $.ajax({
                 type: 'GET',
@@ -380,6 +377,10 @@
                       keys: {
                         x: deal,
                         value: ["amount", "writecnt"]
+                      },
+                      names: {
+                        amount: "거래수",
+                        writecnt: "게시글수"
                       }
                     }
                   });
@@ -388,7 +389,7 @@
                   console.log(err);
                 }
               })
-    	  }
+         }
         $(".grape").change(function () {
           send();
         })
@@ -429,21 +430,21 @@
               <select name="board" class="grape">
                 <option value="requestdeal">그려주세요</option>
                 <option value="saledeal">드로잉샵</option>
-              </select> 	          
-	          <svg>
+              </select>              
+             <svg>
               <use xlink:href="#select-arrow-down"></use>
               </svg>
-    	      </label>
-    	      <label class="select" for="slct">
-    	      <select name="deal" class="grape">
+             </label>
+             <label class="select" for="slct">
+             <select name="deal" class="grape">
               <option value="month">월별</option>
               <option value="year">년도별</option>
-	          </select>
-	          <svg>
+             </select>
+             <svg>
               <use xlink:href="#select-arrow-down"></use>
-              </svg>	          
-	          </label>
-    	      <svg class="sprites">
+              </svg>             
+             </label>
+             <svg class="sprites">
                 <symbol id="select-arrow-down" viewbox="0 0 10 6">
                   <polyline points="1 1 5 5 9 1"></polyline>
                 </symbol>

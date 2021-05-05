@@ -19,7 +19,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
+<title>유저 찾기</title>
 <link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
@@ -105,6 +105,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		width: 80%;
 	}
 </style>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>

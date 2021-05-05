@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import siat.bestdesign.saleboard.dao.SaleBoardDAOImpl;
+import siat.bestdesign.saleboard.domain.SaleBoardCartVO;
 import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
@@ -42,8 +43,8 @@ public class SaleBoardServiceImpl implements SaleBoardService {
 	}
 	
 	@Override
-	public int countSaleBoardList(HashMap param) {
-		return saleBoardDAO.countSaleBoardList(param);
+	public int countSaleBoardList(SaleBoardPagingVO vo) {
+		return saleBoardDAO.countSaleBoardList(vo);
 	}
 
 	@Override
@@ -51,7 +52,18 @@ public class SaleBoardServiceImpl implements SaleBoardService {
 		saleBoardDAO.updateSaleBoardView(vo);
 	}
 	
+	@Override
 	public void saleBoardPurchase(SaleBoardDealVO vo) {
 		saleBoardDAO.saleBoardPurchase(vo);
+	}
+	
+	@Override
+	public SaleBoardCartVO checkCart(HashMap map) {
+		return saleBoardDAO.checkCart(map);
+	}
+
+	@Override
+	public SaleBoardCartVO checkCartView(HashMap map) {
+		return saleBoardDAO.checkCartView(map);
 	}
 }

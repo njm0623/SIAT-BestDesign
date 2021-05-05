@@ -34,7 +34,7 @@ public class MainController {
 		m.addAttribute("dList",mainService.getTopDesigner());
 		m.addAttribute("sList",mainService.getHotDrawing());
 		m.addAttribute("a_List",mainService.getDrawing("protraits"));
-		m.addAttribute("b_sList",mainService.getDrawing("landscape"));
-		m.addAttribute("c_sList",mainService.getDrawing("sentence"));
+		m.addAttribute("b_List",mainService.getDrawing("landscape"));
+		m.addAttribute("c_List",mainService.getDrawing("sentence"));
 	}
 }

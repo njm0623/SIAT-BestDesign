@@ -3,11 +3,10 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
- <%
+<%
     	session.removeAttribute("messageContent");
     	session.removeAttribute("messageType");
-  
-    %>
+%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +14,7 @@
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>Black Top - Tyche Demo</title>
+<title>디자이너 프로필</title>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="article" />
@@ -116,6 +115,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			$("#editProfile").click(function(){
 				location.replace("../designer/edit.do?designerId=${param.designerId}");
 			})
+			
 			$("#dcart").click(function(){
 				let userID = "${sessionScope.userID}";
 				let designerId = "${param.designerId}";

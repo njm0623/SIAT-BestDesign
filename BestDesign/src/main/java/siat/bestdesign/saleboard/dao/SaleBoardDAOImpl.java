@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import siat.bestdesign.designer.domain.DesignerCartVO;
+import siat.bestdesign.saleboard.domain.SaleBoardCartVO;
 import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
@@ -47,9 +49,9 @@ public class SaleBoardDAOImpl implements SaleBoardDAO {
 	}
 	
 	@Override
-	public int countSaleBoardList(HashMap param) {
+	public int countSaleBoardList(SaleBoardPagingVO vo) {
 		System.out.println("===> Mybatis countSaleBoardList() 호출");
-		return mybatis.selectOne("SaleBoardDAO.countSaleBoardList", param);
+		return mybatis.selectOne("SaleBoardDAO.countSaleBoardList", vo);
 	}
 
 	@Override
@@ -58,8 +60,25 @@ public class SaleBoardDAOImpl implements SaleBoardDAO {
 		mybatis.update("SaleBoardDAO.updateSaleBoardView", vo);
 	}
 	
+	@Override
 	public void saleBoardPurchase(SaleBoardDealVO vo) {
 		System.out.println("===> Mybatis saleBoardPurchase() 호출");
 		mybatis.insert("SaleBoardDAO.saleBoardPurchase", vo);
+	}
+
+	@Override
+	public SaleBoardCartVO checkCart(HashMap map) {
+		SaleBoardCartVO vo = mybatis.selectOne("SaleBoardDAO.checkCart", map);
+		if(vo!=null) {
+			mybatis.delete("SaleBoardDAO.deleteCart",vo);
+		}else {
+			mybatis.insert("SaleBoardDAO.insertCart",map);
+		}
+		return vo;
+	}
+
+	@Override
+	public SaleBoardCartVO checkCartView(HashMap map) {
+		return mybatis.selectOne("SaleBoardDAO.checkCart",map);
 	}
 }

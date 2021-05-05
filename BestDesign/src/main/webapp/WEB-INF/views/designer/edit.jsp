@@ -21,7 +21,7 @@
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>Black Top - Tyche Demo</title>
+<title>디자이너 수정</title>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="article" />

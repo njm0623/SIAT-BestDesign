@@ -4,20 +4,153 @@ public class SaleBoardPagingVO {
 	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 	// 페이지에 표시할 페이지 번호 수
 	private int cntPage = 5;
-	private String orderby, search;
+	private String orderby, search, cart, userId;
+	private int startPrice, endPrice, startRate, endRate;
+	private int character, portraits, landscape, chariculture, sentence, comics, poster, threeD, etc;
+	private String selectPrice, selectRate, selectBox;
 	
-	public SaleBoardPagingVO() {
+	public String getSelectBox() {
+		return selectBox;
+	}
+
+	public void setSelectBox(String selectBox) {
+		this.selectBox = selectBox;
+	}
+
+	public String getSelectRate() {
+		return selectRate;
+	}
+
+	public void setSelectRate(String selectRate) {
+		this.selectRate = selectRate;
+	}
+
+	public String getSelectPrice() {
+		return selectPrice;
+	}
+
+	public void setSelectPrice(String selectPrice) {
+		this.selectPrice = selectPrice;
+	}
+
+	public int getStartPrice() {
+		return startPrice;
+	}
+
+	public void setStartPrice(int startPrice) {
+		this.startPrice = startPrice;
+	}
+
+	public int getEndPrice() {
+		return endPrice;
+	}
+
+	public void setEndPrice(int endPrice) {
+		this.endPrice = endPrice;
+	}
+
+	public int getStartRate() {
+		return startRate;
+	}
+
+	public void setStartRate(int startRate) {
+		this.startRate = startRate;
+	}
+
+	public int getEndRate() {
+		return endRate;
+	}
+
+	public void setEndRate(int endRate) {
+		this.endRate = endRate;
+	}
+
+	public int getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(int character) {
+		this.character = character;
+	}
+
+	public int getPortraits() {
+		return portraits;
+	}
+
+	public void setPortraits(int portraits) {
+		this.portraits = portraits;
+	}
+
+	public int getLandscape() {
+		return landscape;
+	}
+
+	public void setLandscape(int landscape) {
+		this.landscape = landscape;
+	}
+
+	public int getChariculture() {
+		return chariculture;
+	}
+
+	public void setChariculture(int chariculture) {
+		this.chariculture = chariculture;
+	}
+
+	public int getSentence() {
+		return sentence;
+	}
+
+	public void setSentence(int sentence) {
+		this.sentence = sentence;
+	}
+
+	public int getComics() {
+		return comics;
+	}
+
+	public void setComics(int comics) {
+		this.comics = comics;
+	}
+
+	public int getPoster() {
+		return poster;
+	}
+
+	public void setPoster(int poster) {
+		this.poster = poster;
+	}
+
+	public int getThreeD() {
+		return threeD;
+	}
+
+	public void setThreeD(int threeD) {
+		this.threeD = threeD;
+	}
+
+	public int getEtc() {
+		return etc;
+	}
+
+	public void setEtc(int etc) {
+		this.etc = etc;
 	}
 	
-	public SaleBoardPagingVO(int total, int nowPage, int cntPerPage, String orderby, String search) {
-		setNowPage(nowPage);
-		setCntPerPage(cntPerPage);
-		setTotal(total);
-		setOrderby(orderby);
-		setSearch(search);
-		calcLastPage(getTotal(), getCntPerPage());
-		calcStartEndPage(getNowPage(), cntPage);
-		calcStartEnd(getNowPage(), getCntPerPage());
+	public String getCart() {
+		return cart;
+	}
+
+	public void setCart(String cart) {
+		this.cart = cart;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	// 제일 마지막 페이지 계산
