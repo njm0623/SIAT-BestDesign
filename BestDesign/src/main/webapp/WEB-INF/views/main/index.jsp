@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,28 +30,24 @@
 <link rel="alternate" type="application/rss+xml" title="Tyche Demo &raquo; Comments Feed" href="https://demo.colorlib.com/tyche/comments/feed/" />
 <link rel="alternate" type="application/rss+xml" title="Tyche Demo &raquo; Home Comments Feed" href="https://demo.colorlib.com/tyche/home/feed/" />
 <script type="text/javascript">
-			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/demo.colorlib.com\/tyche\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.1"}};
-			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
-		</script>
+         window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/demo.colorlib.com\/tyche\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.1"}};
+         !function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+      </script>
 <style type="text/css">
 img.wp-smiley,
 img.emoji {
-	display: inline !important;
-	border: none !important;
-	box-shadow: none !important;
-	height: 1em !important;
-	width: 1em !important;
-	margin: 0 .07em !important;
-	vertical-align: -0.1em !important;
-	background: none !important;
-	padding: 0 !important;
+   display: inline !important;
+   border: none !important;
+   box-shadow: none !important;
+   height: 1em !important;
+   width: 1em !important;
+   margin: 0 .07em !important;
+   vertical-align: -0.1em !important;
+   background: none !important;
+   padding: 0 !important;
 }
 </style>
-<link rel='stylesheet' id
-
-
-
-='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
 <link rel='stylesheet' id='wc-block-vendors-style-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/vendors-style.css?ver=4.7.2' type='text/css' media='all' />
 <link rel='stylesheet' id='wc-block-style-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/style.css?ver=4.7.2' type='text/css' media='all' />
 <link rel='stylesheet' id='contact-form-7-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4' type='text/css' media='all' />
@@ -82,7 +79,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://demo.colorlib.com/tyche/wp-includes/wlwmanifest.xml" />
 <meta name="generator" content="WordPress 5.7.1" />
 <meta name="generator" content="WooCommerce 5.2.2" />
-
 <link rel='shortlink' href='https://demo.colorlib.com/tyche/' />
 <link rel="alternate" type="application/json+oembed" href="https://demo.colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdemo.colorlib.com%2Ftyche%2F" />
 <link rel="alternate" type="text/xml+oembed" href="https://demo.colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdemo.colorlib.com%2Ftyche%2F&#038;format=xml" />
@@ -94,17 +90,27 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <!-- ************************************************************************************************************* -->
 
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+   <link rel="stylesheet" href="../resources/css/custom.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
 <style>
-	#masthead {
-		background:#fff;
-	}
+   #masthead {
+      background:#fff;
+   }
 
-	.sf-menu>li>a {
-		color: black;
-	}
+   .sf-menu>li>a {
+      color: black;
+   }
+   .goodsRow{
+      display:flex;
+      text-align: center;
+   }
+   .goodsRow div{
+      margin: 10px;
+   }
+   body img{
+      max-width: none;
+   }
 </style>
 
 <!-- ************************************************************************************************************* -->
@@ -126,7 +132,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
-<img width="1600" height="545" src="../resources/aaa.jpg" class="attachment-tyche-slider-image size-tyche-slider-image" alt="" loading="lazy" srcset="../resources/aaa.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" />
+<div class="container">
+<img width="100%" height="auto" src="../resources/mainImage.png"/>
 <div class="main-slider-bar hidden-xs">
 <div class="container">
 <ul class="main-slider-info">
@@ -170,57 +177,76 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </section>
+
+<%-- <div class="goodsRow">
+<c:forEach var="rec" items="${dList}">
+<c:set var="pic" value="${rec.designerImage}"/>
+<c:if test="${rec.designerImage eq null}">
+<c:set var="pic" value="../resources//main_logo.png"/>
+</c:if>
+<div class="goods first">
+<a href="../designer/profile.do?designerId=${rec.designerId}">
+<img width="200px" src="${pic}" class="attachment-shop_catalog size-shop_catalog"/>
+<h3>인기 디자이너</h3>
+</a>
+</div>
+</c:forEach> --%>
 <div class="site-content">
 
 <section class="content-area-1">
 <div class="container">
 <div class="row">
 <div class="col-xs-12">
-<div id="tyche_products-3" class="tyche-products primary widget widget_tyche_products"><h3 class="widget-title"><span>TOP DESIGNERS</span></h3>
+<div id="tyche_products-3" class="tyche-products primary widget widget_tyche_products"><h3 class="widget-title"><span>TOP DESIGNER</span></h3>
 <div class="row tyche-product-slider-container">
-<div class="tyche-product-slider-navigation hidden-xs">
-<a class="prev" href="#"><i class="fa fa-angle-left"></i></a>
-<a class="next" href="#"><i class="fa fa-angle-right"></i></a>
-</div>
 <div class="col-sm-9 col-xs-12">
-<div class="owl-carousel tyche-product-slider" data-attr-elements="3">
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="../resources/bbb.png" data-src="../resources/bbb.png" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="C:\00.siat\test\home\메인페이지썸네일 상세페이지.html" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Black Top</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=19" data-quantity="1" data-product_id="19" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+<div class="tyche-product-slider" data-attr-elements="3">
+
+
+<c:set var="i" value="1"/>
+<c:forEach var="rec" items="${dList}">
+
+<c:if test="${i%3 eq 1}">
+   <div class="goodsRow">
+   </c:if>
+
+<c:choose>
+    <c:when test="${i%3 eq 1}">
+        <div class="goods first">
+    </c:when>
+    <c:when test="${i%3 eq 2}">
+        <div class="goods">
+    </c:when>
+    <c:when test="${i%3 eq 0}">
+        <div class="goods last">
+    </c:when>
+</c:choose>
+   <a href="../designer/profile.do?designerId=${rec.designerId }">
+   <c:choose>
+   <c:when test="${empty rec.designerImage}"><img width="330" height="150"  src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:otherwise><img width="330" height="150" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
+</c:choose>
+      <h2>${rec.designerId}</h2>
+      </a>
+   </div>
+   
+   
+   <c:if test="${i%3 eq 0}">
+   </div>
+   </c:if>
+   
+   <c:set var="i" value="${i+1}"/>
+
+</c:forEach>
+</div>
+
 </div>
 </div>
-</div>
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<span class="onsale">Sale!</span>
-<img width="255" height="320" src="../resources/bbb.png" data-src="../resources/bbb.png" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/little-black-top/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Little Black Top</a></h3>
-<span class="price"><del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</bdi></span></ins></span>
-<a rel="nofollow" href="?add-to-cart=17" data-quantity="1" data-product_id="17" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product primary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/model-858751_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/model-858751_1920-691x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/little-black-shirt/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Little Black Shirt</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>40.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=15" data-quantity="1" data-product_id="15" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button primary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-sm-3 hidden-xs">
+
+
+
+
+<!-- <div class="col-sm-3 hidden-xs">
 <div class="tyche-banner" style="background-image:url(https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/long-dress-1438140_1920.jpg)">
 <div class="tyche-banner-caption">
 <span class="first_line"> SAVE UP TO </span>
@@ -230,14 +256,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
 </div>
 </div><div id="tyche_products-4" class="tyche-products secondary widget widget_tyche_products"><h3 class="widget-title"><span>HOT DRAWING</span></h3>
 <div class="row tyche-product-slider-container">
-<div class="tyche-product-slider-navigation hidden-xs">
-<a class="prev" href="#"><i class="fa fa-angle-left"></i></a>
-<a class="next" href="#"><i class="fa fa-angle-right"></i></a>
-</div>
-<div class="col-sm-3 hidden-xs">
+
+
+<!-- <div class="col-sm-3 hidden-xs">
 <div class="tyche-banner" style="background-image:url(https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1426011_1920.jpg)">
 <div class="tyche-banner-caption">
 <span class="first_line"> SAVE UP TO </span>
@@ -247,42 +273,52 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
 <div class="col-sm-9 col-xs-12">
-<div class="owl-carousel tyche-product-slider" data-attr-elements="3">
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<span class="onsale">Sale!</span>
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/elegance-18594_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/elegance-18594_1920-683x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/red-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Red Magawi Shoes</a></h3>
-<span class="price"><del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>25.00</bdi></span></ins></span>
-<a rel="nofollow" href="?add-to-cart=25" data-quantity="1" data-product_id="25" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+<div class="tyche-product-slider" data-attr-elements="3">
+
+
+<c:set var="i" value="1"/>
+<c:forEach var="draw" items="${sList}">
+
+<c:if test="${i%3 eq 1}">
+   <div class="goodsRow">
+   </c:if>
+
+<c:choose>
+    <c:when test="${i%3 eq 1}">
+        <div class="goods first">
+    </c:when>
+    <c:when test="${i%3 eq 2}">
+        <div class="goods">
+    </c:when>
+    <c:when test="${i%3 eq 0}">
+        <div class="goods last">
+    </c:when>
+</c:choose>
+   <a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
+   <c:choose>
+   <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+    <c:otherwise><img width="330" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>
+</c:choose>
+      <h2>${draw.saleTitle}</h2>
+      </a>
+   </div>
+   
+   
+   <c:if test="${i%3 eq 0}">
+   </div>
+   </c:if>
+   
+   <c:set var="i" value="${i+1}"/>
+
+</c:forEach>
 </div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/shoe-1040802_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/shoe-1040802_1920-683x1024.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/blue-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Blue Magawi Shoes</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>37.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=23" data-quantity="1" data-product_id="23" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
-<div class="item">
-<div class="tyche-product secondary">
-<div class="tyche-product-image">
-<img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1327020_1920-255x320.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/high-heels-1327020_1920-768x698.jpg" class="attachment-shop_catalog size-shop_catalog" alt="" /> </div>
-<div class="tyche-product-body">
-<h3><a href="https://demo.colorlib.com/tyche/product/beije-magawi-shoes/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Beije Magawi Shoes</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>30.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=21" data-quantity="1" data-product_id="21" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button secondary"><span class="fa fa-shopping-cart"></span> Add to cart</a>
-</div>
-</div>
-</div>
+
+
+
+
 </div>
 </div>
 </div>
@@ -294,26 +330,34 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <section class="content-area-2">
 <div class="container">
 <div class="row">
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-5" class="tyche-products green widget widget_tyche_products"><h3 class="widget-title"><span>팬아트</span></h3>
+<div id="tyche_products-5" class="tyche-products green widget widget_tyche_products"><h3 class="widget-title"><span>초상화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
+
+<c:forEach var="rec" items="${a_List}">
+
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
-<img width="160" height="120" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/belts-823257_1920-160x120.jpg" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/belts-823257_1920-768x549.jpg" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
 </div>
 <div class="col-xs-6">
 <div class="tyche-product-body text-left">
-<h3><a href="https://demo.colorlib.com/tyche/product/fitt-belts/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">FITT Belts</a></h3>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></span>
-<a rel="nofollow" href="?add-to-cart=31" data-quantity="1" data-product_id="31" data-product_sku="" class="ajax_add_to_cart add_to_cart_button button green"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+<h3>${rec.saleTitle }</a></h3>
 </div>
 </div>
 </div>
 </div>
-<div class="tyche-product green">
+
+</c:forEach>
+
+
+<!-- <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
@@ -328,6 +372,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product green">
 <div class="row">
 <div class="col-xs-6">
@@ -342,14 +389,24 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
-</div>
+</div> -->
+
+
 </div>
 </div>
 </div> </div>
+
+
+
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>초상화</span></h3>
+<div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>풍경화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
+
+
+<!-- 
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -365,6 +422,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -380,6 +440,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
+
 <div class="tyche-product blue">
 <div class="row">
 <div class="col-xs-6">
@@ -395,14 +458,39 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+ -->
+
+<c:forEach var="rec" items="${b_List}">
+
+<div class="tyche-product blue">
+<div class="row">
+<div class="col-xs-6">
+<div class="tyche-product-image">
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
+</div>
+<div class="col-xs-6">
+<div class="tyche-product-body text-left">
+<h3>${rec.saleTitle }</a></h3>
+</div>
+</div>
+</div>
+</div>
+
+</c:forEach>
 </div>
 </div>
 </div> </div>
+
+
+
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-7" class="tyche-products black widget widget_tyche_products"><h3 class="widget-title"><span>풍경화</span></h3>
+<div id="tyche_products-7" class="tyche-products black widget widget_tyche_products"><h3 class="widget-title"><span>작문</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
-<div class="tyche-product black">
+
+
+<!-- <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
 <div class="tyche-product-image">
@@ -417,6 +505,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
 <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
@@ -432,6 +522,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+
+
 <div class="tyche-product black">
 <div class="row">
 <div class="col-xs-6">
@@ -446,77 +538,97 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </div>
 </div>
+</div> -->
+
+<c:forEach var="rec" items="${c_List}">
+
+<div class="tyche-product black">
+<div class="row">
+<div class="col-xs-6">
+<div class="tyche-product-image">
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+<img width="160" height="120" src="${rec.saleImage }" data-src="${rec.saleImage }" class="attachment-tyche-product-layout-c size-tyche-product-layout-c wp-post-image" alt="" /> </div>
 </div>
+<div class="col-xs-6">
+<div class="tyche-product-body text-left">
+<h3>${rec.saleTitle }</a></h3>
+</div>
+</div>
+</div>
+</div>
+
+</c:forEach>
+
 </div>
 </div>
 </div> </div>
 </div>
 </div>
 </section>
-	<%
-    	String messageContent = null;
-    	if(session.getAttribute("messageContent")!=null){
-    		messageContent = (String)session.getAttribute("messageContent");
-    	}
-    	String messageType = null;
-    	if(session.getAttribute("messageType")!=null){
-    		messageType = (String)session.getAttribute("messageType");
-    	}
-    	System.out.println("login 에서 : " + messageContent);
-    	if(messageContent != null){
+   <%
+       String messageContent = null;
+       if(session.getAttribute("messageContent")!=null){
+          messageContent = (String)session.getAttribute("messageContent");
+       }
+       String messageType = null;
+       if(session.getAttribute("messageType")!=null){
+          messageType = (String)session.getAttribute("messageType");
+       }
+       System.out.println("login 에서 : " + messageContent);
+       if(messageContent != null){
     %>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						<%=messageType %>
-    					</h4>
-    				</div>
-    				<div class="modal-body">
-    					<%=messageContent %>
-    				</div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+       <div class="vertical-alignment-helper">
+          <div class="modal-dialog vertical-align-center">
+             <div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
+                <div class="modal-header panel-heading">
+                   <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times</span>
+                      <span class="sr-only">Close</span>
+                   </button>
+                   <h4 class="modal-title">
+                      <%=messageType %>
+                   </h4>
+                </div>
+                <div class="modal-body">
+                   <%=messageContent %>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
     <script type="text/javascript">
-    	$("#messageModal").modal("show");
-    	console.log("쇼!");
+       $("#messageModal").modal("show");
+       console.log("쇼!");
     </script>
     <%
-    	session.removeAttribute("messageContent");
-    	session.removeAttribute("messageType");
+       session.removeAttribute("messageContent");
+       session.removeAttribute("messageType");
     }
     %>
     <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div id="checkType" class="modal-content panel-info">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						확인 메시지
-    					</h4>
-    				</div>
-    				<div id="checkMessage" class="modal-body"></div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+       <div class="vertical-alignment-helper">
+          <div class="modal-dialog vertical-align-center">
+             <div id="checkType" class="modal-content panel-info">
+                <div class="modal-header panel-heading">
+                   <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times</span>
+                      <span class="sr-only">Close</span>
+                   </button>
+                   <h4 class="modal-title">
+                      확인 메시지
+                   </h4>
+                </div>
+                <div id="checkMessage" class="modal-body"></div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
     </div>
 <jsp:include page="footer.jsp"></jsp:include>
@@ -524,11 +636,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
 <script type="text/javascript">
-		(function () {
-			var c = document.body.className;
-			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-			document.body.className = c;
-		})();
-	</script>
-	
+      (function () {
+         var c = document.body.className;
+         c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+         document.body.className = c;
+      })();
+   </script>
+   
 </body></html>

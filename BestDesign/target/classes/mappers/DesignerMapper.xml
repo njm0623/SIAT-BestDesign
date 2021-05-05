@@ -16,13 +16,50 @@
 			WHERE designerId = #{designerId}
 		]]>
 	</select>
-	
-	<update id="designerUpdate" parameterType="design">
+	<select id="designerPerDrawing" parameterType="design" resultType="sale">
 		<![CDATA[
-			UPDATE designer
-			set designerProfile = #{designerProfile}, designerImage = #{designerImage}, designerNickName =#{designerNickName}
-			WHERE designerId = #{designerId}
+			select salenum, saletitle, saleimage
+			from(select * from saleboard order by dbms_random.random)
+			where rownum <=4 and designerid = #{designerId}
 		]]>
+	</select>
+	<update id="designerUpdate" parameterType="design">
+			UPDATE designer
+			set designerProfile = #{designerProfile}, designerNickName =#{designerNickName}
+			<if test="designerImage != ''">, designerImage = #{designerImage}</if>
+			WHERE designerId = #{designerId}
 	</update>
-	
+	<select id="getAllDesigner" parameterType="hash" resultType="design">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM IDX, designer.* FROM siat.designer WHERE rownum>=1 ORDER BY designerId) d, siat.users u
+			WHERE IDX BETWEEN #{first} AND #{end} and u.userId = d.designerId
+			order by userId desc
+		]]>
+	</select>
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			from designer
+		]]>
+	</select>
+	<select id="checkCart" parameterType="hash" resultType="dcart">
+		<![CDATA[
+			SELECT *
+			from designercart
+			where userId = #{userId} and designerId = #{designerId}
+		]]>
+	</select>
+	<insert id="insertCart" parameterType="hash">
+		<![CDATA[
+			INSERT INTO designerCart
+			values(seq_designerCart.nextval, #{userId}, #{designerId})
+		]]>
+	</insert>
+	<delete id="deleteCart" parameterType="dcart">
+		<![CDATA[
+			DELETE FROM designerCart
+			where cartNum = #{cartNum}
+		]]>
+	</delete>
 </mapper>

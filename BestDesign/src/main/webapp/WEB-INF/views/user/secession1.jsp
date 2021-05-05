@@ -88,10 +88,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
     
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="../resources/js/bootstrap.js"></script>
     <script src="../resources/js/custom.js"></script>
+
     
     <script type="text/javascript">
     	$(document).ready(function () {

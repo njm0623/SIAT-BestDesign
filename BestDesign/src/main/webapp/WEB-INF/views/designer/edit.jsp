@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%
-    session.removeAttribute("messageContent");
-	session.removeAttribute("messageType");
-    
     String designer = request.getParameter("designerId");
     String userID = (String)session.getAttribute("userID");
        if(!designer.equals(userID)){
@@ -106,21 +103,81 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
-
-    <link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-    <script src="../resources/js/bootstrap.js"></script>
-	<style type="text/css">
-		body .con .container{
-			width:550px;
-			margin-right: 0px;
-		}
-		body .form-control{
-			width: 100%;
-		}
-	</style>
-
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<link rel="stylesheet" href="../resources/css/custom.css">
+<script src="http://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="../resources/js/bootstrap.js"></script>
+<style type="text/css">
+	body .con .container{
+		width:550px;
+		margin-right: 0px;
+	}
+	body .form-control{
+		width: 100%;
+	}
+</style>
+<script type="text/javascript">
+	AWS.config.update({
+        accessKeyId: 'AKIA2CQDNWZGZSNNZDLD',
+        secretAccessKey: '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'
+    });
+    AWS.config.region = 'ap-northeast-2';
+    
+	$(function () {
+	    $("#formsub").click(function () {
+	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
+	        let fileChooser = document.getElementById('file');
+	        let file = fileChooser.files[0];
+	        
+	        let Now = new Date()
+	        StrNow = String(Now)
+	        nowYear = String(Now.getFullYear())
+	        nowMon = String(Now.getMonth()+1)
+	        nowDay = String(Now.getDate())
+		    if(nowMon.length == 1) {
+		    	nowMon = "0"+nowMon
+		    }	    
+		    let divideNow = String(StrNow).split(' ');	    
+		    let divideNowTimeDiv = divideNow[4].split(':');
+		    let divideNowTimeJoin = divideNowTimeDiv[0]+divideNowTimeDiv[1]+divideNowTimeDiv[2];
+		    
+		    let NowToday = nowYear+nowMon+nowDay+divideNowTimeJoin;
+		    
+	        if (file) {
+	        	$("#fileName").val("https://bestdesign.s3.ap-northeast-2.amazonaws.com/<%=userID%>_"+NowToday+"_"+file.name)
+	            var params = {
+	                Key: "<%=userID%>_"+NowToday+"_"+file.name,
+	                ContentType: file.type,
+	                Body: file,
+	                ACL: 'public-read' // 접근 권한
+	            };
+	
+	            bucket.putObject(params, function (err, data) {
+	            	if (err) {
+	            		alert("이미지 업로드에 실패하였습니다.")
+	            		console.log(err, err.stack)
+	            		return;
+	            	}
+	            	else {
+	            		// 업로드 성공
+	                	$("#updateform").submit();
+	            	}
+	            });
+	
+	            //bucket.putObject(params).on('httpUploadProgress',
+	            //    function (evt) {
+	            //        console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total) + '%');
+	            //    }).send(function (err, data) {
+	            //        alert("File uploaded successfully.");
+	            //    });
+	        }
+	        else {
+	        	$("#updateform").submit();
+	        }
+	    });
+	});
+</script>
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
 <div id="page" class="site">
@@ -135,7 +192,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <div class="woocommerce-notices-wrapper"></div><div id="product-19" class="product type-product post-19 status-publish first instock product_cat-tops product_cat-trends has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
 <figure class="woocommerce-product-gallery__wrapper">
-<div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><img width="540" height="360" src="../resources/main_logo.png" class="wp-post-image"/></div> </figure>
+<div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><img width="540" height="360" src="${Profile.designerImage }" class="wp-post-image"/></div> </figure>
 </div>
 
 <div class="con">
@@ -158,13 +215,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     				</tr>
     				<tr>
     					<td class="tdali"><h5>내 사진</h5></td>
-    					<td colspan=2><input class="form-control" type="file" id="designerImage" name="designerImage" ></td>
+    					<td colspan=2><input class="form-control" type="file" id="file"></td>
     				</tr>
     			</tbody>
     		</table>    		
     			<input type="hidden" id="designerId" name="designerId" value="${param.designerId}"/>
+    			<input type="hidden" id="fileName" name="designerImage"/>
     		<div style="text-align: center;">
-    			<input type="submit" class="btn btn-primary" id="formsub" value="수정"/>
+    			<input type="button" class="btn btn-primary" id="formsub" value="수정"/>
     		</div>
     	</form>
 </div>

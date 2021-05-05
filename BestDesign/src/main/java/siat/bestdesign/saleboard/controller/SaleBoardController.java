@@ -2,6 +2,8 @@ package siat.bestdesign.saleboard.controller;
 
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import siat.bestdesign.chat.domain.ChatVO;
+import siat.bestdesign.chat.service.ChatService;
+import siat.bestdesign.manager.controller.ManagerCotroller;
+import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 import siat.bestdesign.saleboard.service.SaleBoardService;
@@ -16,17 +22,24 @@ import siat.bestdesign.saleboard.service.SaleBoardService;
 @Controller
 @RequestMapping("saleboard")
 public class SaleBoardController {
+	private Logger log = LoggerFactory.getLogger(ManagerCotroller.class);
+	
 	@Autowired
 	private SaleBoardService saleBoardService;
 	
+	@Autowired
+	ChatService chatService;
+	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
+		log.info("SaleBoard에서" + step + "동작");
 		System.out.println("saleboard에서 자신 반환하는 모든 동작 : " + step);
 		return "saleboard/"+step;
 	}
 	
 	@RequestMapping("/insertSaleBoard.do")
 	public String insertSaleBoard(SaleBoardVO vo) {
+		log.info("saleBoard에서 insertSaleBoard");
 		System.out.println("insertSaleBoardList 컨트롤러 호출");
 		saleBoardService.insertSaleBoard(vo);
 		return "redirect:/saleboard/getSaleBoardList.do";
@@ -34,6 +47,7 @@ public class SaleBoardController {
 	
 	@RequestMapping("/modifySaleBoard.do")
 	public String modifySaleBoard(SaleBoardVO vo, Model model) {
+		log.info("saleBoard에서 modifySaleBoard");
 		System.out.println("modifySaleBoard 컨트롤러 호출");
 		model.addAttribute("saleBoard", saleBoardService.getSaleBoard(vo));
 		return "saleboard/saleModifyBoard";
@@ -41,6 +55,7 @@ public class SaleBoardController {
 	
 	@RequestMapping("/updateSaleBoard.do")
 	public String updateSaleBoard(SaleBoardVO vo) {
+		log.info("saleBoard에서 updateSaleBoard");
 		System.out.println("updateSaleBoardList 컨트롤러 호출");
 		saleBoardService.updateSaleBoard(vo);
 		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
@@ -48,6 +63,7 @@ public class SaleBoardController {
 	
 	@RequestMapping("/deleteSaleBoard.do")
 	public String deleteSaleBoard(SaleBoardVO vo) {
+		log.info("saleBoard에서 deleteSaleBoard");
 		System.out.println("deleteSaleBoardList 컨트롤러 호출");
 		saleBoardService.deleteSaleBoard(vo);
 		return "redirect:/saleboard/getSaleBoardList.do";
@@ -55,6 +71,7 @@ public class SaleBoardController {
 	
 	@RequestMapping("/getSaleBoard.do")
 	public String getSaleBoard(SaleBoardVO vo, Model model) {
+		log.info("saleBoard에서 getSaleBoard");
 		System.out.println("getSaleBoard 컨트롤러 호출");
 		model.addAttribute("saleBoard", saleBoardService.getSaleBoard(vo));
 		saleBoardService.updateSaleBoardView(vo);
@@ -63,6 +80,7 @@ public class SaleBoardController {
 	
 	@RequestMapping("/getSaleBoardList.do")
 	public String getSaleBoardList(SaleBoardPagingVO vo, Model model, @RequestParam(value="search", required = false) String search, @RequestParam(value="orderby", required = false) String orderby, @RequestParam(value="nowPage", required = false) String nowPage, @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
+		log.info("saleBoard에서 getSaleBoardList");
 		System.out.println("getSaleBoardList 컨트롤러 호출");
 		System.out.println(orderby);
 		System.out.println(search);
@@ -90,5 +108,26 @@ public class SaleBoardController {
 		model.addAttribute("saleBoardListPaging", vo);
 		model.addAttribute("saleBoardList", saleBoardService.getSaleBoardList(vo));
 		return "saleboard/saleList";
+	}
+	
+	@RequestMapping("purchase.do")
+	public String saleBoardPurchase(SaleBoardDealVO vo) {
+
+		log.info("saleBoard에서 purchase");
+		System.out.println("purchase 호출");
+		ChatVO chatvo1 = new ChatVO();
+		chatvo1.setChatFromId(vo.getDealSellerId());
+		chatvo1.setChatToId(vo.getDealBuyerId());
+		chatvo1.setChatContent(vo.getDealBuyerId() + "님, '" + vo.getSaleTitle() + "' 작품을 구매해주셔서 감사합니다.");
+		chatService.insertChat(chatvo1);
+		
+		ChatVO chatvo2 = new ChatVO();
+		chatvo2.setChatFromId("manager1");
+		chatvo2.setChatToId(vo.getDealSellerId());
+		chatvo2.setChatContent(vo.getDealBuyerId() + "님께서  '" + vo.getSaleTitle() + "' 작품을 구매하셨습니다.");
+		chatService.insertChat(chatvo2);
+		
+		saleBoardService.saleBoardPurchase(vo);
+		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 }

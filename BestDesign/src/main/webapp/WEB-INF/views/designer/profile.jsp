@@ -116,28 +116,94 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			$("#editProfile").click(function(){
 				location.replace("../designer/edit.do?designerId=${param.designerId}");
 			})
-			
+			$("#dcart").click(function(){
+				let userID = "${sessionScope.userID}";
+				let designerId = "${param.designerId}";
+				$.ajax({
+					data:{userId: userID,
+						   designerId:designerId},
+					type:"post",
+					dataType:"text",
+					url:"../designer/checkCart.do",
+					success:Check,
+					error:function(error){
+						alert("에러");
+						console.log(error);
+					}
+				})
+				function Check(star){
+					$("#dcart").text(star);
+					if(star=="☆"){
+						$("#checkMessage").html("즐겨찾기가 해제되었습니다.");
+						$("checkType").attr("class","modal-content panel-warning");
+					}else{
+						flag=true;
+						$("#checkMessage").html("즐겨찾기가 등록되었습니다.");
+						$("#checkType").attr("class","modal-content panel-success");
+					}
+					$("#checkModal").modal("show");
+				}
+			})
+			$("#editProfile").click(function(){
+				location.replace("../designer/edit.do?designerId=${param.designerId}");
+			})
 		})
-	</script>
+</script>
+<style>
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
 
+	.columns-4{
+		display:flex;
+	}
+	
+	.woocommerce div.product div.images img {
+		width: 420px;
+		height: auto;
+		float: right;
+	}
+	
+	html body #a_dimage .dimage{
+		max-width: none;
+		width: 220px; height: 150px;
+	}
+	#dcart{
+		cursor: pointer;
+		font-size: 20px;
+		width: 30px;
+	}
+	#starcart{
+		font-family:'GyeonggiTitleM'
+	}
+</style>
 </head>
 <body class="product-template-default single single-product postid-19 wp-custom-logo theme-tyche woocommerce woocommerce-page woocommerce-no-js elementor-default elementor-kit-1236">
 <div id="page" class="site">
 
 <jsp:include page="../main/header.jsp"/>
-
+<br><br>
 <div class="site-content">
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<nav class="woocommerce-breadcrumb"><a href="../main/index.do">Home</a>&nbsp;&#47;&nbsp;디자이너 프로필</nav>
 <div class="woocommerce-notices-wrapper"></div><div id="product-19" class="product type-product post-19 status-publish first instock product_cat-tops product_cat-trends has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
 <figure class="woocommerce-product-gallery__wrapper">
-<div data-thumb="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-100x100.jpg" data-thumb-alt="" class="woocommerce-product-gallery__image"><a href="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg"><img width="540" height="360" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" class="wp-post-image" alt="" loading="lazy" title="woman-1477091_1920" data-caption="" data-src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" data-large_image="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg" data-large_image_width="1920" data-large_image_height="1281" srcset="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920.jpg 1920w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-300x200.jpg 300w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-768x512.jpg 768w, https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1477091_1920-1024x683.jpg 1024w" sizes="(max-width: 540px) 100vw, 540px" /></a></div> </figure>
+<c:choose>
+   <c:when test="${empty Profile.designerImage}"><img src="../resources/artist.png"/></c:when>
+   <c:otherwise><img src="${Profile.designerImage}" /></c:otherwise>
+</c:choose>
+ </figure>
 </div>
 <div class="summary entry-summary">
 <h1 class="product_title entry-title">
+<c:if test="${sessionScope.userID ne null}">
+<p><span style="font-size: 15px;" id="starcart">찜 등록 </span><span style="color: #FFAB1A;"id="dcart">${dcart}</span></p>
+</c:if>
 <c:choose>
     <c:when test="${empty Profile.designerNickName}">
         닉네임을 설정해주세요.
@@ -161,9 +227,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </c:choose>
 </p>
 
-
-
-
 </div>
 
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="goChat">채팅하기</button>
@@ -171,36 +234,39 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <c:if test="${sessionScope.userID eq param.designerId}">
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="editProfile">수정하기</button>
 </c:if>
-
-<div class="product_meta">
-<span class="posted_in">Categories: <a href="https://demo.colorlib.com/tyche/product-category/tops/" rel="tag">Tops</a>, <a href="https://demo.colorlib.com/tyche/product-category/trends/" rel="tag">Trends</a></span>
 </div>
-</div>
-
 
 
 <section class="related products">
-<h2>Related products</h2>
+<c:if test="${not empty draw}">
+<h2>${Profile.designerId} 의 드로잉</h2>
+</c:if>
 <ul class="products columns-4">
+<c:forEach var="rec" items="${draw}">
 <li class="product type-product post-64 status-publish first instock product_cat-shirts product_cat-trends product_tag-blouse product_tag-blue product_tag-shirt has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
-<a href="https://demo.colorlib.com/tyche/product/marina-style/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/woman-1484279_1920-255x320.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">Marina Style</h2>
-<span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></span>
-</a><a href="?add-to-cart=64" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="64" data-product_sku="" aria-label="Add &ldquo;Marina Style&rdquo; to your cart" rel="nofollow"><span class="fa fa-shopping-cart"></span> Add to cart</a></li>
+<a href="../saleboard/getSaleBoard.do?saleNum=${rec.saleNum}" id="a_dimage"><img width="330" height="200" src="${rec.saleImage}" class="dimage"alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">${rec.saleTitle}</h2>
+</a></li>
+</c:forEach>
+
+<!-- 
 <li class="product type-product post-17 status-publish instock product_cat-tops product_tag-black product_tag-shirt product_tag-top has-post-thumbnail sale taxable shipping-taxable purchasable product-type-simple">
 <a href="https://demo.colorlib.com/tyche/product/little-black-top/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
 <span class="onsale">Sale!</span>
 <img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/girl-1286993_1920-255x320.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">Little Black Top</h2>
 <span class="price"><del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.00</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</bdi></span></ins></span>
 </a><a href="?add-to-cart=17" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="17" data-product_sku="" aria-label="Add &ldquo;Little Black Top&rdquo; to your cart" rel="nofollow"><span class="fa fa-shopping-cart"></span> Add to cart</a></li>
+
 <li class="product type-product post-15 status-publish instock product_cat-tops product_tag-black product_tag-shirt product_tag-top has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <a href="https://demo.colorlib.com/tyche/product/little-black-shirt/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/model-858751_1920-255x320.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">Little Black Shirt</h2>
 <span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>40.00</bdi></span></span>
 </a><a href="?add-to-cart=15" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="15" data-product_sku="" aria-label="Add &ldquo;Little Black Shirt&rdquo; to your cart" rel="nofollow"><span class="fa fa-shopping-cart"></span> Add to cart</a></li>
+
 <li class="product type-product post-62 status-publish last instock product_cat-shirts product_cat-trends product_tag-amari product_tag-shirt has-post-thumbnail taxable shipping-taxable purchasable product-type-simple">
 <a href="https://demo.colorlib.com/tyche/product/amari-shirt/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"><img width="255" height="320" src="https://demo.colorlib.com/tyche/wp-content/uploads/sites/64/2017/06/key-692199_1920-255x320.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" /><h2 class="woocommerce-loop-product__title">Amari Shirt</h2>
 <span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>25.00</bdi></span></span>
 </a><a href="?add-to-cart=62" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="62" data-product_sku="" aria-label="Add &ldquo;Amari Shirt&rdquo; to your cart" rel="nofollow"><span class="fa fa-shopping-cart"></span> Add to cart</a></li>
-</ul>
+ --></ul>
+
 </section>
 </div>
 </main></div> </div>

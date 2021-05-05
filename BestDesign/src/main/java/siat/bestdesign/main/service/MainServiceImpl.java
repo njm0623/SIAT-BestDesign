@@ -22,5 +22,10 @@ public class MainServiceImpl implements MainService {
 	public List<MainVO> getHotDrawing() {
 		return MainDAO.getHotDrawing();
 	}
+
+	@Override
+	public List<MainVO> getDrawing(String saleCate) {
+		return MainDAO.getDrawing(saleCate);
+	}
 	
 }

@@ -3,12 +3,12 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
-		<![CDATA[
-			SELECT *
-			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
-			WHERE IDX BETWEEN #{first} AND #{end}
+			select *
+			from (select ROWNUM IDX, c.*
+				  from (SELECT * FROM contactBoard ORDER BY contactNum desc) c
+				 )
+			WHERE IDX BETWEEN #{first} AND #{end}<if test="val != null"> and ${key} LIKE '%${val}%' </if>
 			order by contactSeqNum desc
-		]]>
 	</select>
 	<select id="getGroupNum" resultType="contact">
 		<![CDATA[
@@ -16,11 +16,12 @@
 			from dual
 		]]>
 	</select>
-	<select id="getTotalCount" resultType="int">
-		<![CDATA[
+	<select id="getTotalCount" parameterType="hash" resultType="int">
 			SELECT count(*)
 			from contactboard
-		]]>
+			<where>
+			<if test="key != null">${key} LIKE '%${val}%' </if>
+			</where>
 	</select>
 	<select id="selectById" parameterType="int" resultType="contact">
 		<![CDATA[
@@ -44,11 +45,12 @@
 		]]>
 	</update>
 	<update id="updateContact" parameterType="contact">
-		<![CDATA[
+
 			UPDATE CONTACTBOARD
-			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate
+			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}
+			<if test="contactFile != ''">, contactFile = #{contactFile}</if>
 			where contactNum = #{contactNum}
-		]]>
+
 	</update>
 	<delete id="deleteContact" parameterType="int">
 		<![CDATA[
@@ -61,6 +63,23 @@
 			SELECT min(contactSeqNum) as contactSeqNum
 			FROM CONTACTBOARD
 			WHERE contactSeqNum < #{max} AND contactSeqNum >= #{min}
+		]]>
+	</select>
+	
+	<select id="selectIdList" parameterType="contact" resultType="contact">
+		<![CDATA[
+			SELECT *
+			from contactboard
+			where userId = #{userId}
+			order by contactNum asc
+		]]>
+	</select>
+	
+	<select id="getContactList" parameterType="hash" resultType="contact">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
+			order by contactSeqNum desc
 		]]>
 	</select>
 </mapper>

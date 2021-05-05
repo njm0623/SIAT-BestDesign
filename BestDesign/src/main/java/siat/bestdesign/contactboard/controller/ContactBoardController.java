@@ -6,12 +6,15 @@ import java.util.HashMap;
 
 import javax.xml.ws.RequestWrapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import siat.bestdesign.chat.controller.ChatController;
 import siat.bestdesign.contactboard.domain.ContactVO;
 import siat.bestdesign.contactboard.service.ContactService;
 
@@ -19,17 +22,21 @@ import siat.bestdesign.contactboard.service.ContactService;
 @RequestMapping("contactboard")
 public class ContactBoardController {
 	
+	private Logger log = LoggerFactory.getLogger(ContactBoardController.class);
+	
 	@Autowired
 	ContactService contactService;
 	
 	@RequestMapping("/{step}.do")
 	public String viewPage(@PathVariable String step) {
+		log.info("contactboard에서" + step + "동작");
 		System.out.println("자신 반환하는 모든 동작 : " + step);
 		return "contactboard/"+step;
 	}
 	
 	@RequestMapping("boardList.do")
-	public void boardList(Model m, String firstRow, String endRow) {
+	public void boardList(Model m, String firstRow, String endRow, String menu, String search) {
+		log.info("contactboard에서 boardList동작");
 		System.out.println("contactboard 에서 boardList.do");
 		if(firstRow==null) {
 			firstRow="1";
@@ -38,13 +45,21 @@ public class ContactBoardController {
 		HashMap map = new HashMap();
 		map.put("first", Integer.parseInt(firstRow));
 		map.put("end", Integer.parseInt(endRow));
+		if(menu!=null && search!=null) {
+			map.put("key", menu);
+			map.put("val", search);
+			m.addAttribute("menu",menu);
+			m.addAttribute("search",search);			
+		}
 		m.addAttribute("boardList",contactService.getContactBoardList(map));
-		m.addAttribute("perPage",contactService.getTotalPage());
+		m.addAttribute("perPage",contactService.getTotalPage(map));
 	}
 	
 	@RequestMapping("BoardSave.do")
 	public String boardSave(ContactVO vo) {
+		log.info("contactboard에서 BoardSave동작");
 		System.out.println("contactboard에서 boardsave.do");
+		
 		vo.setContactGroupNum(contactService.getGroupId());
 		DecimalFormat dformat = new DecimalFormat("0000000000");
 		vo.setContactSeqNum(dformat.format(vo.getContactGroupNum())+"999999");
@@ -54,13 +69,17 @@ public class ContactBoardController {
 	
 	@RequestMapping("BoardView.do")
 	public void boardView(Model m, int contactNum) {
+		log.info("contactboard에서 BoardView동작");
+		
 		System.out.println("contactboard에서 boardView.do");
-		m.addAttribute("rec",contactService.selectByIdView(contactNum));
 		contactService.updateCount(contactNum);
+		m.addAttribute("rec",contactService.selectByIdView(contactNum));
 	}
 	
 	@RequestMapping("BoardReply.do")
 	public String BoardReplyForm(int parentId, ContactVO vo) {
+		log.info("contactboard에서 BoardReply동작");
+		
 		System.out.println("contactboard에서 BoardRepy");		
 		ContactVO parent = contactService.selectById(parentId);
 		String maxSeqNum = parent.getContactSeqNum();
@@ -76,17 +95,23 @@ public class ContactBoardController {
 	
 	@RequestMapping("BoardModifyForm.do")
 	public void boardModifyForm(Model m, int contactNum) {
+		log.info("contactboard에서 BoardModifyForm동작");
+		
 		System.out.println("contactboard에서 BoardModifyForm");
 		m.addAttribute("list", contactService.selectById(contactNum));
 	}
 	@RequestMapping("BoardModify.do")
 	public String boardModify(ContactVO vo) {
+		log.info("contactboard에서 BoardModify동작");
+		
 		System.out.println("contactboard에서 BoardModify");		
 		contactService.boardModify(vo);
 		return "redirect:/contactboard/boardList.do";
 	}
 	@RequestMapping("BoardDelete.do")
 	public String boardDelete(int contactNum) {
+		log.info("contactboard에서 BoardDelete동작");
+		
 		System.out.println("contactboard에서 BoardDelete");		
 		contactService.boardDelete(contactNum);
 		return "redirect:/contactboard/boardList.do";

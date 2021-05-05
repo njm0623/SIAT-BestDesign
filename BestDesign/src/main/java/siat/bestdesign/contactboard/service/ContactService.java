@@ -15,7 +15,7 @@ public interface ContactService {
 
 	int getGroupId();
 	
-	int getTotalPage();
+	int getTotalPage(HashMap map);
 
 	ContactVO selectById(int contactNum);
 
@@ -32,5 +32,6 @@ public interface ContactService {
 	void boardDelete(int contactNum);
 
 	ContactVO selectByIdView(int contactNum);
-	
+
+
 }

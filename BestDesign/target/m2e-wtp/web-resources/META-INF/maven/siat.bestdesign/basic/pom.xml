@@ -33,6 +33,12 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<dependency>
+    			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+    			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+		    <version>1.16</version>
+		</dependency>
+
 				
 		<!-- AspectJ -->
 		<dependency>
@@ -40,6 +46,14 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
+		<!-- 디비에 저장할 log4jdbc -remix -->
+        <!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->
+        <dependency>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+		
 		
 		<!-- Logging -->
 		<dependency>

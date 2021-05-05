@@ -289,7 +289,7 @@ $(function(){
 </c:choose>
 	<a href="profile.do?designerId=${rec.userId }">
 	<c:choose>
-   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/artist.png" class="wp-post-image"/></c:when>
    <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
 </c:choose>
 		<h2>${rec.userId}</h2>

@@ -54,6 +54,9 @@ img.emoji {
 	background: none !important;
 	padding: 0 !important;
 }
+tr > th, tr > td{
+	text-align:center;
+}
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
 <link rel='stylesheet' id='wc-block-vendors-style-css' href='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/vendors-style.css?ver=4.7.2' type='text/css' media='all' />
@@ -123,7 +126,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				<div class="row">
 					<div class="col-md-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="https://demo.colorlib.com/tyche">Home</a>&nbsp;&#47;&nbsp;Administrator
 						</nav>
 					</div>
 				</div>
@@ -134,19 +136,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 						
 					<div class="col-md-8 tyche-has-sidebar">
 							<h4>디자이너 작품 판매목록</h4>
-					<form action='designSaleList.do' method='post'>
-					</form>	
 					<table border="1">
 					<tr>
 						<th bgcolor="gray" width="100">글번호</th>
 						<th bgcolor="gray" width="100">등록아이디</th>
 						<th bgcolor="gray" width="100">제목</th>
-						<th bgcolor="gray" width="150">내용</th>
-						<th bgcolor="gray" width="100">업로드 이미지</th>
 						<th bgcolor="gray" width="150">등록 날짜</th>
-						<th bgcolor="gray" width="150">판매가격</th>
-						<th bgcolor="gray" width="150">카테고리</th>
-						<th bgcolor="gray" width="150">조회수</th>
+
 					</tr>
 									<!-- DB값 호출 -->			
 						<c:forEach items="${designSale}" var="sale">
@@ -154,12 +150,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 								<td>${sale.saleNum}</td><!--위에 VAR명이랑 일치  -->
 								<td>${sale.designerId}</td>
 								<td>${sale.saleTitle}</td>
-								<td>${sale.saleContent}</td>
-								<td>${sale.saleImage}</td>
 								<td>${sale.saleDate}</td>
-								<td>${sale.salePrice}</td>
-								<td>${sale.saleCate}</td>
-								<td>${sale.saleView}</td>								
 							</tr>
 						</c:forEach>
 					</table>

@@ -17,12 +17,7 @@ public interface UserService {
 
 	int checkType(UserVO vo);
 
-	//ȸ�� ��������
 	int userUpdate(UserVO vo);
-	
-	//ȸ�� ����
+
 	void withdrawal(UserVO vo);
-
-
-
 }

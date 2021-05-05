@@ -5,12 +5,12 @@
 <%
    String userID = null;
    if(session.getAttribute("userID") != null){
-   	userID = (String)session.getAttribute("userID");// 겟 세션은 Object 를 리턴
+      userID = (String)session.getAttribute("userID");// 겟 세션은 Object 를 리턴
    }
    String type = null;
    if(session.getAttribute("type") != null){
-   	type = (String)session.getAttribute("type");//
-   	//type = type.trim();
+      type = (String)session.getAttribute("type");//
+      //type = type.trim();
    }
    System.out.println("내 타입 바뀌지마 " + type);
 %>
@@ -24,53 +24,53 @@
 
 
 <style>
-	#masthead {
-		background:#fff;
-	}
+   #masthead {
+      background:#fff;
+   }
 
-	.sf-menu>li>a {
-		color: black;
-	}
-	.search-top-bar-submit{
-		top: 5px;
-	}
-	html body .top-header-bar-container .top-header-bar .top-account{
-		float: right;
-	}
-	html body .top-header-bar-container .top-header-bar .top-search{
-		float: left;
-	}
+   .sf-menu>li>a {
+      color: black;
+   }
+   .search-top-bar-submit{
+      top: 5px;
+   }
+   html body .top-header-bar-container .top-header-bar .top-account{
+      float: right;
+   }
+   html body .top-header-bar-container .top-header-bar .top-search{
+      float: left;
+   }
 </style>
 
-	<script>
-			function getUnread(){
-				$.ajax({
-					type:"post",
-					url:"../chat/unReadChat.do",
-					data:{userID : '<%=userID%>'},
-					success:function(result){
-						let data = result.trim();
-						console.log(data);
-						if(data>=1){
-							console.log("존재")
-							showUnread(data);
-						}else{							
-							console.log("없음")
-							showUnread("");
-						}
-					}
-				})
-			}
-			function getInfiniteUnread(){
-				console.log("인피니트");
-				setInterval(function(){
-					getUnread();
-				}, 4000);
-			}
-			function showUnread(result){
-				$("#unread").html(result);
-			}
-	</script>
+   <script>
+         function getUnread(){
+            $.ajax({
+               type:"post",
+               url:"../chat/unReadChat.do",
+               data:{userID : '<%=userID%>'},
+               success:function(result){
+                  let data = result.trim();
+                  console.log(data);
+                  if(data>=1){
+                     console.log("존재")
+                     showUnread(data);
+                  }else{                     
+                     console.log("없음")
+                     showUnread("");
+                  }
+               }
+            })
+         }
+         function getInfiniteUnread(){
+            console.log("인피니트");
+            setInterval(function(){
+               getUnread();
+            }, 4000);
+         }
+         function showUnread(result){
+            $("#unread").html(result);
+         }
+   </script>
 <!-- ************************************************************************************************************* -->
 </head>
 <body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
@@ -84,29 +84,23 @@
 
 
 <%
-	if(userID == null){
+   if(userID == null){
 %>
 <li class="top-account">
 <a href="../chat/login.do"><i class="fa fa-user"></i> 로그인 </a>
 </li>
 <%
-	}else{
+   }else{
 %>
 <li class="top-account">
 <a href="../chat/logout.do"><i class="fa fa-user"></i> 로그아웃 </a>
 </li>
 
-<li class="top-account">
-	<ul>
-		<li><a href="../main/secession.do"><i class="fa fa-user"></i> 회원정보 탈퇴</a></li>
-		<li><a href="../user/membermodification.do"><i class="fa fa-user"></i> 회원정보 수정</a></li>
-	</ul>
-</li>
 
-<% if(type=="관리자"){%>
+<% if(type.equals("관리자")){%>
 
 <li class="top-account">
-<a href="../manager/manager.do"><i class="fa fa-user"></i> 관리자 </a>
+<a href="../manager/userBoardList.do"><i class="fa fa-user"></i> 관리자 </a>
 </li>
 
 <%} else{%>
@@ -125,21 +119,19 @@
 <li class="top-account">
 <a href="../chat/box.do"><i class="fa fa-envelope"></i> 메시지 함 <span id="unread" class="label label-info"></span></a>
 </li>
-<% if(type=="디자이너"){%>
+<% if(type.equals("디자이너")){%>
 
 <li class="top-account">
 <a href="../designer/profile.do?designerId=<%=userID %>"><i class="fa fa-user"></i> 프로필 </a>
 </li>
 
-
-<%}else if(type=="고객"){ %>
+<%} %>
 
 <li class="top-cart">
-<a href="C:\00.siat\test\home\my cart 페이지.html"><i class="fa fa-shopping-cart"></i> 나의 찜 - <span class="price">0</span> </a>
+<a href="../user/membermodification.do"><i class="fa fa-user"></i> ${sessionScope.userID} </a>
 </li> 
 
-
-<%}}}%>
+<%}}%>
 
 
 
@@ -172,10 +164,10 @@
 <div class="container">
 <div class="row">
 <div class="col-md-12">
-<ul id="desktop-menu" class="sf-menu"><li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-83 active"><a title="Home" href="C:\00.siat\test\home\main.html">홈</a></li>
-<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-86"><a title="Shop" href="C:\00.siat\test\home\shop메인.html">그려주세요</a></li>
-<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="C:\00.siat\test\home\blog 메인.html">드로잉 샵</a></li>
-<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="C:\00.siat\test\home\blog 메인.html">디자이너</a></li>
+<ul id="desktop-menu" class="sf-menu"><li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-83 active"><a title="Home" href="../main/index.do">홈</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-86"><a title="Shop" href="../requestboard/getRequestBoardList.do">그려주세요</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="../saleboard/getSaleBoardList.do">드로잉 샵</a></li>
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84"><a title="Blog" href="../designer/designerList.do">디자이너</a></li>
 <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a title="Contact" href="../contactboard/boardList.do">문의 게시판</a></li>
 </ul> 
 <button href="#" id="mobile-menu-trigger"> <i class="fa fa-bars"></i> </button>
@@ -187,16 +179,16 @@
 </header>
 <script type="text/javascript" src="../resources/js/chat.js"></script>
     <%
-    	if(userID != null){
+       if(userID != null){
     %>
-    	<script type="text/javascript">
-    		$(function(){
-    			getUnread();
-    			getInfiniteUnread();
-    		});
-    	</script>
+       <script type="text/javascript">
+          $(function(){
+             getUnread();
+             getInfiniteUnread();
+          });
+       </script>
     <%
-    	}
+       }
     %>
 </body>
 </html>

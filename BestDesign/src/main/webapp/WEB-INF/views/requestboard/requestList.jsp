@@ -222,14 +222,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			<c:choose>
 				<c:when test="${requestBoard.requestState == 1}">
 					<c:choose>
-						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage" style="opacity:0.3;"/></c:when>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/no-image.png" class="goodsImage" style="opacity:0.3;"/></c:when>
 						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage" style="opacity:0.5;"/></c:otherwise>
 					</c:choose>
 					<img src="../resources/completed.png" class="stateImage"/>			
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/goods.png" class="goodsImage"/></c:when>
+						<c:when test="${empty requestBoard.requestImage}"><img src="../resources/no-image.png" class="goodsImage"/></c:when>
 						<c:otherwise><img src="${requestBoard.requestImage}" class="goodsImage"/></c:otherwise>
 					</c:choose>
 				</c:otherwise>
@@ -270,7 +270,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Shop","@id":"https:\/\/demo.colorlib.com\/tyche\/shop\/"}}]}</script> <script type="text/javascript">
+<!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --><script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"name":"Home","@id":"https:\/\/demo.colorlib.com\/tyche"}},{"@type":"ListItem","position":2,"item":{"name":"Shop","@id":"https:\/\/demo.colorlib.com\/tyche\/shop\/"}}]}</script> <script type="text/javascript">
 		(function () {
 			var c = document.body.className;
 			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');

@@ -6,6 +6,7 @@
 		<![CDATA[
 		SELECT * FROM REVIEW
 		WHERE userid = #{userId}
+		order by reviewNum asc
 		]]>
 	</select>
 </mapper>

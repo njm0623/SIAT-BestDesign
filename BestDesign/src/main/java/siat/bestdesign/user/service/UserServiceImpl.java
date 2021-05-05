@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService{
 	public int checkId(UserVO vo) {
 		UserVO result = userDAO.selectLogin(vo);
 		if(result!=null){
-			return 1;//議댁옱
+			return 1;
 		}else{
 			if(vo.getUserId().length()==0){
-				return 2;//�븘�씠�뵒 癒쇱� �엯�젰�빐
+				return 2;
 			}else{
-				return 0;//�궗�슜 媛��뒫
+				return 0;
 			}
 		}
 	}
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 			if(result.getUserType()!=vo.getUserType()) {
 				return 0;
 			}else {
-				return 1;//議댁옱�븯�땲 異쒕젰
+				return 1;
 			}
 		}else{
 			return 0;
@@ -75,6 +75,4 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		userDAO.withdrawal(vo);
 	}
-	
-	
 }

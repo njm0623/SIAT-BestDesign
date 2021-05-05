@@ -8,9 +8,7 @@ public interface UserDAO {
 	
 	UserVO selectLogin(UserVO vo);
 
-	//ȸ�� ��������
 	int userUpdate(UserVO vo);
 
-	//ȸ�� ����
 	void withdrawal(UserVO vo);
 }
