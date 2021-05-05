@@ -4,17 +4,13 @@
 <mapper namespace="main">
 <select resultType="main" id="getTopDesigner">
 <![CDATA[
-select d1.designerid, d1.designerimage, dcount
-from
-(select distinct de.designerid, de.designerImage
-from designer de, requestdeal re
-where de.designerid = re.dealsellerId) d1,
-(SELECT r.dealsellerid as designerId, (NVL(r.rcount, 0))+ (NVL(s.scount, 0)) as dCount
-FROM (select dealsellerid, count(*) as rcount from requestdeal group by dealsellerid) r
-FULL OUTER JOIN (select dealsellerid, count(*) as scount from saledeal group by dealsellerid) s
-ON r.dealsellerid = s.dealsellerid) d2
-where d1.designerid = d2.designerid and rownum <=3
-order by dcount desc
+select * from
+(select d1.designerid, d1.designerimage, dcount
+from designer d1,
+(select dealsellerid, count(*) as dcount from saledeal group by dealsellerid) d2
+where d1.designerid = d2.dealsellerid
+order by dcount desc)
+where rownum <= 3
 ]]>
 </select>
 <select resultType="main" id="getHotDrawing">

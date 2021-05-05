@@ -182,7 +182,56 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	}
 </style>
 <script>
-	$(function() {		
+	$(function() {
+		$(".checkCate").change(function () {
+			$("#formCheck").submit();
+		})
+		
+		if('${saleBoardListPaging.cart}' == 'on') {
+			$(".toggleFG").css('left', '40px')
+			$(".toggleBG").css('background', '#F09F53')
+		}
+		
+		if ('${saleBoardListPaging.selectPrice}' == 'on') {
+			$("#startPrice").val('${saleBoardListPaging.startPrice}')
+			$("#endPrice").val('${saleBoardListPaging.endPrice}')
+		}
+		
+		if ('${saleBoardListPaging.selectRate}' == 'on') {
+			$("#startRate").val('${saleBoardListPaging.startRate}')
+			$("#endRate").val('${saleBoardListPaging.endRate}')
+		}
+		
+		if ('${saleBoardListPaging.selectBox}' == 'on') {
+			if (getParameters('character') == 1) {
+				$("#character").attr("checked", true)
+			}
+			if (getParameters('portraits') == 1) {
+				$("#portraits").attr("checked", true)
+			}
+			if (getParameters('landscape') == 1) {
+				$("#landscape").attr("checked", true)
+			}
+			if (getParameters('chariculture') == 1) {
+				$("#chariculture").attr("checked", true)
+			}
+			if (getParameters('sentence') == 1) {
+				$("#sentence").attr("checked", true)
+			}
+			if (getParameters('comics') == 1) {
+				$("#comics").attr("checked", true)
+			}
+			if (getParameters('poster') == 1) {
+				$("#poster").attr("checked", true)
+			}
+			if (getParameters('threeD') == 1) {
+				$("#threeD").attr("checked", true)
+			}
+			if (getParameters('etc') == 1) {
+				$("#etc").attr("checked", true)
+			}
+		}
+		
 		$("#${saleBoardListPaging.orderby}").attr("selected", "selected");
 		
 		$(".orderby").change(function() {
@@ -198,10 +247,32 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	        toggleBG.css('background', '#CCCCCC');
 	        toggleActionStart(toggleFG, 'TO_LEFT');
 	    }else if(left == '0px') {
-	        toggleBG.css('background', '#53FF4C');
+	        toggleBG.css('background', '#F09F53');
 	        toggleActionStart(toggleFG, 'TO_RIGHT');
 	    }
+	    
+	    getToggleBtnState("buttonID")
 	});
+	
+	var getParameters = function (paramName) {
+	    // 리턴값을 위한 변수 선언
+	    var returnValue;
+
+	    // 현재 URL 가져오기
+	    var url = location.href;
+
+	    // get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔
+	    var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+
+	    // 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return
+	    for (var i = 0; i < parameters.length; i++) {
+	        var varName = parameters[i].split('=')[0];
+	        if (varName.toUpperCase() == paramName.toUpperCase()) {
+	            returnValue = parameters[i].split('=')[1];
+	            return decodeURIComponent(returnValue);
+	        }
+	    }
+	};
  
 	// 토글 버튼 이동 모션 함수
 	function toggleActionStart(toggleBtn, LR) {
@@ -223,8 +294,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 	function getToggleBtnState(toggleBtnId){
 	    const left_px = parseInt( $('#'+toggleBtnId).css('left') );
-	 
-	    return (left_px > 0)? "on" : "off";
+	    if (left_px > 0) {
+	    	console.log("off")
+	    	location.href="getSaleBoardList.do?cart=off"
+	    }
+	    else {
+	    	console.log("on")
+	    	location.href="getSaleBoardList.do?cart=on"
+	    }
 	}
 </script>
 </head>
@@ -241,42 +318,47 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <form role="search" method="get" class="woocommerce-product-search" action="getSaleBoardList.do">
 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
 <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="원하는 그림을 검색해보세요." value="${saleBoardListPaging.search}" name="search" />
-<input type="hidden" name="orderby" value="${requestBoardListPaging.orderby}"/>
+<input type="hidden" name="orderby" value="${saleBoardListPaging.orderby}"/>
 <button type="submit" value="Search">검색</button>
 </form>
 </div>
 <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5 class="widget-title"><span id="searchPriceRange"><b class="fn">가격 범위로 찾기</b></span></h5>
-<form method="get" action="https://demo.colorlib.com/tyche/shop/">
-<input type="number" value="0" min="0" class="priceFilter"/>~
-<input type="number" value="10000" min="0" class="priceFilter"/>
-<button type="submit" class="button">필터</button>
+<form method="get" action="getSaleBoardList.do">
+<input type="number" id="startPrice" name="startPrice" value="0" min="0" class="priceFilter"/>~
+<input type="number" id="endPrice" name="endPrice" value="0" min="0" class="priceFilter"/>
+<input type="hidden" name="selectPrice" value="on"/>
+<button type="submit" class="button">검색</button>
 </form>
 </div>
 <div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5 class="widget-title"><span id="searchPriceRange"><b class="fn">평점 범위로 찾기</b></span></h5>
-<form method="get" action="">
-<input type="number" value="1" min="1" max="5" class="priceFilter"/>~
-<input type="number" value="1" min="1" max="5" class="priceFilter"/>
-<button type="submit" class="button">필터</button>
+<form method="get" action="getSaleBoardList.do">
+<input type="number" id="startRate" name="startRate" value="0" min="0" max="5" class="priceFilter"/>~
+<input type="number" id="endRate" name="endRate" value="5" min="0" max="5" class="priceFilter"/>
+<input type="hidden" name="selectRate" value="on"/>
+<button type="submit" class="button">검색</button>
 </form>
 </div>
 <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
 <b class="fn">카테고리별로 찾기</b>
-<form id="formCheck" method="get" action="https://demo.colorlib.com/tyche/shop/">
-<input type="checkbox" class="checkCate" name="character" value="character">캐릭터</input>
-<input type="checkbox" class="checkCate" name="portraits" value="portraits">초상화</input>
-<input type="checkbox" class="checkCate" name="landscape" value="landscape">풍경화</input>
-<input type="checkbox" class="checkCate" name="chariculture" value="chariculture">캐리커쳐</input><br>
-<input type="checkbox" class="checkCate" name="sentence" value="sentence">글귀</input>
-<input type="checkbox" class="checkCate" name="comics" value="comics">만화</input>
-<input type="checkbox" class="checkCate" name="poster" value="poster">포스터</input>
-<input type="checkbox" class="checkCate" name="3D" value="3D">3D 그림</input>
-<input type="checkbox" class="checkCate" name="etc" value="etc">기타</input>
+<form id="formCheck" method="get" action="getSaleBoardList.do">
+<input type="checkbox" class="checkCate" id="character" name="character" value="1">캐릭터</input>
+<input type="checkbox" class="checkCate" id="portraits" name="portraits" value="1">초상화</input>
+<input type="checkbox" class="checkCate" id="landscape" name="landscape" value="1">풍경화</input>
+<input type="checkbox" class="checkCate" id="chariculture" name="chariculture" value="1">캐리커쳐</input><br>
+<input type="checkbox" class="checkCate" id="sentence" name="sentence" value="1">글귀</input>
+<input type="checkbox" class="checkCate" id="comics" name="comics" value="1">만화</input>
+<input type="checkbox" class="checkCate" id="poster" name="poster" value="1">포스터</input>
+<input type="checkbox" class="checkCate" id="threeD" name="threeD" value="1">3D 그림</input>
+<input type="checkbox" class="checkCate" id="etc" name="etc" value="1">기타</input>
+<input type="hidden" name="selectBox" value="on"/>
 </form>
 </div>
+<c:if test="${!empty sessionScope.userID}">
 <b class="fn">찜한 작품만 보기</b>
 <div class='toggleBG'>
     <button id='buttonID' class='toggleFG'></button>
 </div>
+</c:if>
 </div>
 <div class="col-md-8 tyche-has-sidebar">
 <h1 class="woocommerce-products-header__title page-title">드로잉 샵</h1>
@@ -293,6 +375,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <input type="hidden" name="search" value="${saleBoardListPaging.search}" />
 </form>
 <br/><br/><br/>
+
 <button class="pull-right" id="registerBtn" type="button" onclick="location.href='saleRegister.do'">등록</button>
 <c:set var="index" value="1"/>
 <c:forEach items="${saleBoardList}" var="saleBoard">

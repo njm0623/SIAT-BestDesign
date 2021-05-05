@@ -3,6 +3,7 @@ package siat.bestdesign.saleboard.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import siat.bestdesign.saleboard.domain.SaleBoardCartVO;
 import siat.bestdesign.saleboard.domain.SaleBoardDealVO;
 import siat.bestdesign.saleboard.domain.SaleBoardPagingVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
@@ -19,9 +20,13 @@ public interface SaleBoardDAO {
 
 	List<SaleBoardVO> getSaleBoardList(SaleBoardPagingVO vo);
 
-	int countSaleBoardList(HashMap param);
+	int countSaleBoardList(SaleBoardPagingVO vo);
 
 	void updateSaleBoardView(SaleBoardVO vo);
 	
 	void saleBoardPurchase(SaleBoardDealVO vo);
+	
+	SaleBoardCartVO checkCart(HashMap map);
+	
+	SaleBoardCartVO checkCartView(HashMap map);
 }

@@ -29,20 +29,65 @@
 			<if test="designerImage != ''">, designerImage = #{designerImage}</if>
 			WHERE designerId = #{designerId}
 	</update>
-	<select id="getAllDesigner" parameterType="hash" resultType="design">
-		<![CDATA[
-			SELECT *
-			FROM (SELECT ROWNUM IDX, designer.* FROM siat.designer WHERE rownum>=1 ORDER BY designerId) d, siat.users u
-			WHERE IDX BETWEEN #{first} AND #{end} and u.userId = d.designerId
-			order by userId desc
-		]]>
+	
+	
+	<select id="getAllDesigner" parameterType="designerListPaging" resultType="design">
+		SELECT * FROM (
+			SELECT ROWNUM RN, D.* FROM (
+				<choose>
+					<when test="cart.equals('on')">
+						select d.* from designer d, designercart c
+						where d.designerid = c.designerid and c.userid = #{userId}
+					</when>
+					<otherwise>
+						SELECT * FROM DESIGNER
+						<choose>
+							<when test="search != null">
+								<choose>
+									<when test="orderby.equals('reverseName')">WHERE DESIGNERID LIKE '%${search}%' OR DESIGNERNICKNAME LIKE '%${search}%' ORDER BY DESIGNERID DESC</when>
+									<otherwise>WHERE DESIGNERID LIKE '%${search}%' OR DESIGNERNICKNAME LIKE '%${search}%' ORDER BY DESIGNERID ASC</otherwise>
+								</choose>
+							</when>
+							<otherwise>
+								<choose>
+									<when test="orderby.equals('reverseName')">ORDER BY DESIGNERID DESC</when>
+									<otherwise>ORDER BY DESIGNERID ASC</otherwise>
+								</choose>
+							</otherwise>		
+						</choose>
+					</otherwise>
+				</choose>
+			) D
+		) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	<select id="getTotalCount" resultType="int">
-		<![CDATA[
-			SELECT count(*)
-			from designer
-		]]>
+	
+	<select id="getTotalCount" parameterType="designerListPaging" resultType="int">
+		<choose>
+			<when test="cart.equals('on')">
+				select count(*) from designer d, designercart c
+				where d.designerid = c.designerid and c.userid = #{userId}
+			</when>
+			<otherwise>
+				SELECT COUNT(*) FROM DESIGNER
+				<choose>
+					<when test="search != null">
+						<choose>
+							<when test="orderby.equals('reverseName')">WHERE DESIGNERID LIKE '%${search}%' OR DESIGNERNICKNAME LIKE '%${search}%' ORDER BY DESIGNERID DESC</when>
+							<otherwise>WHERE DESIGNERID LIKE '%${search}%' OR DESIGNERNICKNAME LIKE '%${search}%' ORDER BY DESIGNERID ASC</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						<choose>
+							<when test="orderby.equals('reverseName')">ORDER BY DESIGNERID DESC</when>
+							<otherwise>ORDER BY DESIGNERID ASC</otherwise>
+						</choose>
+					</otherwise>		
+				</choose>
+			</otherwise>
+		</choose>
 	</select>
+	
+	
 	<select id="checkCart" parameterType="hash" resultType="dcart">
 		<![CDATA[
 			SELECT *

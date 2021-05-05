@@ -111,6 +111,10 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
    body img{
       max-width: none;
    }
+   .goodsRow img{
+   		width: 350px;
+   		height: 250px;
+   }
 </style>
 
 <!-- ************************************************************************************************************* -->
@@ -178,19 +182,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 </section>
 
-<%-- <div class="goodsRow">
-<c:forEach var="rec" items="${dList}">
-<c:set var="pic" value="${rec.designerImage}"/>
-<c:if test="${rec.designerImage eq null}">
-<c:set var="pic" value="../resources//main_logo.png"/>
-</c:if>
-<div class="goods first">
-<a href="../designer/profile.do?designerId=${rec.designerId}">
-<img width="200px" src="${pic}" class="attachment-shop_catalog size-shop_catalog"/>
-<h3>인기 디자이너</h3>
-</a>
-</div>
-</c:forEach> --%>
 <div class="site-content">
 
 <section class="content-area-1">
@@ -223,7 +214,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </c:choose>
    <a href="../designer/profile.do?designerId=${rec.designerId }">
    <c:choose>
-   <c:when test="${empty rec.designerImage}"><img width="330" height="150"  src="../resources/main_logo.png" class="wp-post-image"/></c:when>
+   <c:when test="${empty rec.designerImage}"><img width="330" height="150"  src="../resources/artist.png" class="wp-post-image"/></c:when>
    <c:otherwise><img width="330" height="150" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
 </c:choose>
       <h2>${rec.designerId}</h2>
@@ -333,7 +324,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-5" class="tyche-products green widget widget_tyche_products"><h3 class="widget-title"><span>초상화</span></h3>
+<div id="tyche_products-5" class="tyche-products green widget widget_tyche_products"><h3 class="widget-title"><span>이 달의 초상화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
 
@@ -401,7 +392,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>풍경화</span></h3>
+<div id="tyche_products-6" class="tyche-products blue widget widget_tyche_products"><h3 class="widget-title"><span>이 달의 풍경화</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
 
@@ -485,7 +476,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-<div id="tyche_products-7" class="tyche-products black widget widget_tyche_products"><h3 class="widget-title"><span>작문</span></h3>
+<div id="tyche_products-7" class="tyche-products black widget widget_tyche_products"><h3 class="widget-title"><span>이 달의 작문</span></h3>
 <div class="tyche-product-list-container">
 <div class="tyche-product-list">
 

@@ -86,6 +86,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <script src="../resources/js/bootstrap.js"></script>
 
 <style>
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
 	#requestTop {
 		margin-top: 20px;
 	}
@@ -116,7 +123,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	
 	.tyche-pager {
 		margin: 50px 0;
-		margin-left: 200px;
 	}
 	
 	.goodsRow h2 {
@@ -160,8 +166,45 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
     .fn {
     	font-size: 16px;
     }
+    
+    .designerTitle {
+		font-family: GyeonggiTitleM;
+		width: 235px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	
+	 .tyche-pager li .pager-text left {
+		background: #fff;
+		color: black;
+	}
+	
+	#prev {
+		background-color: #fff;
+		color: black;
+	}
+	
+	#imageWrapper {
+		height: 235px;
+		overflow: hidden;
+		position: relative;
+	}
 </style>
 <script>
+$(function() {	
+	if('${designerListPaging.cart}' == 'on') {
+		$(".toggleFG").css('left', '40px')
+		$(".toggleBG").css('background', '#F09F53')
+	}
+	
+	$("#${designerListPaging.orderby}").attr("selected", "selected");
+	
+	$(".orderby").change(function() {
+		location.href="designerList.do?orderby="+$(this).val()
+	})
+})
+
 $(document).on('click', '.toggleBG', function () {
     var toggleBG = $(this);
     var toggleFG = $(this).find('.toggleFG');
@@ -170,9 +213,11 @@ $(document).on('click', '.toggleBG', function () {
         toggleBG.css('background', '#CCCCCC');
         toggleActionStart(toggleFG, 'TO_LEFT');
     }else if(left == '0px') {
-        toggleBG.css('background', '#53FF4C');
+        toggleBG.css('background', '#F09F53');
         toggleActionStart(toggleFG, 'TO_RIGHT');
     }
+    
+    getToggleBtnState("buttonID")
 });
  
 // 토글 버튼 이동 모션 함수
@@ -195,8 +240,14 @@ function toggleActionStart(toggleBtn, LR) {
 
 function getToggleBtnState(toggleBtnId){
     const left_px = parseInt( $('#'+toggleBtnId).css('left') );
- 
-    return (left_px > 0)? "on" : "off";
+    if (left_px > 0) {
+    	console.log("off")
+    	location.href="designerList.do?cart=off"
+    }
+    else {
+    	console.log("on")
+    	location.href="designerList.do?cart=on"
+    }
 }
 </script>
 <script type="text/javascript">
@@ -214,173 +265,81 @@ $(function(){
 <div class="site-content">
 <div class="container">
 <div class="row">
-<div class="col-md-12">
-</div>
-</div>
-<div class="row">
 <div class="col-md-4 hidden-xs">
 <div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
-<form role="search" method="get" class="woocommerce-product-search" action="https://demo.colorlib.com/tyche/">
+<form role="search" method="get" class="woocommerce-product-search" action="designerList.do">
 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-<input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="원하는 그림을 검색해보세요." value="" name="s" />
+<input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="원하는 디자이너를 검색해보세요." value="${designerListPaging.search}" name="search" />
+<input type="hidden" name="orderby" value="${designerListPaging.orderby}"/>
 <button type="submit" value="Search">검색</button>
-<input type="hidden" name="post_type" value="product" />
 </form>
 </div>
-<div id="woocommerce_price_filter-3" class="widget woocommerce widget_price_filter"><h5 class="widget-title"><span id="searchPriceRange"><b class="fn">가격 범위로 찾기</b></span></h5>
-<form method="get" action="https://demo.colorlib.com/tyche/shop/">
-<input type="number" value="0" class="priceFilter"/>~
-<input type="number" value="10000" class="priceFilter"/>
-<button type="submit" class="button">필터</button>
-</form>
-</div>
-<div id="woocommerce_product_search-3" class="widget woocommerce widget_product_search">
-<b class="fn">카테고리별로 찾기</b>
-<form id="formCheck" method="get" action="https://demo.colorlib.com/tyche/shop/">
-<input type="checkbox" class="checkCate" name="character" value="character">캐릭터</input>
-<input type="checkbox" class="checkCate" name="portraits" value="portraits">초상화</input>
-<input type="checkbox" class="checkCate" name="landscape" value="landscape">풍경화</input>
-<input type="checkbox" class="checkCate" name="chariculture" value="chariculture">캐리커쳐</input><br>
-<input type="checkbox" class="checkCate" name="sentence" value="sentence">글귀</input>
-<input type="checkbox" class="checkCate" name="comics" value="comics">만화</input>
-<input type="checkbox" class="checkCate" name="poster" value="poster">포스터</input>
-<input type="checkbox" class="checkCate" name="3D" value="3D">3D 그림</input>
-</form>
-</div>
+<c:if test="${!empty sessionScope.userID}">
 <b class="fn">찜한 작품만 보기</b>
 <div class='toggleBG'>
     <button id='buttonID' class='toggleFG'></button>
 </div>
+</c:if>
 </div>
+
 <div class="col-md-8 tyche-has-sidebar">
-<h1 class="woocommerce-products-header__title page-title">드로잉 샵</h1>
-<div class="woocommerce-notices-wrapper"></div><form class="woocommerce-ordering" method="get">
+<h1 class="woocommerce-products-header__title page-title">디자이너 목록</h1>
+<form class="woocommerce-ordering" method="get" >
 <select name="orderby" class="orderby" aria-label="Shop order">
-<option value="menu_order" selected='selected'>기본 정렬</option>
-<option value="popularity">인기순</option>
-<option value="rating">평점순</option>
-<option value="date">최신순</option>
-<option value="price">낮은 가격순</option>
-<option value="price-desc">높은 가격순</option>
+<option value="name" id="name">이름순</option>
+<option value="reverseName" id="reverseName">이름 역순</option>
 </select>
-<input type="hidden" name="paged" value="1" />
+<input type="hidden" name="search" value="${designerListPaging.search}" />
 </form>
 <br/><br/><br/>
 
-
-
-<c:set var="i" value="1"/>
+<c:set var="index" value="1"/>
 <c:forEach var="rec" items="${dList}">
-
-<c:if test="${i%3 eq 1}">
-	<div class="goodsRow">
-	</c:if>
-
-<c:choose>
-    <c:when test="${i%3 eq 1}">
-        <div class="goods first">
-    </c:when>
-    <c:when test="${i%3 eq 2}">
-        <div class="goods">
-    </c:when>
-    <c:when test="${i%3 eq 0}">
-        <div class="goods last">
-    </c:when>
-</c:choose>
-	<a href="profile.do?designerId=${rec.userId }">
 	<c:choose>
-   <c:when test="${empty rec.designerImage}"><img width="230" height="120" src="../resources/artist.png" class="wp-post-image"/></c:when>
-   <c:otherwise><img width="230" height="120" src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
-</c:choose>
-		<h2>${rec.userId}</h2>
+		<c:when test="${index % 3 == 1}"><div class="goodsRow"><div class="goods first"></c:when>
+		<c:when test="${index % 3 == 2}"><div class="goods"></c:when>
+		<c:when test="${index % 3 == 0}"><div class="goods last"></c:when>
+	</c:choose>
+		<a href="profile.do?designerId=${rec.designerId}">
+		<div id="imageWrapper">
+			<c:choose>
+	   			<c:when test="${empty rec.designerImage}"><img src="../resources/artist.png" class="goodsImage"/></c:when>
+	   			<c:otherwise><img src="${rec.designerImage}" class="goodsImage"/></c:otherwise>
+			</c:choose>
+		</div>
+		<c:choose>
+	   		<c:when test="${empty rec.designerNickName}"><h2 class="designerTitle">${rec.designerId}</h2></c:when>
+	   		<c:otherwise><h2 class="designerTitle">${rec.designerNickName}</h2></c:otherwise>
+		</c:choose>
 		</a>
 	</div>
-	
-	
-	<c:if test="${i%3 eq 0}">
-	</div>
+	<c:if test="${index%3 == 0}"></div></c:if>
+	<c:set var="index" value="${index + 1}"/>
+</c:forEach>
+</div>
+</main></div>
+<div class="row text-center">
+	<ul class="tyche-pager">
+	<c:if test="${designerListPaging.nowPage != 1 }">
+		<li><a id="prev" href="designerList.do?orderby=${designerListPaging.orderby}&nowPage=${designerListPaging.nowPage - 1 }&cntPerPage=${designerListPaging.cntPerPage}"><span class="pager-text left">PREV</span> <span class="fa fa-long-arrow-left"></span></a></li>
 	</c:if>
-	
-	<c:set var="i" value="${i+1}"/>
-
-</c:forEach>
-</div>
-<!-- 
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="profile.do?designerId=designer1">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
+	<c:forEach begin="${designerListPaging.startPage }" end="${designerListPaging.endPage }" var="p">
+		<c:choose>
+			<c:when test="${p == designerListPaging.nowPage }">
+				<li class="active"><a style="pointer-events: none; cursor: default;">${p}</a></li>
+			</c:when>
+			<c:when test="${p != designerListPaging.nowPage }">
+				<li><a href="designerList.do?orderby=${designerListPaging.orderby}&nowPage=${p}&cntPerPage=${designerListPaging.cntPerPage}">${p}</a></li>
+			</c:when>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${designerListPaging.nowPage != designerListPaging.lastPage}">
+		<li><a href="designerList.do?orderby=${designerListPaging.orderby}&nowPage=${designerListPaging.nowPage+1 }&cntPerPage=${designerListPaging.cntPerPage}"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
+	</c:if>
+	</ul>
 </div>
 
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
 </div>
-
-
-<div class="goodsRow">
-	<div class="goods first">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-	<div class="goods last">
-		<a href="profile.do">
-		<img src="../resources/goods.png" class="goodsImage"/>
-		<h2>에우렐</h2>
-		</a>
-	</div>
-</div>
- -->
- 
- 
-</div>
-<div class="row text-center"><ul class="tyche-pager">
-<c:forEach var="i" begin="0" end="${perPage}">
-<li><a href="../designer/designerList.do?num=${i}">${i+1}</a></li>
-</c:forEach>
-<li><a href="https://demo.colorlib.com/tyche/shop/page/2/"><span class="pager-text right">NEXT</span> <span class="fa fa-long-arrow-right"></span></a></li>
-</ul></div>
-</div>
-</main></div> </div>
 </div>
 </div>
 	<%

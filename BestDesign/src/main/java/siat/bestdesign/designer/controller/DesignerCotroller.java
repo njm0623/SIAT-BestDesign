@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import siat.bestdesign.designer.domain.DesignerListPagingVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.designer.service.DesignerService;
 
@@ -68,22 +70,51 @@ public class DesignerCotroller {
 	}
 	
 	@RequestMapping("designerList.do")
-	public void designerList(Model m, String num) {
+	public void designerList(DesignerListPagingVO vo, Model model, HttpSession session) {
 		System.out.println("designer에서 designerList");
-		int first, end;
-		if(num==null) {
-			first = 1;
-			end = 9;
-		}else {
-			first = 1+Integer.parseInt(num)*9;
-			end = 9+Integer.parseInt(num)*9;
+		
+		if (vo.getOrderby() == null) vo.setOrderby("name");
+		if (vo.getCart() == null) vo.setCart("off");
+		
+		String userId = "";
+		if(session.getAttribute("userID")!=null) {
+			userId = (String)session.getAttribute("userID");
 		}
-		HashMap map = new HashMap();
-		map.put("first", first);
-		map.put("end", end);
-		m.addAttribute("dList", designerService.getAllDesigner(map));
-		m.addAttribute("perPage",designerService.getTotalPage());
+		
+		vo.setUserId(userId);
+		vo.setTotal(designerService.getTotalPage(vo));
+		
+		if (vo.getNowPage() == 0 && vo.getCntPerPage() == 0) {
+			vo.setNowPage(1);
+			vo.setCntPerPage(9);
+		}
+		else if (vo.getNowPage() == 0) {
+			vo.setNowPage(1);
+		}
+		else if (vo.getCntPerPage() == 0) {
+			vo.setCntPerPage(3);
+		}
+		
+		vo.setLastPage((int)Math.ceil((double) vo.getTotal() / (double) vo.getCntPerPage()));
+		
+		vo.setEndPage((int) Math.ceil((double) vo.getNowPage() / (double) vo.getCntPage()) * vo.getCntPage());
+		
+		if (vo.getLastPage() < vo.getEndPage()) {
+			vo.setEndPage(vo.getLastPage());
+		}
+		
+		vo.setStartPage(vo.getEndPage() - vo.getCntPage() + 1);
+		if (vo.getStartPage() < 1) {
+			vo.setStartPage(1);
+		}
+		
+		vo.setEnd(vo.getNowPage() * vo.getCntPerPage());
+		vo.setStart(vo.getEnd() - vo.getCntPerPage() + 1);		
+		
+		model.addAttribute("designerListPaging", vo);
+		model.addAttribute("dList", designerService.getAllDesigner(vo));
 	}
+	
 
 	@RequestMapping(value="checkCart.do",produces="application/text; charset=utf-8")//아약스 인코딩
 	@ResponseBody

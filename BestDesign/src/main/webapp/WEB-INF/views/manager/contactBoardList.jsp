@@ -139,12 +139,12 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 					</form>
 					<table border="1" bordercolor="darkblue">
 	<tr>
-		<td> 글번호 </td>
-		<td> 제 목 </td>
-		<td> 작성자 </td>
-		<td> 작성일 </td>
-		<td> 조회수 </td>
-	</tr>
+      <td bgcolor="gray" width="100"> 글번호 </td>
+      <td bgcolor="gray" width="100"> 제 목 </td>
+      <td bgcolor="gray" width="100"> 작성자 </td>
+      <td bgcolor="gray" width="100"> 작성일 </td>
+      <td bgcolor="gray" width="100"> 조회수 </td>
+   </tr> 
 	
 	<c:choose>
     <c:when test="${empty contactList}">

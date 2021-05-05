@@ -7,6 +7,9 @@
     }
     
     pageContext.setAttribute("currentLoginID", userID);
+    
+    session.removeAttribute("messageContent");
+	session.removeAttribute("messageType");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,10 +102,16 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
 <style id="kirki-inline-styles"></style>
+
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
+<link rel="stylesheet" href="../resources/css/custom.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+<script src="../resources/js/bootstrap.js"></script>
+
 <style>
 	@font-face {
     font-family: 'GyeonggiTitleM';
@@ -183,7 +192,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </style>
 
 <script>
-	$(function() {
+	$(function() {		
+		$("#scart").val('${scart}')
+		
 		// 삭제 버튼 클릭
 		$("#deleteBtn").click(function() {
 			if (confirm("정말로 삭제하시겠습니까?")) {
@@ -198,7 +209,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 				return
 			}
 			
-			if (confirm("정말로 구매하시겠습니까?")) {				
+			if (confirm("정말로 구매하시겠습니까?")) {
 				location.href="purchase.do?saleNum=${saleBoard.saleNum}&saleTitle=${saleBoard.saleTitle}&dealBuyerId=${currentLoginID}&dealSellerId=${saleBoard.designerId}&dealPrice=${saleBoard.salePrice}&dealImage=${saleBoard.saleImage}"
 			}
 		});
@@ -403,6 +414,40 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	    	}
 	       }); // end of ajax 
 		}
+		
+		$("#scart").click(function(){
+			if ('${currentLoginID}' == "") {
+				alert("로그인 후 이용하실 수 있습니다.")
+				return
+			}
+			
+			let userID = "${sessionScope.userID}";
+			let saleNum = "${saleBoard.saleNum}";
+			$.ajax({
+				data:{userId: userID,
+					saleNum:saleNum},
+				type:"post",
+				dataType:"text",
+				url:"checkCart.do",
+				success:Check,
+				error:function(error){
+					alert("에러");
+					console.log(error);
+				}
+			})
+			function Check(star){
+				$("#scart").val(star);
+				if(star=="찜하기"){
+					$("#checkMessage").html("찜에서 해제되었습니다.");
+					$("checkType").attr("class","modal-content panel-warning");
+				}else{
+					flag=true;
+					$("#checkMessage").html("찜에 등록되었습니다.");
+					$("#checkType").attr("class","modal-content panel-success");
+				}
+				$("#checkModal").modal("show");
+			}
+		})
 	})
 </script>
 
@@ -448,7 +493,7 @@ ${saleBoard.designerProfile}
 		<input type="button" value="삭제" id="deleteBtn"></input>
 	</c:when>
 	<c:otherwise>
-		<input type="button" value="찜하기" id="insertCart"></input>
+		<input type="button" value="찜하기" id="scart"></input>
 		<input type="button" value="구매하기" id="purchase"></input>
 	</c:otherwise>
 </c:choose>
@@ -513,6 +558,73 @@ ${saleBoard.designerProfile}
 </div>
 </div>
 </div>
+
+<%
+  	String messageContent = null;
+  	if(session.getAttribute("messageContent")!=null){
+  		messageContent = (String)session.getAttribute("messageContent");
+  	}
+  	String messageType = null;
+  	if(session.getAttribute("messageType")!=null){
+  		messageType = (String)session.getAttribute("messageType");
+  	}
+  	System.out.println("login 에서 : " + messageContent);
+  	if(messageContent != null){
+  %>
+  <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  	<div class="vertical-alignment-helper">
+  		<div class="modal-dialog vertical-align-center">
+  			<div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
+  				<div class="modal-header panel-heading">
+  					<button type="button" class="close" data-dismiss="modal">
+  						<span aria-hidden="true">&times</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<h4 class="modal-title">
+  						<%=messageType %>
+  					</h4>
+  				</div>
+  				<div class="modal-body">
+  					<%=messageContent %>
+  				</div>
+  				<div class="modal-footer">
+  					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+<script type="text/javascript">
+	$("#messageModal").modal("show");
+	console.log("쇼!");
+</script>
+<%
+	session.removeAttribute("messageContent");
+	session.removeAttribute("messageType");
+}
+%>
+<div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="vertical-alignment-helper">
+		<div class="modal-dialog vertical-align-center">
+			<div id="checkType" class="modal-content panel-info">
+				<div class="modal-header panel-heading">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title">
+						확인 메시지
+					</h4>
+				</div>
+				<div id="checkMessage" class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <jsp:include page="../main/footer.jsp"></jsp:include>
 

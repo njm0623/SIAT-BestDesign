@@ -33,21 +33,21 @@
 <link rel="alternate" type="application/rss+xml" title="Tyche Demo &raquo; Comments Feed" href="https://demo.colorlib.com/tyche/comments/feed/" />
 <link rel="alternate" type="application/rss+xml" title="Tyche Demo &raquo; Black Top Comments Feed" href="https://demo.colorlib.com/tyche/product/black-top/feed/" />
 <script type="text/javascript">
-			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/demo.colorlib.com\/tyche\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.1"}};
-			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
-		</script>
+         window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/demo.colorlib.com\/tyche\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.1"}};
+         !function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+      </script>
 <style type="text/css">
 img.wp-smiley,
 img.emoji {
-	display: inline !important;
-	border: none !important;
-	box-shadow: none !important;
-	height: 1em !important;
-	width: 1em !important;
-	margin: 0 .07em !important;
-	vertical-align: -0.1em !important;
-	background: none !important;
-	padding: 0 !important;
+   display: inline !important;
+   border: none !important;
+   box-shadow: none !important;
+   height: 1em !important;
+   width: 1em !important;
+   margin: 0 .07em !important;
+   vertical-align: -0.1em !important;
+   background: none !important;
+   padding: 0 !important;
 }
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
@@ -94,18 +94,19 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <style id="kirki-inline-styles"></style>
 
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
-	<link rel="stylesheet" href="../resources/css/custom.css">
+   <link rel="stylesheet" href="../resources/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
     <script>
     $(function(){
-    	$("#write").click(function(){
-    		location.href="BoardInputForm.do";
-    	})
-    	
+       $("#write").click(function(){
+          location.href="BoardInputForm.do";
+       })
+       
     })
     </script>
-	<style>
+    
+   <style>
       #page{
          text-align: center;
       }
@@ -149,9 +150,75 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
             border-top: 3px solid black;
        }
        html body a{
-       	color: black;
+          color: black;
        }
-      
+      /* 메뉴 css 추가 */
+      * {
+        box-sizing: border-box;
+      }
+
+      .select {
+        position: relative;
+        min-width: 200px;
+      }
+
+      .select svg {
+       position: absolute;
+  right: 12px;
+  top: calc(50% - 3px);
+  width: 10px;
+  height: 6px;
+  stroke-width: 2px;
+  stroke: #9098a9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+      }
+
+      .select select {
+        -webkit-appearance: none;
+        padding: 7px 40px 7px 12px;
+        width: 100%;
+        border: 1px solid #e8eaed;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 1px 3px -2px #9098a9;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+        transition: all 150ms ease;
+      }
+
+      .select select:required:invalid {
+        color: #5a667f;
+      }
+
+      .select select option {
+        color: #223254;
+      }
+
+      .select select option[value=""][disabled] {
+        display: none;
+      }
+
+      .select select:focus {
+        outline: none;
+        border-color: #07f;
+        box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+      }
+
+      .select select:hover + svg {
+        stroke: #07f;
+      }
+
+      .sprites {
+        position: absolute;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        user-select: none;
+      }
       
    </style>
 
@@ -162,149 +229,155 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <jsp:include page="../main/header.jsp"/>
 <div class="container">
-	<h3> 게시판 목록 </h3>
-	
-	<table border="1" bordercolor="darkblue">
-	<tr>
-		<td> 글번호 </td>
-		<td colspan="3"> 제 목 </td>
-		<td> 작성자 </td>
-		<td> 작성일 </td>
-		<td> 조회수 </td>
-	</tr>
-	
-	<c:choose>
+   <h3> 게시판 목록 </h3>
+   
+   <table border="1" bordercolor="darkblue">
+   <tr>
+      <td> 글번호 </td>
+      <td colspan="3"> 제 목 </td>
+      <td> 작성자 </td>
+      <td> 작성일 </td>
+      <td> 조회수 </td>
+   </tr>
+   
+   <c:choose>
     <c:when test="${empty boardList}">
         <tr><td colspan="5"> 등록된 게시물이 없습니다. </td></tr>
     </c:when>
     <c:otherwise>
-     	<c:forEach var="list" items="${boardList}">
-     		<tr>
-			<td>${list.contactNum}</td>
-			<td colspan="3">
-				<c:forEach begin="0" end="${list.getLevel()}">
-					&nbsp;				
-				</c:forEach>
-				<c:if test="${list.getLevel() ne 0}">
-					<img src="../resources/board_re.gif"/>
-				</c:if>
-				<c:if test="${list.contactIsPublic eq 't' || sessionScope.userID eq list.userId || sessionScope.type eq '관리자'}">
-				<a href="BoardView.do?contactNum=${list.contactNum}">${list.contactTitle}</a>
-				<c:if test="${list.contactFile ne null}">
-					<img src="../resources/clip.png" width="15px" height="15px"/>
-				</c:if>
-				</c:if>
-				<c:if test="${list.contactIsPublic eq 'f' && sessionScope.userID ne list.userId && sessionScope.type ne '관리자'}">
-				비공개입니다.
-				</c:if>
-			</td>
-			<td>${list.userId}</td>		
-			<td>${list.contactDate}</td>
-			<td>${list.contactCount}</td>
-		</tr>
-     	</c:forEach>
+        <c:forEach var="list" items="${boardList}">
+           <tr>
+         <td>${list.contactNum}</td>
+         <td colspan="3">
+            <c:forEach begin="0" end="${list.getLevel()}">
+               &nbsp;            
+            </c:forEach>
+            <c:if test="${list.getLevel() ne 0}">
+               <img src="../resources/board_re.gif"/>
+            </c:if>
+            <c:if test="${list.contactIsPublic eq 't' || sessionScope.userID eq list.userId || sessionScope.type eq '관리자'}">
+            <a href="BoardView.do?contactNum=${list.contactNum}">${list.contactTitle}</a>
+            <c:if test="${list.contactFile ne null}">
+               <img src="../resources/clip.png" width="15px" height="15px"/>
+            </c:if>
+            </c:if>
+            <c:if test="${list.contactIsPublic eq 'f' && sessionScope.userID ne list.userId && sessionScope.type ne '관리자'}">
+            비공개입니다.
+            </c:if>
+         </td>
+         <td>${list.userId}</td>      
+         <td>${list.contactDate}</td>
+         <td>${list.contactCount}</td>
+      </tr>
+        </c:forEach>
     </c:otherwise>
 </c:choose>
-	</table>
-				
-	<c:forEach var="i" begin="0" end="${perPage}">
-		<c:set var="first" value="${1+10*i}"/>
-		<c:set var="end" value="${10+10*i}"/>
-			<c:set var="para" value=""/>
-		<c:if test="${menu ne null}">
-		<c:set var="para" value="menu=${menu}&search=${search}"/>
-		</c:if>
-		<a href="boardList.do?firstRow=${first}&endRow=${end}&${para}">[${i+1}]</a>
-	</c:forEach>
-	</div>
-	<button id="write">글쓰기</button>
-	<br>
-	<div id="woocommerce_product_search-3" >
-		<form role="search" method="post" class="woocommerce-product-search" action="boardList.do">
-		<select name="menu">
-			<option value="contactContent">제목</option>
-			<option value="userId">글쓴이</option>
-		</select>
-		<label class="screen-reader-text" for="woocommerce-product-search-field-0">검색해주세요</label>
-		<input width="100px"type="search" id="search" name="search" value="${search}"/>
-		<button type="submit" value="Search" height="20px">검색</button>
-		</form>
+   </table>
+            
+   <c:forEach var="i" begin="0" end="${perPage}">
+      <c:set var="first" value="${1+10*i}"/>
+      <c:set var="end" value="${10+10*i}"/>
+         <c:set var="para" value=""/>
+      <c:if test="${menu ne null}">
+      <c:set var="para" value="menu=${menu}&search=${search}"/>
+      </c:if>
+      <a href="boardList.do?firstRow=${first}&endRow=${end}&${para}">[${i+1}]</a>
+   </c:forEach>
+   </div>
+   <button id="write">글쓰기</button>
+   <br>
+   <div id="woocommerce_product_search-3" >
+   
+      <form role="search" method="post" class="woocommerce-product-search" action="boardList.do">
+      <label class="select" for="slct">
+      <select name="menu">
+         <option value="contactContent">제목</option>
+         <option value="userId">글쓴이</option>
+      </select>
+      <svg>
+           <use xlink:href="#select-arrow-down"></use>
+        </svg>
+       </label>
+      <label class="screen-reader-text" for="woocommerce-product-search-field-0">검색해주세요</label>
+      <input width="100px"type="search" id="search" name="search" value="${search}"/>
+      <button type="submit" value="Search" height="20px">검색</button>
+      </form>
 </div>
-	</div>
-	<%
-    	String messageContent = null;
-    	if(session.getAttribute("messageContent")!=null){
-    		messageContent = (String)session.getAttribute("messageContent");
-    	}
-    	String messageType = null;
-    	if(session.getAttribute("messageType")!=null){
-    		messageType = (String)session.getAttribute("messageType");
-    	}
-    	System.out.println("login 에서 : " + messageContent);
-    	if(messageContent != null){
+   </div>
+   <%
+       String messageContent = null;
+       if(session.getAttribute("messageContent")!=null){
+          messageContent = (String)session.getAttribute("messageContent");
+       }
+       String messageType = null;
+       if(session.getAttribute("messageType")!=null){
+          messageType = (String)session.getAttribute("messageType");
+       }
+       System.out.println("login 에서 : " + messageContent);
+       if(messageContent != null){
     %>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						<%=messageType %>
-    					</h4>
-    				</div>
-    				<div class="modal-body">
-    					<%=messageContent %>
-    				</div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+       <div class="vertical-alignment-helper">
+          <div class="modal-dialog vertical-align-center">
+             <div class="modal-content <%if(messageType.equals("오류")) out.println("panel-warning"); else out.println("panel-success"); %>">
+                <div class="modal-header panel-heading">
+                   <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times</span>
+                      <span class="sr-only">Close</span>
+                   </button>
+                   <h4 class="modal-title">
+                      <%=messageType %>
+                   </h4>
+                </div>
+                <div class="modal-body">
+                   <%=messageContent %>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
     <script type="text/javascript">
-    	$("#messageModal").modal("show");
-    	console.log("쇼!");
+       $("#messageModal").modal("show");
+       console.log("쇼!");
     </script>
     <%
-    	session.removeAttribute("messageContent");
-    	session.removeAttribute("messageType");
+       session.removeAttribute("messageContent");
+       session.removeAttribute("messageType");
     }
     %>
     <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
-    	<div class="vertical-alignment-helper">
-    		<div class="modal-dialog vertical-align-center">
-    			<div id="checkType" class="modal-content panel-info">
-    				<div class="modal-header panel-heading">
-    					<button type="button" class="close" data-dismiss="modal">
-    						<span aria-hidden="true">&times</span>
-    						<span class="sr-only">Close</span>
-    					</button>
-    					<h4 class="modal-title">
-    						확인 메시지
-    					</h4>
-    				</div>
-    				<div id="checkMessage" class="modal-body"></div>
-    				<div class="modal-footer">
-    					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+       <div class="vertical-alignment-helper">
+          <div class="modal-dialog vertical-align-center">
+             <div id="checkType" class="modal-content panel-info">
+                <div class="modal-header panel-heading">
+                   <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times</span>
+                      <span class="sr-only">Close</span>
+                   </button>
+                   <h4 class="modal-title">
+                      확인 메시지
+                   </h4>
+                </div>
+                <div id="checkMessage" class="modal-body"></div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
 <jsp:include page="../main/footer.jsp"/>
 
 <script type="text/javascript">
-		(function () {
-			var c = document.body.className;
-			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-			document.body.className = c;
-		})();
-	</script>
+      (function () {
+         var c = document.body.className;
+         c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+         document.body.className = c;
+      })();
+   </script>
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' id='wp-polyfill-js'></script>
 <script type='text/javascript' id='wp-polyfill-js-after'>
 ( 'fetch' in window ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4"></scr' + 'ipt>' );
@@ -321,9 +394,9 @@ window.lodash = _.noConflict();
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/url.min.js?ver=0ac7e0472c46121366e7ce07244be1ac' id='wp-url-js'></script>
 <script type='text/javascript' id='wp-api-fetch-js-translations'>
 ( function( domain, translations ) {
-	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
-	localeData[""].domain = domain;
-	wp.i18n.setLocaleData( localeData, domain );
+   var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+   localeData[""].domain = domain;
+   wp.i18n.setLocaleData( localeData, domain );
 } )( "default", { "locale_data": { "messages": { "": {} } } } );
 </script>
 <script type='text/javascript' src='https://demo.colorlib.com/tyche/wp-includes/js/dist/api-fetch.min.js?ver=a783d1f442d2abefc7d6dbd156a44561' id='wp-api-fetch-js'></script>

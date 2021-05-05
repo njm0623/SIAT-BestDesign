@@ -189,9 +189,19 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	.goodsImage {
 		z-index: 1;
 	}
+	
+	.watermarkImage {
+		position: absolute;
+		top:0px;
+		left:0px;
+		z-index: 2;
+	}
 </style>
 <script>
 	$(function() {
+		$(".watermarkImage").css("width", $(".tyche-blog-image").css("width"))
+		$(".watermarkImage").css("height", $(".tyche-blog-image").css("height"))
+		
 		$("#deleteBtn").click(function() {
 			if (confirm("정말로 삭제하시겠습니까?")) {
 				location.href = "deleteRequestBoard.do?requestNum="+${requestBoard.requestNum}
@@ -412,6 +422,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 			<c:when test="${empty requestBoard.requestImage}"><img width="730" height="435" src="../resources/no-image.png" class="goodsImage"/></c:when>
 			<c:otherwise><img width="730" height="435" src="${requestBoard.requestImage}"/></c:otherwise>
 		</c:choose>
+		<img src="../resources/watermark.png" class="watermarkImage"/>
 	</c:otherwise>
 </c:choose>
 </div>

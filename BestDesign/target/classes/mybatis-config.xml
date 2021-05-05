@@ -10,6 +10,7 @@
 		<typeAlias alias="user" type="siat.bestdesign.user.domain.UserVO" />
 		<typeAlias alias="manager" type="siat.bestdesign.manager.domain.ManagerVO" />
 		<typeAlias alias="design" type="siat.bestdesign.designer.domain.DesignerVO" />
+		<typeAlias alias="designerListPaging" type="siat.bestdesign.designer.domain.DesignerListPagingVO" />
 		<typeAlias alias="contact" type="siat.bestdesign.contactboard.domain.ContactVO" />
 		<typeAlias alias="hash" type="java.util.HashMap" />
 		<typeAlias alias="request" type="siat.bestdesign.requestboard.domain.RequestBoardVO"/>
@@ -25,5 +26,6 @@
 		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>
 		<typeAlias alias="requestBoardDeal" type="siat.bestdesign.requestboard.domain.RequestBoardDealVO"/>
 		<typeAlias alias="dcart" type="siat.bestdesign.designer.domain.DesignerCartVO"/>
+		<typeAlias alias="scart" type="siat.bestdesign.saleboard.domain.SaleBoardCartVO"/>
 	</typeAliases>
 </configuration>

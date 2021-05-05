@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import siat.bestdesign.designer.dao.DesignerDAOImpl;
 import siat.bestdesign.designer.domain.DesignerCartVO;
+import siat.bestdesign.designer.domain.DesignerListPagingVO;
 import siat.bestdesign.designer.domain.DesignerVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
@@ -69,16 +70,23 @@ public class DesignerServiceImpl implements DesignerService{
 	}
 
 	@Override
-	public List<DesignerVO> getAllDesigner(HashMap map) {
-		return designerDAO.getAllDesigner(map);
+	public List<DesignerVO> getAllDesigner(DesignerListPagingVO vo) {
+		return designerDAO.getAllDesigner(vo);
 	}
 
+	/*
 	@Override
-	public int getTotalPage() {
-		double t =  Math.ceil(designerDAO.getTotalCount()/9);
-		return (int)t;
+	public int getTotalPage(HashMap param) {
+		return designerDAO.getTotalCount(param);
 	}
-
+	*/
+	
+	@Override
+	public int getTotalPage(DesignerListPagingVO vo) {
+		return designerDAO.getTotalCount(vo);
+	}
+	
+	
 	@Override
 	public List<SaleBoardVO> designerPerDrawing(DesignerVO vo) {
 		return designerDAO.designerPerDrawing(vo);

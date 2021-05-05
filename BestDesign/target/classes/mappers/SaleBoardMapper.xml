@@ -29,7 +29,103 @@
 	<select id="getSaleBoardList" parameterType="saleBoardPaging" resultType="sale">
 		SELECT * FROM (
 			SELECT ROWNUM RN, S.* FROM (
-				SELECT * FROM SALEBOARD
+				<choose>
+					<when test="cart.equals('on')">
+						select s.* from saleBoard s, saleCart c
+						where s.saleNum = c.saleNum and c.userId = #{userId}
+					</when>
+					<when test="selectPrice.equals('on')">
+						select * from saleBoard
+						<![CDATA[
+						where salePrice >= #{startPrice} and salePrice <= #{endPrice}
+						]]>
+					</when>
+					<when test="selectRate.equals('on')">
+						select * from saleBoard
+						<![CDATA[
+						where saleRate >= #{startRate} and saleRate <= #{endRate}
+						]]>
+					</when>
+					<when test="selectBox.equals('on')">
+						select * from saleBoard
+						<where> 
+						<if test="character != 0">or saleCate = 'character'</if>
+						<if test="portraits != 0">or saleCate = 'portraits'</if>
+						<if test="landscape != 0">or saleCate = 'landscape'</if>
+						<if test="chariculture != 0">or saleCate = 'chariculture'</if>
+						<if test="sentence != 0">or saleCate = 'sentence'</if>
+						<if test="comics != 0">or saleCate = 'comics'</if>
+						<if test="poster != 0">or saleCate = 'poster'</if>
+						<if test="threeD != 0">or saleCate = '3D'</if>
+						<if test="etc != 0">or saleCate = 'etc'</if>
+						</where>
+					</when>
+					<otherwise>
+						SELECT * FROM SALEBOARD
+						<choose>
+							<when test="search != null">
+								<choose>
+									<when test="orderby.equals('olderDate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE ASC</when>
+									<when test="orderby.equals('popularity')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('highRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('lowRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE ASC, SALEDATE DESC</when>
+									<when test="orderby.equals('highPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('lowPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+									<otherwise>WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE DESC</otherwise>
+								</choose>
+							</when>
+							<otherwise>
+								<choose>
+									<when test="orderby.equals('olderDate')">ORDER BY SALEDATE ASC</when>
+									<when test="orderby.equals('popularity')">ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('highRate')">ORDER BY SALERATE DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('lowRate')">ORDER BY SALERATE ASC, SALEDATE DESC</when>
+									<when test="orderby.equals('highPrice')">ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
+									<when test="orderby.equals('lowPrice')">ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
+									<otherwise>ORDER BY SALEDATE DESC</otherwise>
+								</choose>
+							</otherwise>					
+						</choose>
+					</otherwise>
+				</choose>
+			) S
+		) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="countSaleBoardList" parameterType="hashmap" resultType="int">
+		<choose>
+			<when test="cart.equals('on')">
+				select count(*) from saleBoard s, saleCart c
+				where s.saleNum = c.saleNum and c.userId = #{userId}
+			</when>
+			<when test="selectPrice.equals('on')">
+				select count(*) from saleBoard
+				<![CDATA[
+				where salePrice >= #{startPrice} and salePrice <= #{endPrice}
+				]]>
+			</when>
+			<when test="selectRate.equals('on')">
+				select count(*) from saleBoard
+				<![CDATA[
+				where saleRate >= #{startRate} and saleRate <= #{endRate}
+				]]>
+			</when>
+			<when test="selectBox.equals('on')">
+				select count(*) from saleBoard
+				<where> 
+				<if test="character != 0">or saleCate = 'character'</if>
+				<if test="portraits != 0">or saleCate = 'portraits'</if>
+				<if test="landscape != 0">or saleCate = 'landscape'</if>
+				<if test="chariculture != 0">or saleCate = 'chariculture'</if>
+				<if test="sentence != 0">or saleCate = 'sentence'</if>
+				<if test="comics != 0">or saleCate = 'comics'</if>
+				<if test="poster != 0">or saleCate = 'poster'</if>
+				<if test="threeD != 0">or saleCate = '3D'</if>
+				<if test="etc != 0">or saleCate = 'etc'</if>
+				</where>
+			</when>
+			<otherwise>
+				SELECT COUNT(*) FROM SALEBOARD
 				<choose>
 					<when test="search != null">
 						<choose>
@@ -52,37 +148,9 @@
 							<when test="orderby.equals('lowPrice')">ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
 							<otherwise>ORDER BY SALEDATE DESC</otherwise>
 						</choose>
-					</otherwise>					
+					</otherwise>			
 				</choose>
-			) S
-		) WHERE RN BETWEEN #{start} AND #{end}
-	</select>
-	
-	<select id="countSaleBoardList" parameterType="hashmap" resultType="int">
-		SELECT COUNT(*) FROM SALEBOARD
-		<choose>
-			<when test="search != null">
-				<choose>
-					<when test="orderby.equals('olderDate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE ASC</when>
-					<when test="orderby.equals('popularity')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('highRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('lowRate')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALERATE ASC, SALEDATE DESC</when>
-					<when test="orderby.equals('highPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('lowPrice')">WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
-					<otherwise>WHERE SALETITLE LIKE '%${search}%' ORDER BY SALEDATE DESC</otherwise>
-				</choose>
-			</when>
-			<otherwise>
-				<choose>
-					<when test="orderby.equals('olderDate')">ORDER BY SALEDATE ASC</when>
-					<when test="orderby.equals('popularity')">ORDER BY SALEVIEW DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('highRate')">ORDER BY SALERATE DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('lowRate')">ORDER BY SALERATE ASC, SALEDATE DESC</when>
-					<when test="orderby.equals('highPrice')">ORDER BY SALEPRICE DESC, SALEDATE DESC</when>
-					<when test="orderby.equals('lowPrice')">ORDER BY SALEPRICE ASC, SALEDATE DESC</when>
-					<otherwise>ORDER BY SALEDATE DESC</otherwise>
-				</choose>
-			</otherwise>			
+			</otherwise>
 		</choose>
 	</select>
 	
@@ -95,7 +163,28 @@
 	<insert id="saleBoardPurchase" parameterType="saleBoardDeal">
 		INSERT INTO SALEDEAL(DEALNUM, SALENUM, SALETITLE, DEALBUYERID, DEALSELLERID, DEALPRICE, DEALDATE, DEALIMAGE)
 		VALUES(SEQ_SALEBOARDDEAL.nextval, #{saleNum}, #{saleTitle}, #{dealBuyerId}, #{dealSellerId}, #{dealPrice}, sysdate, #{dealImage})
-	</insert>	
+	</insert>
+	
+	<select id="checkCart" parameterType="hash" resultType="scart">
+		<![CDATA[
+			SELECT * FROM SALECART
+			where userId = #{userId} and saleNum = #{saleNum}
+		]]>
+	</select>
+	
+	<insert id="insertCart" parameterType="hash">
+		<![CDATA[
+			INSERT INTO SALECART
+			values(SEQ_SALECART.nextval, #{userId}, #{saleNum})
+		]]>
+	</insert>
+	
+	<delete id="deleteCart" parameterType="scart">
+		<![CDATA[
+			DELETE FROM SALECART
+			WHERE cartNum = #{cartNum}
+		]]>
+	</delete>	
 	
 	<select id="saleList" parameterType="sale" resultType="sale">
 		<![CDATA[
