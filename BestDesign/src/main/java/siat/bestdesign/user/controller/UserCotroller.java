@@ -34,10 +34,12 @@ public class UserCotroller {
 	
 	
 	@RequestMapping("signup.do")
-	public String signUp(UserVO vo) {
+	public String signUp(UserVO vo, HttpSession session) {
 		log.info("signup에서 동작");
 		System.out.println("signup");
 		userService.insertUser(vo);
+		session.setAttribute("messageType", "성공");
+		session.setAttribute("messageContent", "회원가입에 성공했습니다.");
 		return "redirect:/main/index.do";
 	}
 	

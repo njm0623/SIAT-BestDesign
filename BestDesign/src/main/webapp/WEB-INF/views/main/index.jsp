@@ -10,7 +10,7 @@
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>Home - Tyche Demo</title>
+<title>Home</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
@@ -288,7 +288,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
         <div class="goods last">
     </c:when>
 </c:choose>
-   <a href="../saleboard/saleBoard.do?saleNum=${draw.saleNum }">
+   <a href="../saleboard/getSaleBoard.do?saleNum=${draw.saleNum }">
    <c:choose>
    <c:when test="${empty draw.saleImage}"><img width="330" height="150" src="../resources/main_logo.png" class="wp-post-image"/></c:when>
     <c:otherwise><img width="330" height="150" src="${draw.saleImage}" class="goodsImage"/></c:otherwise>

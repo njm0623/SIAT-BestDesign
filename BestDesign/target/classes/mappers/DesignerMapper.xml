@@ -29,8 +29,6 @@
 			<if test="designerImage != ''">, designerImage = #{designerImage}</if>
 			WHERE designerId = #{designerId}
 	</update>
-	
-	
 	<select id="getAllDesigner" parameterType="designerListPaging" resultType="design">
 		SELECT * FROM (
 			SELECT ROWNUM RN, D.* FROM (

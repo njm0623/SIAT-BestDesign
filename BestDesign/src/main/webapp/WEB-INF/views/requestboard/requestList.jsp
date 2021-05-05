@@ -173,6 +173,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	$(function() {		
 		$("#${requestBoardListPaging.orderby}").attr("selected", "selected");
 		
+		$(".search-field").val('${requestBoardListPaging.search}')
+		$("#hiddenSearch").val('${requestBoardListPaging.search}')
+		
 		$(".orderby").change(function() {
 			location.href="getRequestBoardList.do"
 		})
@@ -197,7 +200,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <option value="waiting" id="waiting">대기 중인 작품만</option>
 <option value="completed" id="completed">완료된 작품만</option>
 </select>
-<input type="hidden" name="search" value="${requestBoardListPaging.search}" />
+<input type="hidden" name="search" id="hiddenSearch"/>
 </form>
 </div>
 <br/><br/><br/>

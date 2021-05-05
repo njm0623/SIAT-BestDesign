@@ -2,6 +2,8 @@ package siat.bestdesign.requestboard.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,7 @@ public class RequestBoardReplyController {
 	}
 	
 	@RequestMapping("reply/accept.do")
-	public String requestBoardReplyAccept(RequestBoardDealVO vo) {
+	public String requestBoardReplyAccept(RequestBoardDealVO vo, HttpSession session) {
 		log.info("request에서 reply/동작");
 		System.out.println("reply/delete.do");
 	
@@ -85,6 +87,9 @@ public class RequestBoardReplyController {
 		
 		requestBoardReplyService.insertRequestBoardDeal(vo);
 		requestBoardReplyService.updateRequestBoardState(vo);
+		
+		session.setAttribute("messageType", "성공");
+		session.setAttribute("messageContent", "의뢰를 성공적으로 요청하였습니다.");
 		
 		return "redirect:/requestboard/getRequestBoard.do?requestNum="+vo.getRequestNum();
 	}

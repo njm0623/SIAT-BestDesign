@@ -261,7 +261,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		<input type="number" id="price" name="salePrice" placeholder="판매가를 입력해 주세요." value="${saleBoard.salePrice}"/>
 		<select name="saleCate" class="orderby" aria-label="Shop order">
 			<option value="charcter" id="charcter">캐릭터</option>
-			<option value="protraits" id="protraits">초상화</option>
+			<option value="portraits" id="portraits">초상화</option>
 			<option value="landscape" id="landscape">풍경화</option>
 			<option value="chariculture" id="chariculture">캐리커쳐</option>
 			<option value="sentence" id="sentence">문구</option>

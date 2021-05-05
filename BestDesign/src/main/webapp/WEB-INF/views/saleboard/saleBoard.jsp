@@ -7,9 +7,6 @@
     }
     
     pageContext.setAttribute("currentLoginID", userID);
-    
-    session.removeAttribute("messageContent");
-	session.removeAttribute("messageType");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -193,6 +190,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <script>
 	$(function() {		
+		function comma(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		$("#pri").text(comma(${saleBoard.salePrice}));
+
 		$("#scart").val('${scart}')
 		
 		// 삭제 버튼 클릭
@@ -485,7 +487,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 ${saleBoard.designerProfile}
 </div>
 </div>
-<p class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>${saleBoard.salePrice}원</bdi></span></p>
+<p class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol"></span><span id="pri"></span>원</bdi></span></p>
 
 <c:choose>
 	<c:when test="${saleBoard.designerId == currentLoginID}">

@@ -2,16 +2,15 @@ package siat.bestdesign.saleboard.controller;
 
 import java.util.HashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import siat.bestdesign.chat.domain.ChatVO;
@@ -152,7 +151,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("purchase.do")
-	public String saleBoardPurchase(SaleBoardDealVO vo) {
+	public String saleBoardPurchase(SaleBoardDealVO vo, HttpSession session) {
 
 		log.info("saleBoard에서 purchase");
 		System.out.println("purchase 호출");
@@ -169,6 +168,8 @@ public class SaleBoardController {
 		chatService.insertChat(chatvo2);
 		
 		saleBoardService.saleBoardPurchase(vo);
+		session.setAttribute("messageType", "성공");
+		session.setAttribute("messageContent", "구매에 성공했습니다.");
 		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 	
