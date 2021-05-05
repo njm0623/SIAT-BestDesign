@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contactBoard">
 	<select id="getContactBoardList" parameterType="hash" resultType="contact">
+		<![CDATA[
 			select *
 			from (select ROWNUM IDX, c.*
 				  from (SELECT * FROM contactBoard ORDER BY contactNum desc) c

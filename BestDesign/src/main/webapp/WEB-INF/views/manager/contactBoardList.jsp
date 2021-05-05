@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%
 	if(!session.getAttribute("type").equals("관리자")){
 		session.setAttribute("messageType", "오류");
@@ -13,12 +14,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
-<title>Home - Tyche Demo</title>
+<title>문의게시판 목록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
@@ -53,6 +53,9 @@ img.emoji {
 	vertical-align: -0.1em !important;
 	background: none !important;
 	padding: 0 !important;
+}
+tr > th, tr > td{
+	text-align:center;
 }
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
@@ -101,89 +104,84 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<link rel="stylesheet" href="../resources/css/custom.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
-    
-    
-    <!-- 추가한부분 -->
-<script type="text/javascript"
-	src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-
-<!-- 추가한부분 -->
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://www.jqueryscript.net/css/jquerysctipttop.css"
-	rel="stylesheet" type="text/css">
-
-<!-- 차트라이브러리 -->
-<script src="https://d3js.org/d3.v6.min.js"></script>
-<!-- Load billboard.js with style -->
-<script
-	src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.css">
-    
-
 <style>
-#masthead {
-	background: #fff;
-}
+	#masthead {
+		background:#fff;
+	}
 
-.sf-menu>li>a {
-	color: black;
-}
+	.sf-menu>li>a {
+		color: black;
+	}
 </style>
-<script>    
-	$.ajax({
-		type :'GET',
-		url : '../manager/chart.do',
-		dataType: 'json',
-		success : function(result){
-			var chart = bb.generate({
-			    bindto: "#chart",
-			    data: {
-			        type: "area-spline",
-			        json: result,
-			        keys: {
-			        	x: "test1",
-			        	y: "test2",
-			        	value: ["test3", "test4"]
-			        }
-			    } 
-				});
-		},
-		error: function(data, status, err){
-			console.log(err);
-		}
-	});
-</script>
-<!-- ************************************************************************************************************* -->
 </head>
-<body class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
-	
-	<jsp:include page="../main/header.jsp"/>
-	<br><br>
+<body
+	class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
+	<div id="page" class="site">
+<jsp:include page="../main/header.jsp"/>
 		<!--탑부분 삭제: 185 라인 main-slider부터 site-content 위에 section 끝나는부분까지(239라인)-->
 		<div class="site-content">
 			<div class="container">
 				<!-- 썸네일 페이지  188라인 col-xs-12부터 467 colophon footer전까지 삭제-->
+				<div class="row">
+					<div class="col-md-12">
+						<nav class="woocommerce-breadcrumb">
+						</nav>
+					</div>
+				</div>
 				<!-- 본문 -->
 				<div class="row">
 					<!-- 왼쪽 side메뉴 -->
-					<jsp:include page="../manager/nav.jsp"></jsp:include>
+					<jsp:include page="../manager/nav.jsp"/>
+						
 					<div class="col-md-8 tyche-has-sidebar">
-					<div id="chart"></div>
-<!-- 						<input type="button" id="button1" onclick="button1_click();"
-							value="buttontest" submit="test.do" /> -->
-					</div>
+							<h4>문의글 목록</h4>
+					<form action='contactBoardList.do' method='post'>
+					</form>
+					<table border="1" bordercolor="darkblue">
+	<tr>
+		<td> 글번호 </td>
+		<td> 제 목 </td>
+		<td> 작성자 </td>
+		<td> 작성일 </td>
+		<td> 조회수 </td>
+	</tr>
+	
+	<c:choose>
+    <c:when test="${empty contactList}">
+        <tr><td colspan="5"> 등록된 게시물이 없습니다. </td></tr>
+    </c:when>
+    <c:otherwise>
+     	<c:forEach var="cont" items="${contactList}">
+     		<tr>
+			<td>${cont.contactNum}</td>
+			<td>
+				<c:forEach begin="0" end="${cont.getLevel()}">
+					&nbsp;				
+				</c:forEach>
+				<c:if test="${cont.getLevel() ne 0}">
+					<img src="../resources/board_re.gif"/>
+				</c:if>
+				<c:if test="${cont.contactIsPublic eq 't' || sessionScope.userID eq cont.userId || sessionScope.type eq '관리자'}">
+				<a href="../contactboard/BoardView.do?contactNum=${cont.contactNum}">${cont.contactTitle}</a>
+				</c:if>
+				<c:if test="${cont.contactIsPublic eq 'f' && sessionScope.userID ne cont.userId && sessionScope.type ne '관리자'}">
+				비공개입니다.
+				</c:if>
+			</td>
+			<td>${cont.userId}</td>		
+			<td>${cont.contactDate}</td>
+			<td>${cont.contactCount}</td>
+		</tr>
+     	</c:forEach>
+    </c:otherwise>
+	</c:choose>
+	</table>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
+	</div>
 	<script type="text/javascript">
 		(function () {
 			var c = document.body.className;

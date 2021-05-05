@@ -5,6 +5,7 @@ import java.util.List;
 
 import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
+import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
 public interface DesignerDAO {
 

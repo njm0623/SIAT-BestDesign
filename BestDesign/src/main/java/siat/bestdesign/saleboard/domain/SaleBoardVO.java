@@ -82,10 +82,10 @@ public class SaleBoardVO {
 		this.saleCate = saleCate;
 	}
 	public int getSaleView() {
-		return SaleView;
+		return saleView;
 	}
 	public void setSaleView(int saleView) {
-		SaleView = saleView;
+		saleView = saleView;
 	}
 	
 	

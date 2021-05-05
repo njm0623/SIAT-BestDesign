@@ -1,11 +1,15 @@
 package siat.bestdesign.designer.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
+import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
 @Repository("designerDAO")
 public class DesignerDAOImpl implements DesignerDAO{

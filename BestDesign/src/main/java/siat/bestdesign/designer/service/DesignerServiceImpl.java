@@ -1,8 +1,8 @@
 package siat.bestdesign.designer.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import siat.bestdesign.designer.dao.DesignerDAOImpl;
 import siat.bestdesign.designer.domain.DesignerCartVO;
 import siat.bestdesign.designer.domain.DesignerVO;
-import siat.bestdesign.designer.dao.DesignerDAOImpl;
+import siat.bestdesign.saleboard.domain.SaleBoardVO;
 
 @Service("designerService")
 public class DesignerServiceImpl implements DesignerService{

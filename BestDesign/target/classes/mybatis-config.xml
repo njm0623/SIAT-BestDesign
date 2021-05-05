@@ -12,7 +12,7 @@
 		<typeAlias alias="design" type="siat.bestdesign.designer.domain.DesignerVO" />
 		<typeAlias alias="contact" type="siat.bestdesign.contactboard.domain.ContactVO" />
 		<typeAlias alias="hash" type="java.util.HashMap" />
-		<typeAlias alias="requestChart" type="siat.bestdesign.manager.domain.RequestChartVO" />
+		<typeAlias type="siat.bestdesign.manager.domain.RequestChartVO" alias="requestChart"/>
 		<typeAlias alias="request" type="siat.bestdesign.requestboard.domain.RequestBoardVO"/>
 		<typeAlias alias="requestBoardPaging" type="siat.bestdesign.requestboard.domain.RequestBoardPagingVO"/>
 		<typeAlias alias="sale" type="siat.bestdesign.saleboard.domain.SaleBoardVO"/>
