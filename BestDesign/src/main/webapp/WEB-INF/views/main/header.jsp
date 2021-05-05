@@ -100,7 +100,7 @@
 <% if(type.equals("관리자")){%>
 
 <li class="top-account">
-<a href="../manager/administrator.do"><i class="fa fa-user"></i> 관리자 </a>
+<a href="../manager/userBoardList.do"><i class="fa fa-user"></i> 관리자 </a>
 </li>
 
 <%} else{%>
@@ -128,15 +128,8 @@
 <%} %>
 
 <li class="top-cart">
-<a href="../user/profile.do"><i class="fa fa-user"></i> ${sessionScope.userID} </a>
+<a href="../user/membermodification.do"><i class="fa fa-user"></i> ${sessionScope.userID} </a>
 </li> 
-
-<li class="top-account">
-    <ul>
-        <li><a href="../main/secession.do"><i class="fa fa-user"></i> 회원정보 탈퇴</a></li>
-        <li><a href="../user/membermodification.do"><i class="fa fa-user"></i> 회원정보 수정</a></li>
-    </ul>
-</li>
 
 <%}}%>
 

@@ -149,7 +149,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='hidden' name='parentId' value="${param.parentId}"><br/><br/>
 	제  목 : <input type='text' width="400px" name='contactTitle'><br/><br/>
 	내  용 : <textarea rows='10' cols='40' name='contactContent'></textarea><br/>	
-	파일 : <input type='file' name='contactFile'><br/><br/>
+	<input type='hidden' name='contactFile'>
 	<div class="form-group">
 	<div class="btn-group" data-toggle="buttons">
 		<label class="btn  btn-primary active">
@@ -164,6 +164,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	<input type='reset' value='취소'>
 	</form>
 	</div>
+	<br><br>
 	<%
     	String messageContent = null;
     	if(session.getAttribute("messageContent")!=null){

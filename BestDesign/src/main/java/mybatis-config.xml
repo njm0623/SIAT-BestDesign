@@ -20,6 +20,7 @@
 		<typeAlias alias="saleBoardDeal" type="siat.bestdesign.saleboard.domain.SaleBoardDealVO"/>
 		<typeAlias alias="review" type="siat.bestdesign.review.domain.ReviewVO"/>
 		<typeAlias alias="chart" type="siat.bestdesign.manager.domain.ChartVO"/>
+		<typeAlias alias="requestChart" type="siat.bestdesign.manager.domain.RequestChartVO"/>
 		<typeAlias alias="main" type="siat.bestdesign.main.domain.MainVO"/>
 		<typeAlias alias="requestBoardReply" type="siat.bestdesign.requestboard.domain.RequestBoardReplyVO"/>
 		<typeAlias alias="requestBoardDeal" type="siat.bestdesign.requestboard.domain.RequestBoardDealVO"/>

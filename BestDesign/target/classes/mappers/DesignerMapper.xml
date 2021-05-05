@@ -24,11 +24,10 @@
 		]]>
 	</select>
 	<update id="designerUpdate" parameterType="design">
-		<![CDATA[
 			UPDATE designer
-			set designerProfile = #{designerProfile}, designerImage = #{designerImage}, designerNickName =#{designerNickName}
+			set designerProfile = #{designerProfile}, designerNickName =#{designerNickName}
+			<if test="designerImage != ''">, designerImage = #{designerImage}</if>
 			WHERE designerId = #{designerId}
-		]]>
 	</update>
 	<select id="getAllDesigner" parameterType="hash" resultType="design">
 		<![CDATA[

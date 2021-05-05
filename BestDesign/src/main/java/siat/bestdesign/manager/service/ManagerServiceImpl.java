@@ -1,17 +1,14 @@
 package siat.bestdesign.manager.service;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import siat.bestdesign.contactboard.domain.ContactVO;
 import siat.bestdesign.manager.dao.ManagerDAOImpl;
-import siat.bestdesign.manager.domain.ChartVO;
 import siat.bestdesign.manager.domain.ManagerVO;
+import siat.bestdesign.manager.domain.RequestChartVO;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 import siat.bestdesign.review.domain.ReviewVO;
 import siat.bestdesign.saleboard.domain.SaleBoardVO;
@@ -28,10 +25,10 @@ public class ManagerServiceImpl implements ManagerService{
 	public ManagerVO selectLogin(ManagerVO vo) {
 		return managerDAO.selectLogin(vo);
 	}
-	@Override
-	public List<ChartVO> getChartList() { // 차트
-		return managerDAO.getChartList();
-	}
+	/*
+	 * @Override public List<ChartVO> getChartList() { // 차트 return
+	 * managerDAO.getChartList(); }
+	 */
 	
 	@Override
 	public List<UserVO> getBoardList(UserVO vo) { // 고객목록 게시판
@@ -70,7 +67,17 @@ public class ManagerServiceImpl implements ManagerService{
 	public List<SaleBoardVO> getSaleList(SaleBoardVO vo) { //드로잉샵 리스트
 		return managerDAO.getSaleList(vo);
 	}
-
+	@Override
+	public List<RequestChartVO> getChartList(String board, String deal) {
+		// TODO Auto-generated method stub
+		return managerDAO.getChartList(board,deal);
+	}
+	
+	@Override
+	public List<ContactVO> getContactList(ContactVO vo) {
+		return managerDAO.getContactList(vo);
+	}
+	
 
 
 }

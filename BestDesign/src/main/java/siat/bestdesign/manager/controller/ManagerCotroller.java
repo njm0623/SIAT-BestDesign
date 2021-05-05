@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import siat.bestdesign.contactboard.domain.ContactVO;
 import siat.bestdesign.manager.domain.ChartVO;
 import siat.bestdesign.manager.domain.ManagerVO;
+import siat.bestdesign.manager.domain.RequestChartVO;
 import siat.bestdesign.manager.service.ManagerService;
 import siat.bestdesign.requestboard.domain.RequestBoardVO;
 import siat.bestdesign.review.domain.ReviewVO;
@@ -66,10 +67,10 @@ public class ManagerCotroller {
 		
 	}
 		@RequestMapping("chart.do")
-		@ResponseBody
-		public List<ChartVO> getChartList() {
-			System.out.println("호출");
-			return managerService.getChartList();
+		@ResponseBody //요청해서 보내는 페이지와 리턴받는 뷰페이지가 일치할때 써준다
+		public List<RequestChartVO> getChartList(String board, String deal) {
+			System.out.println(managerService.getChartList(board,deal)+"데이터값");
+				return managerService.getChartList(board, deal);//return 4ㄱ
 		}
 		//고객목록
 		@RequestMapping("userBoardList.do")//model방식
@@ -105,10 +106,18 @@ public class ManagerCotroller {
 			m.addAttribute("requestList", managerService.getRequestList(vo));
 		}
 		
+		//드로잉샵 리스트
 		@RequestMapping("saleBoardList.do")//model방식
 		public void requestBoardList(Model m, SaleBoardVO vo) {
-			System.out.println("그려주세요 리스트");
+			System.out.println("드로잉샵 리스트");
 			m.addAttribute("saleList", managerService.getSaleList(vo));
+		}
+		
+		//문의글 리스트
+		@RequestMapping("contactBoardList.do")//model방식
+		public void contactBoardList(Model m, ContactVO vo) {
+			System.out.println("문의글 리스트");
+			m.addAttribute("contactList", managerService.getContactList(vo));
 		}
 }
 

@@ -45,11 +45,12 @@
 		]]>
 	</update>
 	<update id="updateContact" parameterType="contact">
-		<![CDATA[
+
 			UPDATE CONTACTBOARD
-			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}, contactFile = #{contactFile}
+			SET contactTitle = #{contactTitle}, contactContent = #{contactContent}, contactDate = sysdate, contactIsPublic = #{contactIsPublic}
+			<if test="contactFile != ''">, contactFile = #{contactFile}</if>
 			where contactNum = #{contactNum}
-		]]>
+
 	</update>
 	<delete id="deleteContact" parameterType="int">
 		<![CDATA[
@@ -65,4 +66,20 @@
 		]]>
 	</select>
 	
+	<select id="selectIdList" parameterType="contact" resultType="contact">
+		<![CDATA[
+			SELECT *
+			from contactboard
+			where userId = #{userId}
+			order by contactNum asc
+		]]>
+	</select>
+	
+	<select id="getContactList" parameterType="hash" resultType="contact">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM IDX, contactBoard.* FROM contactBoard WHERE rownum>=1 ORDER BY contactNum)
+			order by contactSeqNum desc
+		]]>
+	</select>
 </mapper>

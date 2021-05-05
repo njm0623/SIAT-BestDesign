@@ -150,6 +150,13 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		})
 </script>
 <style>
+	@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
 	.columns-4{
 		display:flex;
 	}
@@ -163,6 +170,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	html body #a_dimage .dimage{
 		max-width: none;
 		width: 220px; height: 150px;
+	}
+	#dcart{
+		cursor: pointer;
+		font-size: 20px;
+		width: 30px;
+	}
+	#starcart{
+		font-family:'GyeonggiTitleM'
 	}
 </style>
 </head>
@@ -186,6 +201,9 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 </div>
 <div class="summary entry-summary">
 <h1 class="product_title entry-title">
+<c:if test="${sessionScope.userID ne null}">
+<p><span style="font-size: 15px;" id="starcart">찜 등록 </span><span style="color: #FFAB1A;"id="dcart">${dcart}</span></p>
+</c:if>
 <c:choose>
     <c:when test="${empty Profile.designerNickName}">
         닉네임을 설정해주세요.
@@ -217,7 +235,6 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <button type="button" name="add-to-cart" class="single_add_to_cart_button button alt" id="editProfile">수정하기</button>
 </c:if>
 </div>
-<button type="button" class="single_add_to_cart_button button alt" id="dcart">${dcart}</button>
 
 
 <section class="related products">

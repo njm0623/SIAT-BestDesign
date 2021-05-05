@@ -191,7 +191,7 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <jsp:include page="../main/header.jsp"/>
 <div class="container">
 	<h4> 문의 게시판 글 쓰기 </h4><br/>
-	<form name='frm' method='post' action="BoardModify.do">
+	<form id="frm" name='frm' method='post' action="BoardModify.do">
 	<input type='hidden' name='contactNum' value="${list.contactNum}"><br/><br/>
 	<input type='hidden' name='userId' value="${list.userId}"><br/><br/>
 	제  목 : <input type='text' style="width: 500px;" name='contactTitle' id='contactTitle'  placeholder="제목을 입력하세요." value="${list.contactTitle }"><br/><br/>

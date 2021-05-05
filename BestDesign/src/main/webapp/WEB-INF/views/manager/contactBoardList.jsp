@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%
+	if(!session.getAttribute("type").equals("관리자")){
+		session.setAttribute("messageType", "오류");
+    	session.setAttribute("messageContent", "관리자만 열람 가능합니다.");
+    	response.sendRedirect("../main/index.do");
+    	return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>탈퇴하기</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="https://demo.colorlib.com/tyche/xmlrpc.php">
 <meta name='robots' content='noindex, nofollow' />
 
+<title>문의게시판 목록</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
@@ -45,6 +53,9 @@ img.emoji {
 	vertical-align: -0.1em !important;
 	background: none !important;
 	padding: 0 !important;
+}
+tr > th, tr > td{
+	text-align:center;
 }
 </style>
 <link rel='stylesheet' id='wp-block-library-css' href='https://demo.colorlib.com/tyche/wp-includes/css/dist/block-library/style.min.css?ver=5.7.1' type='text/css' media='all' />
@@ -87,124 +98,188 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 <script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
 <style id="kirki-inline-styles"></style>
-    
+<!-- ************************************************************************************************************* -->
+
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 	<link rel="stylesheet" href="../resources/css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script src="../resources/js/bootstrap.js"></script>
-    <script src="../resources/js/custom.js"></script>
-
-    <style>
-    .container{
-		width:800px;
+<style>
+	#masthead {
+		background:#fff;
 	}
-    </style>
+
+	.sf-menu>li>a {
+		color: black;
+	}
+</style>
 </head>
-<body>
+<body
+	class="home page-template-default page page-id-2 wp-custom-logo theme-tyche woocommerce-no-js elementor-default elementor-kit-1236">
+	<div id="page" class="site">
 <jsp:include page="../main/header.jsp"/>
-    <div class="container">
-    	<form method="post" action="../user/secession1.do">
-    		<table class="table table-bordered table-hover" style="text-align : ceneter; border: 1px solid #dddddd">
-    			<thead>
-    				<tr>
-    					<th colspan="3"><h4>회원 탈퇴</h4></th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    				<tr>
-    					<td style="width: 150px;" class="tdali"><h5>아이디</h5></td>
-    					<td><input class="form-control" type="text" id="userId" name="userId"  placeholder="아이디를 입력하세요."></td>
-    				</tr>
-    				<tr>
-    					<td style="width: 150px;"><h5>비밀번호</h5></td>
-    					<td colspan="2"><input class="form-control" type="password" id="userPwd" name="userPwd" maxlength="20" placeholder="비밀번호를 입력하세요."></td>
-    				</tr>
-    				<tr>
-    					<td style="width: 150px;"><h5>이름</h5></td>
-    					<td colspan="2"><input class="form-control" type="text" id="userName" name="userName" maxlength="20" placeholder="이름을 입력하세요."></td>
-    				</tr>
-    						
-    			</tbody>
-    		</table>
-    		
-    		<div style="text-align: center;">
-    			<input type="submit" class="btn btn-primary" id="formsub" value="탈퇴"/>
-    		</div>
-    	</form>
-    </div>
-    <br><br>
-    <%
-    	String messageContent = null;
-    	if(session.getAttribute("messageContent")!=null){
-    		messageContent = (String)session.getAttribute("messageContent");
-    	}
-    	String messageType = null;
-    	if(session.getAttribute("messageType")!=null){
-    		messageType = (String)session.getAttribute("messageType");
-    	}
-    	if(messageContent != null){
-    %>
-    
-    <a href="membermodification.do">회원탈퇴</a>
-    <br>
-    <a href="secession.do">회원수정</a>
-    
-    <script type="text/javascript">
-    	$("#messageModal").modal("show");
-    </script>
-    <%
-    	session.removeAttribute("messageContent");
-    	session.removeAttribute("messageType");
-    }
-    %>
-    <jsp:include page="../main/footer.jsp"></jsp:include>
-    
-    <script>
-    $(document).ready(function(e){
-		$('#secession').click(function(){
-			
-			//패스워드 입력 확인
-			if($('#passwd').val() == ''){
-				alert("패스워드를 입력해 주세요.");
-				$('#passwd').focus();
-				return;
-			}else if($('#passwdCheck').val() == ''){
-				alert("패스워드를 입력해 주세요.");
-				$('#passwdCheck').focus();
-				return;
-			}
-			
-			//입력한 패스워드가 같인지 체크
-			if($('#passwdCheck').val() != $('#passwd').val()){
-				alert("패스워드가 일치하지 않습니다.");
-				$('#passwdCheck').focus();
-				return;
-			}
-			
-			//패스워드 맞는지 확인
-			$.ajax({
-				url: "${pageContext.request.contextPath}/passCheck.do",
-				type: "POST",
-				data: $('#delFrm').serializeArray(),
-				success: function(data){
-					if(data==0){
-						alert("패스워드가 틀렸습니다.");
-						return;
-					}else{
-						//탈퇴
-						var result = confirm('정말 탈퇴 하시겠습니까?');
-						if(result){
-							$('#delFrm').submit();
-						}
-					}
-				},
-				error: function(){
-					alert("서버 에러.");
-				}
-			});
-		});
-	});
-    </script>
+		<!--탑부분 삭제: 185 라인 main-slider부터 site-content 위에 section 끝나는부분까지(239라인)-->
+		<div class="site-content">
+			<div class="container">
+				<!-- 썸네일 페이지  188라인 col-xs-12부터 467 colophon footer전까지 삭제-->
+				<div class="row">
+					<div class="col-md-12">
+						<nav class="woocommerce-breadcrumb">
+						</nav>
+					</div>
+				</div>
+				<!-- 본문 -->
+				<div class="row">
+					<!-- 왼쪽 side메뉴 -->
+					<jsp:include page="../manager/nav.jsp"/>
+						
+					<div class="col-md-8 tyche-has-sidebar">
+							<h4>문의글 목록</h4>
+					<form action='contactBoardList.do' method='post'>
+					</form>
+					<table border="1" bordercolor="darkblue">
+	<tr>
+		<td> 글번호 </td>
+		<td> 제 목 </td>
+		<td> 작성자 </td>
+		<td> 작성일 </td>
+		<td> 조회수 </td>
+	</tr>
+	
+	<c:choose>
+    <c:when test="${empty contactList}">
+        <tr><td colspan="5"> 등록된 게시물이 없습니다. </td></tr>
+    </c:when>
+    <c:otherwise>
+     	<c:forEach var="cont" items="${contactList}">
+     		<tr>
+			<td>${cont.contactNum}</td>
+			<td>
+				<c:forEach begin="0" end="${cont.getLevel()}">
+					&nbsp;				
+				</c:forEach>
+				<c:if test="${cont.getLevel() ne 0}">
+					<img src="../resources/board_re.gif"/>
+				</c:if>
+				<c:if test="${cont.contactIsPublic eq 't' || sessionScope.userID eq cont.userId || sessionScope.type eq '관리자'}">
+				<a href="../contactboard/BoardView.do?contactNum=${cont.contactNum}">${cont.contactTitle}</a>
+				</c:if>
+				<c:if test="${cont.contactIsPublic eq 'f' && sessionScope.userID ne cont.userId && sessionScope.type ne '관리자'}">
+				비공개입니다.
+				</c:if>
+			</td>
+			<td>${cont.userId}</td>		
+			<td>${cont.contactDate}</td>
+			<td>${cont.contactCount}</td>
+		</tr>
+     	</c:forEach>
+    </c:otherwise>
+	</c:choose>
+	</table>
+				</div>
+			</div>
+		</div>		
+	</div>
+	<jsp:include page="../main/footer.jsp"/>
+	</div>
+	<script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})();
+	</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4'
+		id='wp-polyfill-js'></script>
+	<script type='text/javascript' id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4"></scr' + 'ipt>' );
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/hooks.min.js?ver=50e23bed88bcb9e6e14023e9961698c1'
+		id='wp-hooks-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/i18n.min.js?ver=db9a9a37da262883343e941c3731bc67'
+		id='wp-i18n-js'></script>
+	<script type='text/javascript' id='wp-i18n-js-after'>
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/vendor/lodash.min.js?ver=4.17.19'
+		id='lodash-js'></script>
+	<script type='text/javascript' id='lodash-js-after'>
+window.lodash = _.noConflict();
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/url.min.js?ver=0ac7e0472c46121366e7ce07244be1ac'
+		id='wp-url-js'></script>
+	<script type='text/javascript' id='wp-api-fetch-js-translations'>
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "default", { "locale_data": { "messages": { "": {} } } } );
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/dist/api-fetch.min.js?ver=a783d1f442d2abefc7d6dbd156a44561'
+		id='wp-api-fetch-js'></script>
+	<script type='text/javascript' id='wp-api-fetch-js-after'>
+wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "https://demo.colorlib.com/tyche/wp-json/" ) );
+wp.apiFetch.nonceMiddleware = wp.apiFetch.createNonceMiddleware( "3aa5e0bf44" );
+wp.apiFetch.use( wp.apiFetch.nonceMiddleware );
+wp.apiFetch.use( wp.apiFetch.mediaUploadMiddleware );
+wp.apiFetch.nonceEndpoint = "https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php?action=rest-nonce";
+</script>
+	<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = [];
+/* ]]> */
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.4'
+		id='contact-form-7-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'
+		id='jquery-blockui-js'></script>
+	<script type='text/javascript' id='wc-add-to-cart-js-extra'>
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View cart","cart_url":"https:\/\/demo.colorlib.com\/tyche\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
+/* ]]> */
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=5.2.2'
+		id='wc-add-to-cart-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4'
+		id='js-cookie-js'></script>
+	<script type='text/javascript' id='woocommerce-js-extra'>
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=5.2.2'
+		id='woocommerce-js'></script>
+	<script type='text/javascript' id='wc-cart-fragments-js-extra'>
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/tyche\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/tyche\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_c7ba160b83b4cf4fe4c311fa6b89b05c","fragment_name":"wc_fragments_c7ba160b83b4cf4fe4c311fa6b89b05c","request_timeout":"5000"};
+/* ]]> */
+</script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=5.2.2'
+		id='wc-cart-fragments-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/themes/tyche/assets/js/skip-link-focus-fix.js?ver=5.7.1'
+		id='tyche-skip-link-focus-fix-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-content/themes/tyche/assets/vendors/menu/menu.min.js?ver=5.7.1'
+		id='tyche-multilang-menu-js'></script>
+	<script type='text/javascript'
+		src='https://demo.colorlib.com/tyche/wp-includes/js/wp-embed.min.js?ver=5.7.1'
+		id='wp-embed-js'></script>
+	<script>window.GA_ID='';</script>
+	<script
+		src='https://demo.colorlib.com/tyche/wp-content/plugins/flying-analytics/js/minimal-analytics.js'
+		defer></script>
 </body>
 </html>

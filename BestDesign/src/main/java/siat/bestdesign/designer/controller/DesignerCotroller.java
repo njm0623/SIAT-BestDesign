@@ -36,7 +36,11 @@ public class DesignerCotroller {
 		m.addAttribute("draw", designerService.designerPerDrawing(vo));
 		
 		HashMap map = new HashMap();
-		map.put("userId", session.getAttribute("userID"));
+		String userId = "";
+		if(session.getAttribute("userID")!=null) {
+			userId = (String)session.getAttribute("userID");
+		}
+		map.put("userId", userId);
 		map.put("designerId", vo.getDesignerId());
 		String star = null;
 		if(designerService.checkCartView(map)!=null) {
