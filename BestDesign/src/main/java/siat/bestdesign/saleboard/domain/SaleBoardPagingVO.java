@@ -1,12 +1,17 @@
 package siat.bestdesign.saleboard.domain;
 
 public class SaleBoardPagingVO {
+	// 현재 페이지, 시작 페이지, 끝 페이지, 총 게시글 수, 페이지당 글 갯수, 마지막 페이지, SQL에 들어갈 start, end
 	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 	// 페이지에 표시할 페이지 번호 수
 	private int cntPage = 5;
+	// 정렬 기준, 검색, 찜, 유저 아이디
 	private String orderby, search, cart, userId;
+	// 검색할 시작 가격, 검색할 끝 가격, 검색할 시작 평점, 검색할 끝 평점
 	private int startPrice, endPrice, startRate, endRate;
+	// 정렬 기준(캐릭터, 초상화, 풍경화, 캐리커쳐, 작문, 만화, 포스터, 3D, 기타)
 	private int character, portraits, landscape, chariculture, sentence, comics, poster, threeD, etc;
+	// 가격 검색, 평점 검색, 카테고리 
 	private String selectPrice, selectRate, selectBox;
 	
 	public String getSelectBox() {
