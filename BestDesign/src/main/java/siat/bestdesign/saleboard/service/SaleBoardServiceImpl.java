@@ -55,6 +55,7 @@ public class SaleBoardServiceImpl implements SaleBoardService {
 	}
 
 	@Override
+	// 드로잉샵 게시글 조회수 갱신 Service
 	public void updateSaleBoardView(SaleBoardVO vo) {
 		saleBoardDAO.updateSaleBoardView(vo);
 	}
