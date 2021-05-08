@@ -23,6 +23,7 @@ import siat.bestdesign.saleboard.service.SaleBoardService;
 
 @Controller
 @RequestMapping("saleboard")
+// 드로잉샵 게시글 컨트롤러
 public class SaleBoardController {
 	private Logger log = LoggerFactory.getLogger(ManagerCotroller.class);
 	
@@ -33,6 +34,7 @@ public class SaleBoardController {
 	ChatService chatService;
 	
 	@RequestMapping("/{step}.do")
+	// 단순 페이지 이동
 	public String viewPage(@PathVariable String step) {
 		log.info("SaleBoard에서" + step + "동작");
 		System.out.println("saleboard에서 자신 반환하는 모든 동작 : " + step);
@@ -40,6 +42,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/insertSaleBoard.do")
+	// 드로잉샵 게시글 등록 컨트롤러
 	public String insertSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 insertSaleBoard");
 		System.out.println("insertSaleBoardList 컨트롤러 호출");
@@ -48,6 +51,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/modifySaleBoard.do")
+	// 드로잉샵 게시글 수정 버튼 클릭 컨트롤러
 	public String modifySaleBoard(SaleBoardVO vo, Model model) {
 		log.info("saleBoard에서 modifySaleBoard");
 		System.out.println("modifySaleBoard 컨트롤러 호출");
@@ -56,6 +60,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/updateSaleBoard.do")
+	// 드로잉샵 게시글 수정 컨트롤러
 	public String updateSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 updateSaleBoard");
 		System.out.println("updateSaleBoardList 컨트롤러 호출");
@@ -64,6 +69,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/deleteSaleBoard.do")
+	// 드로잉샵 게시글 삭제 컨트롤러
 	public String deleteSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 deleteSaleBoard");
 		System.out.println("deleteSaleBoardList 컨트롤러 호출");
@@ -72,6 +78,7 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/getSaleBoard.do")
+	// 드로잉샵 게시글 상세 내용 불러오기 컨트롤러
 	public String getSaleBoard(SaleBoardVO vo, Model model, HttpSession session) {
 		log.info("saleBoard에서 getSaleBoard");
 		System.out.println("getSaleBoard 컨트롤러 호출");
@@ -98,13 +105,13 @@ public class SaleBoardController {
 	}
 	
 	@RequestMapping("/getSaleBoardList.do")
+	// 드로잉샵 게시글 목록 불러오기 
 	public String getSaleBoardList(SaleBoardPagingVO vo, Model model, HttpSession session) {
 		if (vo.getOrderby() == null) vo.setOrderby("name");
 		if (vo.getCart() == null) vo.setCart("off");
 		if (vo.getSelectPrice() == null) vo.setSelectPrice("off");
 		if (vo.getSelectRate() == null) vo.setSelectRate("off");
-		if (vo.getSelectBox() == null) vo.setSelectBox("off");
-		
+		if (vo.getSelectBox() == null) vo.setSelectBox("off");		
 		
 		System.out.println(vo.getEtc());
 		
@@ -141,44 +148,60 @@ public class SaleBoardController {
 		}
 		
 		vo.setEnd(vo.getNowPage() * vo.getCntPerPage());
-		vo.setStart(vo.getEnd() - vo.getCntPerPage() + 1);
+		vo.setStart(vo.getEnd() - vo.getCntPerPage() + 1);		
 		
-		
-		
+		// 모델 추가
 		model.addAttribute("saleBoardListPaging", vo);
+		// 모델 추가
 		model.addAttribute("saleBoardList", saleBoardService.getSaleBoardList(vo));
 		return "saleboard/saleList";
 	}
 	
 	@RequestMapping("purchase.do")
+	// 드로잉샵 작품 구매 컨트롤러
 	public String saleBoardPurchase(SaleBoardDealVO vo, HttpSession session) {
-
 		log.info("saleBoard에서 purchase");
 		System.out.println("purchase 호출");
 		ChatVO chatvo1 = new ChatVO();
+		// 채팅 보내는 유저 아이디 저장
 		chatvo1.setChatFromId(vo.getDealSellerId());
+		// 채팅 받는 유저 아이디 저장
 		chatvo1.setChatToId(vo.getDealBuyerId());
+		// 채팅 보낼 메시지 저장
 		chatvo1.setChatContent(vo.getDealBuyerId() + "님, '" + vo.getSaleTitle() + "' 작품을 구매해주셔서 감사합니다.");
+		// 채팅 전송
 		chatService.insertChat(chatvo1);
 		
 		ChatVO chatvo2 = new ChatVO();
+		// 채팅 보내는 유저 아이디 저장
 		chatvo2.setChatFromId("manager1");
+		// 채팅 받는 유저 아이디 저장
 		chatvo2.setChatToId(vo.getDealSellerId());
+		// 채팅 보낼 메시지 저장
 		chatvo2.setChatContent(vo.getDealBuyerId() + "님께서  '" + vo.getSaleTitle() + "' 작품을 구매하셨습니다.");
+		// 채팅 전송
 		chatService.insertChat(chatvo2);
 		
+		// 드로잉샵 작품 
 		saleBoardService.saleBoardPurchase(vo);
+		// 세션 저장
 		session.setAttribute("messageType", "성공");
+		// 세션 저장
 		session.setAttribute("messageContent", "구매에 성공했습니다.");
+		// 
 		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 	
 	@RequestMapping(value="checkCart.do",produces="application/text; charset=utf-8")//아약스 인코딩
 	@ResponseBody
+	// 드로잉샵 게시글 찜 상태 불러오기, 등록, 해제 컨트롤러
 	public String checkCart(String userId, int saleNum) {
 		HashMap map = new HashMap();
+		// 유저 아이디 저장
 		map.put("userId", userId);
+		// 드로잉샵 게시글 번호 저장
 		map.put("saleNum", saleNum);
+		// 드로잉샵 찜 상태 확인 후 동록 및 해제
 		if(saleBoardService.checkCart(map)!=null) {
 			return "찜하기";
 		}else {
