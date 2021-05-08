@@ -46,7 +46,9 @@ public class SaleBoardController {
 	public String insertSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 insertSaleBoard");
 		System.out.println("insertSaleBoardList 컨트롤러 호출");
+		// 드로잉샵 게시글 등록
 		saleBoardService.insertSaleBoard(vo);
+		// 리다이렉트
 		return "redirect:/saleboard/getSaleBoardList.do";
 	}
 	
@@ -55,7 +57,9 @@ public class SaleBoardController {
 	public String modifySaleBoard(SaleBoardVO vo, Model model) {
 		log.info("saleBoard에서 modifySaleBoard");
 		System.out.println("modifySaleBoard 컨트롤러 호출");
+		// 모델 추가
 		model.addAttribute("saleBoard", saleBoardService.getSaleBoard(vo));
+		// 드로잉샵 게시글 수정 페이지로 이동
 		return "saleboard/saleModifyBoard";
 	}
 	
@@ -64,7 +68,9 @@ public class SaleBoardController {
 	public String updateSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 updateSaleBoard");
 		System.out.println("updateSaleBoardList 컨트롤러 호출");
+		// 드로잉샵 게시글 갱신
 		saleBoardService.updateSaleBoard(vo);
+		// 리다이렉트
 		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 	
@@ -73,7 +79,9 @@ public class SaleBoardController {
 	public String deleteSaleBoard(SaleBoardVO vo) {
 		log.info("saleBoard에서 deleteSaleBoard");
 		System.out.println("deleteSaleBoardList 컨트롤러 호출");
+		// 드로잉샵 게시글 삭제
 		saleBoardService.deleteSaleBoard(vo);
+		// 리다이렉트
 		return "redirect:/saleboard/getSaleBoardList.do";
 	}
 	
@@ -82,25 +90,34 @@ public class SaleBoardController {
 	public String getSaleBoard(SaleBoardVO vo, Model model, HttpSession session) {
 		log.info("saleBoard에서 getSaleBoard");
 		System.out.println("getSaleBoard 컨트롤러 호출");
+		// 모델 추가
 		model.addAttribute("saleBoard", saleBoardService.getSaleBoard(vo));
+		// 드로잉샵 게시글 조회수 갱신
 		saleBoardService.updateSaleBoardView(vo);
 		
 		HashMap map = new HashMap();
 		String userId = "";
+		//  세션에 저장된 유저 아이디 불러와 저장
 		if(session.getAttribute("userID")!=null) {
 			userId = (String)session.getAttribute("userID");
 		}
+		// 유저 아이디 저장
 		map.put("userId", userId);
+		// 드로잉샵 게시글 번호 저장
 		map.put("saleNum", vo.getSaleNum());
+		
 		String star = null;
+		// 드로잉샵 게시글 찜 상태 조회 후 저장
 		if(saleBoardService.checkCartView(map)!=null) {
 			star = "찜 해제";
 		}else {
 			star = "찜하기";
 		}
-		System.out.println(star);
+		
+		// 모델 추가
 		model.addAttribute("scart", star);
 		
+		// 게시글 상세 내용 불러오기 컨트롤러 호출
 		return "saleboard/saleBoard";
 	}
 	
@@ -116,13 +133,17 @@ public class SaleBoardController {
 		System.out.println(vo.getEtc());
 		
 		String userId = "";
+		// 세션에 저장된 유저 아이디 불러와 저장
 		if(session.getAttribute("userID")!=null) {
 			userId = (String)session.getAttribute("userID");
 		}
 		
+		// 유저 아이디 저장
 		vo.setUserId(userId);
+		// 드로잉샵 전체 수 조회 및 저장
 		vo.setTotal(saleBoardService.countSaleBoardList(vo));
 		
+		// NowPage, CntPerPage 변수 set
 		if (vo.getNowPage() == 0 && vo.getCntPerPage() == 0) {
 			vo.setNowPage(1);
 			vo.setCntPerPage(9);
@@ -134,9 +155,10 @@ public class SaleBoardController {
 			vo.setCntPerPage(3);
 		}
 		
+		// LastPage 변수 set
 		vo.setLastPage((int)Math.ceil((double) vo.getTotal() / (double) vo.getCntPerPage()));
 		
-		
+		// EndPage 변수 set
 		vo.setEndPage((int) Math.ceil((double) vo.getNowPage() / (double) vo.getCntPage()) * vo.getCntPage());
 		if (vo.getLastPage() < vo.getEndPage()) {
 			vo.setEndPage(vo.getLastPage());
