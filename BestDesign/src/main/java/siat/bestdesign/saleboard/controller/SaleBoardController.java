@@ -136,24 +136,29 @@ public class SaleBoardController {
 		
 		vo.setLastPage((int)Math.ceil((double) vo.getTotal() / (double) vo.getCntPerPage()));
 		
-		vo.setEndPage((int) Math.ceil((double) vo.getNowPage() / (double) vo.getCntPage()) * vo.getCntPage());
 		
+		vo.setEndPage((int) Math.ceil((double) vo.getNowPage() / (double) vo.getCntPage()) * vo.getCntPage());
 		if (vo.getLastPage() < vo.getEndPage()) {
 			vo.setEndPage(vo.getLastPage());
 		}
 		
+		// StartPage 변수 set
 		vo.setStartPage(vo.getEndPage() - vo.getCntPage() + 1);
+		// StartPage 변수값이 0이면 1로 설정
 		if (vo.getStartPage() < 1) {
 			vo.setStartPage(1);
 		}
 		
+		// SQL 쿼리문에 들어갈 end 변수 set
 		vo.setEnd(vo.getNowPage() * vo.getCntPerPage());
+		// SQL 쿼리문에 들어갈 start 변수 set
 		vo.setStart(vo.getEnd() - vo.getCntPerPage() + 1);		
 		
 		// 모델 추가
 		model.addAttribute("saleBoardListPaging", vo);
 		// 모델 추가
 		model.addAttribute("saleBoardList", saleBoardService.getSaleBoardList(vo));
+		// 게시판 목록 불러오기 컨트롤러 호출
 		return "saleboard/saleList";
 	}
 	
@@ -188,7 +193,7 @@ public class SaleBoardController {
 		session.setAttribute("messageType", "성공");
 		// 세션 저장
 		session.setAttribute("messageContent", "구매에 성공했습니다.");
-		// 
+		// 리다이렉트
 		return "redirect:/saleboard/getSaleBoard.do?saleNum="+vo.getSaleNum();
 	}
 	
