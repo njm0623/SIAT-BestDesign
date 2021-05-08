@@ -32,7 +32,7 @@ public interface ManagerDAO {
 	
 	public List<ContactVO> getContactList(ContactVO vo) ;//전체 문의글 리스트
 
-	ManagerVO selectLogin(ManagerVO vo);
+	ManagerVO selectLogin(ManagerVO vo);//관리자 
 
-	List<RequestChartVO> getChartList(String board, String deal);
+	List<RequestChartVO> getChartList(String board, String deal);//매출 현황 차트
 }
