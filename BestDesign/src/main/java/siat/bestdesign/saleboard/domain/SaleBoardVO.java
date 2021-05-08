@@ -1,17 +1,17 @@
 package siat.bestdesign.saleboard.domain;
 
 public class SaleBoardVO {
-	private int saleNum;
-	private String designerId;
-	private String saleTitle;
-	private String saleContent;
-	private String saleImage;
-	private String saleDate;
-	private int salePrice;
-	private String saleCate;
-	private int saleView;
-	private double saleRate;
-	private String designerNickname;
+	private int saleNum;		// 드로잉샵 게시글 번호
+	private String designerId;	// 드로잉샵 게시글 등록 디자이너 아이디
+	private String saleTitle;	// 드로잉샵 게시글 제목
+	private String saleContent;	// 드로잉샵 게시글 상세 내용
+	private String saleImage;	// 드로잉샵 판매 이미지
+	private String saleDate;	// 드로잉샵 게시글 등록 날짜
+	private int salePrice;		// 드로잉샵 판매 가격
+	private String saleCate;	// 드로잉샵 게시글 카테고리
+	private int saleView;		// 드로잉샵 게시글 조회수
+	private double saleRate;	// 드로잉샵 게시글 평점
+	private String designerNickname;// 드로잉샵 게시글 등록 디자이너 닉네임
 	
 	public String getDesignerNickname() {
 		return designerNickname;
