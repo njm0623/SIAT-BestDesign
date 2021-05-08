@@ -1,12 +1,12 @@
 package siat.bestdesign.saleboard.domain;
 
 public class SaleBoardReplyVO {
-	private int reviewNum;
-	private int saleNum;
-	private String userId;
-	private String reviewDate;
-	private int reviewRate;
-	private String reviewComment;
+	private int reviewNum;		// 드로잉샵 리뷰 번호
+	private int saleNum;		// 드로잉샵 게시글 번호
+	private String userId;		// 드로잉샵 리뷰 등록 유저 아이디
+	private String reviewDate;	// 드로잉샵 리뷰 등록 날짜
+	private int reviewRate;		// 드로잉샵 리뷰 평점
+	private String reviewComment;	// 드로잉샵 리뷰 내용
 	
 	public int getReviewNum() {
 		return reviewNum;
