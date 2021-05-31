@@ -1,9 +1,9 @@
 package siat.bestdesign.saleboard.domain;
 
 public class SaleBoardCartVO {
-	private int cartNum;
-	private String userId;
-	private int saleNum;
+	private int cartNum;	// 드로잉샵 찜 번호
+	private String userId;	// 드로잉샵 찜 유저 아이디
+	private int saleNum;	// 드로잉샵 게시글 번호
 	
 	public int getCartNum() {
 		return cartNum;
