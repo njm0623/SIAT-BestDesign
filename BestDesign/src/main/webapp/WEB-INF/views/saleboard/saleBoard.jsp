@@ -96,8 +96,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 <link rel="alternate" type="text/xml+oembed" href="https://demo.colorlib.com/tyche/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdemo.colorlib.com%2Ftyche%2Fproduct%2Fblack-top%2F&#038;format=xml" />
 <meta name="jetpack-boost-config-id" content="" />
 <meta name="jetpack-boost-ready" content="true" />
-<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
-<script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script>
+<!-- <noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<script type="text/javascript">var ajaxurl = 'https://demo.colorlib.com/tyche/wp-admin/admin-ajax.php';</script> -->
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
@@ -190,10 +190,11 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 
 <script>
 	$(function() {		
-		function comma(x) {
+		/* function comma(x) {
 		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-		$("#pri").text(comma(${saleBoard.salePrice}));
+		} */
+		/* $("#pri").text(comma('${saleBoard.salePrice}')); */
+		$("#pri").text('${saleBoard.salePrice}');
 
 		$("#scart").val('${scart}')
 		
@@ -258,6 +259,8 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 		// 삭제 버튼 클릭
 		$('#replyList').on("click", ".deleteReply", function() {
 			if (confirm("정말로 삭제하시겠습니까?")) {
+				console.log($(this).parent().parent().children().children('.saleNum').children().val())
+				console.log($(this).parent().parent().children().children('.reviewNum').children().val())
 				$.ajax({
 		         	type :'get',            	  
 		         	data : {

@@ -145,8 +145,14 @@ var tycheHelper = {"initZoom":"1","ajaxURL":"https:\/\/demo.colorlib.com\/tyche\
 	    		return
 	    	}
 	    	
+	    	if(!$("#file").val()) {
+	    		alert("이미지 파일을 업로드하세요.")
+	    		return
+	    	}
+	    	
 	        let bucket = new AWS.S3({ params: { Bucket: 'bestdesign' } });
 	        let fileChooser = document.getElementById('file');
+	        
 	        let file = fileChooser.files[0];
 	        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 	        

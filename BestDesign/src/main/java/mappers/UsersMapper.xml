@@ -6,7 +6,7 @@
       <![CDATA[
          INSERT INTO
          users
-         VALUES(#{userId},#{userPwd},#{userName},#{userEmail},#{userBirth},#{userPhone},#{userType})
+         VALUES(#{userId},#{userPwd},#{userName},#{userEmail}, #{userBirth}, #{userPhone},#{userType})
          ]]>
    </insert>
    <select id="userLogin" parameterType="user" resultType="user">

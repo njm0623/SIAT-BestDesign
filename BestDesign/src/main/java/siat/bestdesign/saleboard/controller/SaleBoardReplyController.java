@@ -24,7 +24,6 @@ public class SaleBoardReplyController {
 	private SaleBoardReplyService saleBoardReplyService;
 	
 	@RequestMapping(value="reply/new.do", produces="application/text; charset=utf8")
-	
 	@ResponseBody
 	public void saleBoardReply(SaleBoardReplyVO vo) {
 		log.info("saleboard동작");
